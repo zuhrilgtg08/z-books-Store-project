@@ -53,7 +53,14 @@ class HomeController extends Controller
         $review->comments = $request->comment;
         $review->star_rating = $request->rating;
         $review->save();
-
         return redirect()->back()->with('success', 'Your review has been submitted Successfully,');
+    }
+
+    public function reviewRead()
+    {
+        $ReviewRating = ReviewRating::orderBy('id', 'ASC')->get();
+        return view('pages.homeInfoBuku', [
+            "review" => $ReviewRating
+        ]);
     }
 }

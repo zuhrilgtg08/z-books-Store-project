@@ -13,61 +13,12 @@
                 crossorigin="anonymous" referrerpolicy="no-referrer" />
         <!-- Custom styles for this carousel -->
         <link href="{{ asset('assets/css/carousel.css') }}" rel="stylesheet">
+        <!-- Custom styles for this style.css -->
+        <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
         <!-- icon web -->
         <link rel="shortcut icon" href="{{ asset('assets/images/icon-books.png') }}" type="image/x-icon">
-        <!--carousel-style-->
-        <style>
-            .bd-placeholder-img {
-                font-size: 1.125rem;
-                text-anchor: middle;
-                -webkit-user-select: none;
-                -moz-user-select: none;
-                user-select: none;
-            }
-        
-            @media (min-width: 768px) {
-                .bd-placeholder-img-lg {
-                    font-size: 3.5rem;
-                }
-            }
-        
-            .b-example-divider {
-                height: 3rem;
-                background-color: rgba(0, 0, 0, .1);
-                border: solid rgba(0, 0, 0, .15);
-                border-width: 1px 0;
-                box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
-            }
-        
-            .b-example-vr {
-                flex-shrink: 0;
-                width: 1.5rem;
-                height: 100vh;
-            }
-        
-            .bi {
-                vertical-align: -.125em;
-                fill: currentColor;
-            }
-        
-            .nav-scroller {
-                position: relative;
-                z-index: 2;
-                height: 2.75rem;
-                overflow-y: hidden;
-            }
-        
-            .nav-scroller .nav {
-                display: flex;
-                flex-wrap: nowrap;
-                padding-bottom: 1rem;
-                margin-top: -1px;
-                overflow-x: auto;
-                text-align: center;
-                white-space: nowrap;
-                -webkit-overflow-scrolling: touch;
-            }
-        </style>
+        <!-- swiper -css -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
     </head>
 
     <body>
@@ -76,9 +27,9 @@
             @yield('main-content')
         </div>
         <!-- Footer -->
-        <footer class="py-5 bg-dark mt-5">
+        <footer class="bg-dark py-5 mt-5">
             <div class="container">
-                <p class="m-0 text-center text-white">Copyright &copy; Ahmad Zuhril 2022</p>
+                <p class="m-0 text-center text-white">Copyright &copy; Ahmad Zuhril {{ date('Y'); }}</p>
             </div>
         </footer>
         <!-- Footer -->
@@ -91,5 +42,9 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/js/all.min.js"
             integrity="sha512-naukR7I+Nk6gp7p5TMA4ycgfxaZBJ7MO5iC3Fp6ySQyKFHOGfpkSZkYVWV5R7u7cfAicxanwYQ5D1e17EfJcMA=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <!-- swiper js -->
+        <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+        <!-- my script -->
+        <script src="{{ asset('assets/js/script.js') }}"></script>
     </body>
 </html>

@@ -30,19 +30,19 @@
             </div>
             <div class="card-body">
                 <h5>For bussiness can you contact with : </h5>
-                <a href="#" class="btn btn-primary">
-                    <i class="fab fa-fw fa-twitter"></i>
-                    Twitter
+                <a href="https://www.facebook.com/ahmad.z.fahrizal.35/" class="btn btn-primary" target="blank">
+                    <i class="fab fa-fw fa-facebook"></i>
+                    Facebook
                 </a>
-                <a href="#" class="btn btn-danger">
+                <a href="https://www.instagram.com/zuhrillfilm/" class="btn btn-danger" target="blank">
                     <i class="fab fa-fw fa-instagram"></i>
                     Instagram
                 </a>
-                <a href="#" class="btn btn-success">
+                <a href="https://wa.me/085843960995" class="btn btn-success" target="blank">
                     <i class="fab fa-fw fa-whatsapp"></i>
                     Whatsapp
                 </a>
-                <a href="#" class="btn btn-dark">
+                <a href="https://www.linkedin.com/in/zuhril-fahrizal-b6a627245/" class="btn btn-dark" target="blank">
                     <i class="fab fa-fw fa-linkedin"></i>
                     Linkedin
                 </a>

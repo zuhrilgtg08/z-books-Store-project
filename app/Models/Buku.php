@@ -33,7 +33,7 @@ class Buku extends Model
 
     public function ReviewData()
     {
-        return $this->hasMany(ReviewRating::class, 'buku_id');
+        return $this->hasMany(ReviewRating::class, 'id_buku');
     }
 
     public function scopeFilter($query, array $filters)

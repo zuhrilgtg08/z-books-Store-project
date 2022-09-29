@@ -20,7 +20,7 @@
                             <a class="nav-link {{ ($title === "About Us") ? 'active' : '' }}" href="/about">About</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ ($title === "Best Seller") ? 'active' : '' }}" href="">Best Seller</a>
+                            <a class="nav-link {{ ($title === "Best Seller") ? 'active' : '' }}" href="/best-seller">Best Seller</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link {{ ($title === "Book Categories") ? 'active' : '' }}" href="">Categories</a>

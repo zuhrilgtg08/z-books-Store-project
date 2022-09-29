@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Buku;
+use App\Models\User;
 use App\Models\Author;
 use App\Models\Category;
 use App\Models\Penerbit;
@@ -38,29 +39,55 @@ class HomeController extends Controller
     public function info($id)
     {
         $idBuku = Buku::findOrFail($id);
+        $reviews = ReviewRating::where([
+                        ['id_buku', '=', $id],
+                    ])->get();
+
         return view('pages.homeInfoBuku', [
-            "info" => $idBuku
+            "info" => $idBuku,
+            "reviews" => $reviews
         ]);
+    }
+
+    public function review($id)
+    {
+        $user_id = User::findOrFail($id);
+        return view('pages.homeRatingBuku', compact('user_id'));
     }
 
     public function reviewStore(Request $request)
     {
+        // $review = $request->validate([
+        //     'name' => 'required|max:255',
+        //     'email' => 'required|email',
+        //     'number_phone' => 'numeric',
+        //     'comments' => 'required',
+        //     'star_rating' => 'required'
+        // ]);
+
+        // $validateData = [
+        //     'user_id' => $request->user_id,
+        //     'id_buku' => $request->id_buku,
+        //     'comments' => $request->comments,
+        //     'star_rating' => $request->rating
+        // ];
         $review = new ReviewRating();
-        $review->buku_id = $request->buku_id;
+        $review->id_buku = $request->id_buku;
         $review->name = $request->name;
         $review->email = $request->email;
-        $review->number_phone = $request->number_phone;
+        $review->number_phone = auth()->user()->number_phone;
         $review->comments = $request->comment;
         $review->star_rating = $request->rating;
         $review->save();
-        return redirect()->back()->with('success', 'Your review has been submitted Successfully,');
+        // $review = ReviewRating::create($validateData);
+        // return redirect()->back()->with('success', 'Your review has been submitted Successfully,', compact('review'));
+        return redirect()->back()->with('success', 'Your review has been submitted Successfully');
     }
 
-    public function reviewRead()
-    {
-        $ReviewRating = ReviewRating::orderBy('id', 'ASC')->get();
-        return view('pages.homeInfoBuku', [
-            "review" => $ReviewRating
-        ]);
-    }
+    // public function readReview()
+    // {
+    //     $reviews = ReviewRating::all();
+    //     dd($reviews);
+    //     // return view('pages.homeInfoBuku', compact('review'));
+    // }
 }

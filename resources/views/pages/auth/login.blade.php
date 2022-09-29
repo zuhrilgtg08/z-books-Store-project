@@ -3,20 +3,22 @@
     <div class="row justify-content-center mt-5">
         <div class="col-md-6 mt-3">
             @if (session()->has('success'))
-                <div class="alert alert-success" role="alert">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     {{ session('success') }}
                 </div>
             @endif
             
             @if (session()->has('loginFailed'))
-                <div class="alert alert-danger" role="alert">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     {{ session('loginFailed') }}
                 </div>
             @endif
 
             <div class="card border-0 shadow-lg my-5">
                 <div class="card-header bg-dark">
-                    <h5 class="text-center fw-semibold text-white">Please Login</h5>
+                    <h5 class="text-center fw-semibold text-white mt-3 mb-3">Please Login</h5>
                 </div>
 
                 <div class="card-body">

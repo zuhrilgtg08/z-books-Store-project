@@ -1,20 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Kaisei+Tokumin:wght@400;500;700&family=Poppins:wght@300;400;500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Kaisei+Tokumin:wght@400;500;700&family=Poppins:wght@300;400;500&display=swap");
 
 * {
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialliased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-body {
-    background-color: #FBFCFC;
-}
-
-header {
-    background: url(../images/banner.jpeg) no-repeat;
-    background-position: center;
-    background-size: cover;
-}
-
-.title h2::before{
+.title h2::before {
     position: absolute;
     content: "";
     width: 4px;
@@ -23,8 +18,8 @@ header {
     left: -20px;
     top: 50%;
     -webkit-transform: translateY(-50%);
-        -ms-transform: translateY(-50%);
-            transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
 }
 
 .cart-count {

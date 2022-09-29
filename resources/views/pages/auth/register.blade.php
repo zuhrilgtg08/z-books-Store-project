@@ -4,7 +4,7 @@
         <div class="col-md-6 mt-3">
             <div class="card border-0 shadow-lg my-5">
                 <div class="card-header bg-dark">
-                    <h5 class="text-center fw-semibold text-white">Register Now</h5>
+                    <h5 class="text-center fw-semibold text-white mt-3 mb-3">Register Now</h5>
                 </div>
                 <div class="card-body">
                     <form action="/register" method="POST">

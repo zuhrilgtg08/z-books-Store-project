@@ -18,13 +18,6 @@
         </a>
     </li>
     <hr class="sidebar-divider my-0">
-    {{-- <li class="nav-item {{ isset($sbActive) && $sbActive === 'adminProfile' ? 'active' : '' }}">
-    <a class="nav-link" href="{{ route('profile-super.edit', Auth()->user()->id) }}">
-        <i class="fas fa-user-alt"></i>
-        <span>Profile</span>
-    </a>
-    </li> --}}
-    <hr class="sidebar-divider my-0">
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link {{ isset($sbMaster) && $sbMaster === true ? '' : 'collapsed'}}" href="#"
@@ -51,8 +44,8 @@
                 <a class="collapse-item {{ isset($sbActive) && $sbActive === 'data.penerbit' ? 'active' : '' }}"
                     href="{{ route('penerbit.index') }}">Penerbit</a>
                 <!--active class-->
-                <a class="collapse-item {{ isset($sbActive) && $sbActive === 'data.comments' ? 'active' : '' }}"
-                href="#">Comments</a>
+                <a class="collapse-item {{ isset($sbActive) && $sbActive === 'data.reviews' ? 'active' : '' }}"
+                    href="{{ route('admin-reviews.index') }}">Reviews</a>
             </div>
     </li>
     <!-- Divider -->

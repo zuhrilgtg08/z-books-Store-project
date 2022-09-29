@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('review_ratings', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('buku_id');
             $table->string('name');
-            $table->string('email')->unique();
+            $table->string('email');
             $table->string('number_phone');
+            $table->foreignId('id_buku');
             $table->longText('comments')->nullable();
             $table->integer('star_rating');
             $table->timestamps();

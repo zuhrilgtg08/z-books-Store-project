@@ -17,10 +17,10 @@
                             <a class="nav-link {{ ($title === "Home") ? 'active' : '' }}" href="/home">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ ($title === "About Us") ? 'active' : '' }}" href="/about">About</a>
+                            <a class="nav-link {{ ($title === "About") ? 'active' : '' }}" href="/about">About</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ ($title === "Best Seller") ? 'active' : '' }}" href="/best-seller">Best Seller</a>
+                            <a class="nav-link {{ ($title === "Best Seller") ? 'active' : '' }}" href="{{ route('best-seller.books') }}">Best Seller</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link {{ ($title === "Book Categories") ? 'active' : '' }}" href="">Categories</a>
@@ -33,7 +33,6 @@
                             </a>
                         </div>
                     </ul>
-
 
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item mr-3">

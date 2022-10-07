@@ -22,7 +22,7 @@
     .rate {
         float: left;
         height: 5rem;
-        padding: 10px 20px;
+        padding: 25px 30px;
     }
 
     .rate:not(:checked)>input {
@@ -76,7 +76,7 @@
 
 
 <div class="row mt-3">
-    <h2 class="text-center font-semibold mt-5">Book Info</h2>
+    <h2 class="text-center font-semibold mt-5">Book Information</h2>
     <div class="col-lg-2 mt-4">
         <a class="btn btn-dark" href="{{ url('/home') }}">
             <i class="fas fa-fw fa-arrow-left"></i>
@@ -100,9 +100,9 @@
             <div class="row g-0">
                 <div class="col-md-5 text-center shadow-inner m-auto">
                     @if ($info->image)
-                        <img src="{{ asset('storage/' . $info->image) }}" alt="book-info" class="img-fluid rounded">
+                        <img src="{{ asset('storage/' . $info->image) }}" alt="book-info" class="img-fluid rounded" style="width: 100%; height: 100%; object-fit: cover;"/>
                     @else
-                        <img src="{{ asset('assets/cover-404.jpg') }}" alt="book-info" class="img-fluid rounded">
+                        <img src="{{ asset('assets/cover-404.jpg') }}" alt="book-info" class="img-fluid rounded" style="width: 100%; height: 100%; object-fit: cover;" />
                     @endif
                 </div>
                 <div class="col-md-7">
@@ -153,11 +153,7 @@
             <div class="swiper-wrapper rounded">
                 @foreach($reviews as $review)
                     <div class="card-body swiper-slide">
-                            @if (auth()->user()->image)
-                                <img src="{{ asset('storage/' . auth()->user()->image )}}" class="img-fluid mb-3 sm-2 d-block avatar">
-                            @else
-                                <img src="https://www.w3schools.com/howto/img_avatar.png" class="avatar">
-                            @endif
+                            <img src="https://www.w3schools.com/howto/img_avatar.png" class="avatar">
 
                             <span class="font-weight-bold ml-2">{{$review->name}}</span>
                             <p class="mt-1">
@@ -176,31 +172,6 @@
     </div>
 </div>
 
-{{-- <div class="swiper mySwiper col-md-8 mb-5 d-flex">
-    @foreach($reviews as $review)
-    <div class="swiper-wrapper shadow p-3 mb-5 bg-body rounded">
-        <div class="swiper-slide">
-            @if (auth()->user()->image)
-            <img src="{{ asset('storage/' . auth()->user()->image )}}"
-                class="img-preview img-fluid mb-3 sm-2 d-block avatar">
-            @else
-            <img src="https://www.w3schools.com/howto/img_avatar.png" class="avatar ">
-            @endif
-            <span class="font-weight-bold ml-2">{{$review->name}}</span>
-            <p class="mt-1">
-                @for($i=1; $i<=$review->star_rating; $i++)
-                    <span><i class="fa fa-star text-warning"></i></span>
-                    @endfor
-            </p>
-            <p>{{$review->email}}</p>
-            <p class="description ">
-                {{$review->comments}}
-            </p>
-        </div>
-    </div>
-    @endforeach
-</div> --}}
-
 <!-- Modal Rating-Comments -->
 <div class="modal fade" id="rating" tabindex="-1" aria-labelledby="rating" aria-hidden="true">
     <div class="modal-dialog">
@@ -209,11 +180,12 @@
                 <h5 class="modal-title" id="exampleModalLabel">Rating This Book </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            
             <div class="modal-body">
                 <form method="POST" action="{{ route('review.store') }}">
                     @csrf
                     <input type="hidden" value="{{ $info->id }}" name="id_buku">
-
+                    
                     <div class="mb-3">
                         <label for="name" class="form-label">Name</label>
                         <input type="text" class="form-control" id="name" required name="name" 
@@ -224,23 +196,25 @@
                         <input type="email" class="form-control" id="email" required name="email"
                             value="{{ old('email') }}">
                     </div>
-                    <div class="mb-3">
-                        <label for="number-phone" class="form-label">Number Phone</label>
-                        <input type="text" class="form-control" id="number-phone" required name="number_phone"
-                            value="{{ old('number_phone', auth()->user()->number_phone) }}">
-                    </div>
-                    <div class="mb-3">
-                        <div class="rate">
-                            <input type="radio" id="star5" class="rate" name="rating" value="5" />
-                            <label for="star5" title="text">5 stars</label>
-                            <input type="radio" checked id="star4" class="rate" name="rating" value="4" />
-                            <label for="star4" title="text">4 stars</label>
-                            <input type="radio" id="star3" class="rate" name="rating" value="3" />
-                            <label for="star3" title="text">3 stars</label>
-                            <input type="radio" id="star2" class="rate" name="rating" value="2">
-                            <label for="star2" title="text">2 stars</label>
-                            <input type="radio" id="star1" class="rate" name="rating" value="1" />
-                            <label for="star1" title="text">1 star</label>
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label for="number-phone" class="form-label">Number Phone</label>
+                            <input type="text" class="form-control" id="number-phone" required name="number_phone"
+                                value="{{ old('number_phone', auth()->user()->number_phone) }}">
+                        </div>
+                        <div class="col-md-6">
+                            <div class="rate">
+                                <input type="radio" id="star5" class="rate" name="rating" value="5" />
+                                <label for="star5" title="text">5 stars</label>
+                                <input type="radio" checked id="star4" class="rate" name="rating" value="4" />
+                                <label for="star4" title="text">4 stars</label>
+                                <input type="radio" id="star3" class="rate" name="rating" value="3" />
+                                <label for="star3" title="text">3 stars</label>
+                                <input type="radio" id="star2" class="rate" name="rating" value="2">
+                                <label for="star2" title="text">2 stars</label>
+                                <input type="radio" id="star1" class="rate" name="rating" value="1" />
+                                <label for="star1" title="text">1 star</label>
+                            </div>
                         </div>
                     </div>
                     <div class="mb-3">

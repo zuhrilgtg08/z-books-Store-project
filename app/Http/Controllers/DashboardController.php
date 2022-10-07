@@ -28,29 +28,14 @@ class DashboardController extends Controller
             $users->count()
         ];
         
-        // $data[] = $buku->count();
-        // $data[] = $author->count();
-        // $data[] = $penerbit->count();
-        // $data[] = $category->count();
-        // $data[] = $users->count();
-
-        // dd(view('pages.admin.index', [
-        //     "buku" => $buku,
-        //     "author" => $author,
-        //     "penerbit" => $penerbit,
-        //     "category" => $category,
-        //     "chart" => compact('labels', 'data')
-        // ]));
-
-        // dd(view('pages.admin.index', compact('buku', 'author', 'penerbit', 'category', 'labels', 'data')));
         return view('pages.admin.index', 
-        compact('buku', 
-                'author', 
-                'penerbit', 
-                'category', 
-                'users',
-                'labels',
-                'data'
-            ));
+            compact('buku', 
+                    'author', 
+                    'penerbit', 
+                    'category', 
+                    'users',
+                    'labels',
+                    'data'
+                ));
     }
 }

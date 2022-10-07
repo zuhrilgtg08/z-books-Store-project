@@ -92,17 +92,24 @@ Route::get('/home/info/{id}', [HomeController::class, 'info'])->name('home.info'
 Route::get('/home/rating/{id}', [HomeController::class, 'review'])->name('home.rating')->middleware('auth');
 
 // Review Rating 
-// Route::get('/review', [HomeController::class, 'readReview'])->name('review')->middleware('auth');
 Route::post('/review-store', [HomeController::class, 'reviewStore'])->name('review.store')->middleware('auth');
-// Route::get('/review', function() {
-//     $review = ReviewRating::all();
-//     dd($review);
-// });
 
 // Best-Seller
-Route::resource('/best-seller', BestSellerController::class)->middleware('auth');
+Route::any('/best-seller', [BestSellerController::class, 'bestSellerBooks'])->name('best-seller.books')->middleware('auth');
 
 // routes about
 Route::get('/about', function() {
     return view('pages.about');
 })->middleware('auth');
+
+
+
+// buat pembelajaran
+// Route::get('/review', [HomeController::class, 'readReview'])->name('review')->middleware('auth');
+// Route::fallback(function() {
+//     return "Page Not Foud";
+// });
+// Route::get('/review', function() {
+//     $review = ReviewRating::all();
+//     dd($review);
+// });

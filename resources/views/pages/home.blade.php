@@ -26,34 +26,34 @@
     </div>
     
     @if ($data->count())
-    <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-md-4 mb-5">
-                <div class="card h-100 border-0 shadow-lg">
-                    @if ($data[0]->image)
-                        <img src="{{ asset('storage/' . $data[0]->image) }}" class="card-img-top" alt="{{ $data[0]->category->name }}">
-                    @else
-                        <img class="card-img-top" src="{{ asset('assets/images/cover-404.jpg') }}" alt="{{ $data[0]->category->name }}" />
-                    @endif
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                <div class="col-md-4 mb-5">
+                    <div class="card h-100 border-0 shadow-lg">
+                        @if ($data[0]->image)
+                            <img src="{{ asset('storage/' . $data[0]->image) }}" class="card-img-top" alt="{{ $data[0]->category->name }}">
+                        @else
+                            <img class="card-img-top" src="{{ asset('assets/images/cover-404.jpg') }}" alt="{{ $data[0]->category->name }}" />
+                        @endif
 
-                    <div class="card-body p-4 text-center">
-                        <h3 class="card-title"> {{ $data[0]->judul_buku }} {{ $tag }}</h3>
-                        <p>By. 
-                            <small class="text-muted">
-                                <a href="/home?author={{ $data[0]->author->slug }}" class="text-decoration-none">{{ $data[0]->author->nama_author }}</a> in 
-                                <a href="/home?category={{ $data[0]->category->slug }}" class="text-decoration-none">{{ $data[0]->category->name }}</a> made
-                                <a href="/home?penerbit={{ $data[0]->penerbit->slug }}" class="text-decoration-none">{{ $data[0]->penerbit->nama_penerbit }}</a>
-                                {{ $data[0]->created_at->diffForHumans() }}
-                            </small>
-                        </p>
-                        <p class="card-text">{{$data[0]->excerpt}}</p>
-                        <p class="card-text title h4">@currency($data[0]->harga)</p>
-                        <a href="{{ route('home.info', $data[0]->id) }}" class="text-decoration-none btn btn-danger">Read More</a>
+                        <div class="card-body p-4 text-center">
+                            <h3 class="card-title"> {{ $data[0]->judul_buku }} {{ $tag }}</h3>
+                            <p>By. 
+                                <small class="text-muted">
+                                    <a href="/home?author={{ $data[0]->author->slug }}" class="text-decoration-none">{{ $data[0]->author->nama_author }}</a> in 
+                                    <a href="/home?category={{ $data[0]->category->slug }}" class="text-decoration-none">{{ $data[0]->category->name }}</a> made
+                                    <a href="/home?penerbit={{ $data[0]->penerbit->slug }}" class="text-decoration-none">{{ $data[0]->penerbit->nama_penerbit }}</a>
+                                    {{ $data[0]->created_at->diffForHumans() }}
+                                </small>
+                            </p>
+                            <p class="card-text">{{$data[0]->excerpt}}</p>
+                            <p class="card-text title h4">@currency($data[0]->harga)</p>
+                            <a href="{{ route('home.info', $data[0]->id) }}" class="text-decoration-none btn btn-danger">Read More</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
         <div class="py-5 container">
             <div class="container px-4 px-lg-5 mt-5">
@@ -68,9 +68,9 @@
                                     <a href="/home?category={{ $buku->category->slug }}" class="text-white text-decoration-none">{{ $buku->category->name }}</a>
                                 </div>
                                 @if ($buku->image)
-                                    <img class="card-img-top" src="{{ asset('storage/' . $buku->image) }}" alt="cover-book" />
+                                    <img class="card-img-top" src="{{ asset('storage/' . $buku->image) }}" alt="cover-book" style="width: 100%; height: 100%; object-fit: cover;" />
                                 @else
-                                    <img class="card-img-top" src="{{ asset('assets/images/cover-404.jpg') }}" alt="cover-book" />
+                                    <img class="card-img-top" src="{{ asset('assets/images/cover-404.jpg') }}" alt="cover-book" style="width: 100%; height: 100%; object-fit: cover;" />
                                 @endif
                                 <!-- Product details-->
                                 <div class="card-body p-4">
@@ -93,8 +93,8 @@
                                 <!-- Product actions-->
                                 <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                     <div class="text-center">
-                                        <a class="btn btn-outline-dark mt-auto"
-                                            href="{{ route('home.info', $buku->id) }}">See More
+                                        <a class="btn btn-outline-danger mt-auto"
+                                            href="{{ route('home.info', $buku->id) }}">Read More
                                         </a>
                                     </div>
                                 </div>

@@ -1,5 +1,6 @@
-@extends('layouts.main', ["title" => "About Us"])
+@extends('layouts.main', ["title" => "About"])
 @section('main-content')
+
 <div class="row justify-content-center mt-5">
     <h2 class="text-center font-semibold mt-5">About Owner Store</h2>
     <div class="col-md-8 mt-3">
@@ -7,7 +8,7 @@
             <div class="row g-0">
                 <div class="col-md-4">
                     <img src="{{ asset('assets/images/owner.jpg') }}" alt="about us"
-                        class="img-fluid shadow-lg rounded-start">
+                        class="img-fluid shadow-lg rounded-start" style="width: 100%; height: 100%; object-fit: cover;">
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">

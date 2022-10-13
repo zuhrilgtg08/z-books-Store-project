@@ -7,7 +7,7 @@
         <div class="card mt-3" style="max-width: 840px;">
             <div class="row g-0">
                 <div class="col-md-4">
-                    <img src="{{ asset('assets/images/owner.jpg') }}" alt="about us"
+                    <img src="{{ asset('assets/images/owner.jpg') }}" alt="about owner"
                         class="img-fluid shadow-lg rounded-start" style="width: 100%; height: 100%; object-fit: cover;">
                 </div>
                 <div class="col-md-8">

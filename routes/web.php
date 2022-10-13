@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\BukuController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PesanController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
@@ -14,6 +15,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\BestSellerController;
 use App\Http\Controllers\AdminReviewsController;
+use App\Http\Controllers\HomeCategoriesController;
 use App\Http\Controllers\UserProfilePasswordController;
 use App\Http\Controllers\AdminProfilePasswordController;
 
@@ -89,10 +91,10 @@ Route::group([
 // routes home 
 Route::get('/home', [HomeController::class, 'index'])->middleware('auth');
 Route::get('/home/info/{id}', [HomeController::class, 'info'])->name('home.info')->middleware('auth');
-Route::get('/home/rating/{id}', [HomeController::class, 'review'])->name('home.rating')->middleware('auth');
+Route::get('/home/rating/{id}', [HomeController::class, 'reviewRating'])->name('home.rating')->middleware('auth');
 
 // Review Rating 
-Route::post('/review-store', [HomeController::class, 'reviewStore'])->name('review.store')->middleware('auth');
+Route::post('/review', [HomeController::class, 'reviewRating'])->name('review')->middleware('auth');
 
 // Best-Seller
 Route::any('/best-seller', [BestSellerController::class, 'bestSellerBooks'])->name('best-seller.books')->middleware('auth');
@@ -101,6 +103,13 @@ Route::any('/best-seller', [BestSellerController::class, 'bestSellerBooks'])->na
 Route::get('/about', function() {
     return view('pages.about');
 })->middleware('auth');
+
+// routes categories in client
+Route::get('/home-categories', [HomeCategoriesController::class, 'index'])->middleware('auth');
+
+// routes add to cart alias pesan in client
+Route::get('/cart', [PesanController::class, 'cartOrder'])->middleware('auth')->name('cart');
+Route::any('/pesan/{bukus:id}', [PesanController::class, 'cartIndex'])->middleware('auth');
 
 
 

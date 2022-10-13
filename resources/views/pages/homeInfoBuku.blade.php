@@ -21,55 +21,38 @@
 
     .rate {
         float: left;
-        height: 5rem;
-        padding: 25px 30px;
+        height: 46px;
+        padding: 0 10px;
     }
-
-    .rate:not(:checked)>input {
-        position: absolute;
+    .rate:not(:checked) > input {
+        position:absolute;
         display: none;
     }
-
-    .rate:not(:checked)>label {
-        float: right;
-        width: 1em;
-        overflow: hidden;
-        white-space: nowrap;
-        cursor: pointer;
-        font-size: 30px;
-        color: #ccc;
+    .rate:not(:checked) > label {
+        float:right;
+        width:1em;
+        overflow:hidden;
+        white-space:nowrap;
+        cursor:pointer;
+        font-size:30px;
+        color:#ccc;
     }
-
-    .rate:not(:checked)>label:before {
+    .rate:not(:checked) > label:before {
         content: '★ ';
     }
-
-    .rate>input:checked~label {
+    .rate > input:checked ~ label {
         color: #ffc700;
     }
-
-    .rate:not(:checked)>label:hover,
-    .rate:not(:checked)>label:hover~label {
+    .rate:not(:checked) > label:hover,
+    .rate:not(:checked) > label:hover ~ label {
         color: #deb217;
     }
-
-    .rate>input:checked+label:hover,
-    .rate>input:checked+label:hover~label,
-    .rate>input:checked~label:hover,
-    .rate>input:checked~label:hover~label,
-    .rate>label:hover~input:checked~label {
+    .rate > input:checked + label:hover,
+    .rate > input:checked + label:hover ~ label
+    .rate > input:checked ~ label:hover,
+    .rate > input:checked ~ label:hover ~ label,
+    .rate > label:hover ~ input:checked ~ label { 
         color: #c59b08;
-    }
-
-    .rating-container .form-control:hover,
-    .rating-container .form-control:focus {
-        background: #fff;
-        border: 1px solid #ced4da;
-    }
-
-    .rating-container textarea:focus,
-    .rating-container input:focus {
-        color: #000;
     }
 </style>
 
@@ -153,7 +136,7 @@
             <div class="swiper-wrapper rounded">
                 @foreach($reviews as $review)
                     <div class="card-body swiper-slide">
-                            <img src="https://www.w3schools.com/howto/img_avatar.png" class="avatar">
+                            <img src="{{ asset('assets/images/default-user.png') }}" class="avatar">
 
                             <span class="font-weight-bold ml-2">{{$review->name}}</span>
                             <p class="mt-1">
@@ -182,50 +165,79 @@
             </div>
             
             <div class="modal-body">
-                <form method="POST" action="{{ route('review.store') }}">
+                <form method="POST" action="{{ route('review') }}">
                     @csrf
                     <input type="hidden" value="{{ $info->id }}" name="id_buku">
-                    
-                    <div class="mb-3">
-                        <label for="name" class="form-label">Name</label>
-                        <input type="text" class="form-control" id="name" required name="name" 
-                            value="{{ old('name') }}">
-                    </div>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email Address</label>
-                        <input type="email" class="form-control" id="email" required name="email"
-                            value="{{ old('email') }}">
-                    </div>
-                    <div class="row g-3 mb-3">
-                        <div class="col-md-6">
-                            <label for="number-phone" class="form-label">Number Phone</label>
-                            <input type="text" class="form-control" id="number-phone" required name="number_phone"
-                                value="{{ old('number_phone', auth()->user()->number_phone) }}">
+                    <input type="hidden" value="{{ auth()->user()->id }}" name="id_user">
+
+                    @if ($reviews->isEmpty())
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="name" required name="name" 
+                                value="{{ old('name', auth()->user()->name) }}">
                         </div>
-                        <div class="col-md-6">
-                            <div class="rate">
-                                <input type="radio" id="star5" class="rate" name="rating" value="5" />
-                                <label for="star5" title="text">5 stars</label>
-                                <input type="radio" checked id="star4" class="rate" name="rating" value="4" />
-                                <label for="star4" title="text">4 stars</label>
-                                <input type="radio" id="star3" class="rate" name="rating" value="3" />
-                                <label for="star3" title="text">3 stars</label>
-                                <input type="radio" id="star2" class="rate" name="rating" value="2">
-                                <label for="star2" title="text">2 stars</label>
-                                <input type="radio" id="star1" class="rate" name="rating" value="1" />
-                                <label for="star1" title="text">1 star</label>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="email" class="form-control" id="email" required name="email"
+                                value="{{ old('email', auth()->user()->email) }}">
+                        </div>
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                <div class="rate">
+                                    <input type="radio" id="star5" class="rate" name="rating" value="5" />
+                                    <label for="star5" title="text">5 stars</label>
+                                    <input type="radio" id="star4" class="rate" name="rating" value="4" />
+                                    <label for="star4" title="text">4 stars</label>
+                                    <input type="radio" id="star3" class="rate" name="rating" value="3" />
+                                    <label for="star3" title="text">3 stars</label>
+                                    <input type="radio" id="star2" class="rate" name="rating" value="2" />
+                                    <label for="star2" title="text">2 stars</label>
+                                    <input type="radio" id="star1" class="rate" name="rating" value="1" />
+                                    <label for="star1" title="text">1 star</label>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="mb-3">
-                        <textarea class="form-control" name="comment" rows="6" placeholder="Comment" maxlength="200"
-                            required></textarea>
-                    </div>
-                </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save</button>
-                    </div>
+                        <div class="mb-3">
+                            <textarea class="form-control" name="comment" rows="6" placeholder="Comment" maxlength="200"
+                                required>{{ old('comment') }}</textarea>
+                        </div>
+                    @else 
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="name" required name="name"
+                                value="{{ old('name', auth()->user()->name) }}" disabled>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="email" class="form-control" id="email" required name="email"
+                                value="{{ old('email', auth()->user()->email) }}" disabled>
+                        </div>
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                @foreach ($reviews as $bintang)
+                                    <div class="rate">
+                                        <input type="radio" id="star5" class="rate" name="rating" value="5" {{ $bintang->star_rating == 5 ? 'checked' : null }}/>
+                                        <label for="star5" title="text">5 stars</label>
+                                        <input type="radio" id="star4" class="rate" name="rating" value="4" {{ $bintang->star_rating == 4 ? 'checked' : null }}/>
+                                        <label for="star4" title="text">4 stars</label>
+                                        <input type="radio" id="star3" class="rate" name="rating" value="3" {{ $bintang->star_rating == 3 ? 'checked' : null }}/>
+                                        <label for="star3" title="text">3 stars</label>
+                                        <input type="radio" id="star2" class="rate" name="rating" value="2" {{ $bintang->star_rating == 2 ? 'checked' : null }}/>
+                                        <label for="star2" title="text">2 stars</label>
+                                        <input type="radio" id="star1" class="rate" name="rating" value="1" {{ $bintang->star_rating == 1 ? 'checked' : null }}/>
+                                        <label for="star1" title="text">1 star</label>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <textarea class="form-control" name="comment" rows="6" maxlength="200" required>@foreach ($reviews as $item){{ $item->comments }}@endforeach</textarea>
+                        </div>
+                    @endif
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
                 </form>
             </div>
         </div>

@@ -26,3 +26,8 @@
     vertical-align: top;
     margin-left: -10px;
 }
+
+.kartu-categories:hover {
+    transform: scale(1.1);
+    transition: all ease .3s;
+}

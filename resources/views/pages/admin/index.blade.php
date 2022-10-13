@@ -55,7 +55,7 @@
         </div>
     </div>
 
-    <div class="col-xl-3 col-md-6 mb-4">
+    {{-- <div class="col-xl-3 col-md-6 mb-4">
         <div class="card border-left-danger shadow h-100 py-2">
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
@@ -71,7 +71,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 </div>
 <div class="row justify-content-center">
     <div class="col-md-8 mt-5">
@@ -89,21 +89,36 @@
     datasets: [{
             label: 'Total Data',
             backgroundColor: [
-                'rgb(255, 99, 132)',
-                'rgb(54, 162, 235)',
-                'rgb(255, 205, 86)',
-                'rgb(255, 51, 51)',
-                'rgb(102, 255, 102)',
+                'rgba(39, 127, 245, 0.8)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
             ],
-            borderColor: 'rgb(255, 250, 255)',
+            borderColor: [
+                'rgba(39, 127, 245, 0.8)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1,
             data: result,
         }]
     };
     
     const config = {
-        type: 'bar',
+        type: 'line',
         data: data,
-        options: {}
+        // options: {
+        //     scales: {
+        //         y: {
+        //             beginAtZero: true
+        //         }
+        //     }
+        // }
     };
     
     const myChart = new Chart(

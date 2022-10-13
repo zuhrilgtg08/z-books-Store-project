@@ -81,10 +81,10 @@
                                             <h6 class="fw-normal">{{ $data->stok }} Stok</h6>
                                         </div>
                                     </div>
-                                    <!-- Product actions-->
+                                    <!-- Product button cart-->
                                     <div class="card-footer p-2 border-top-0 bg-transparent">
                                         <div class="text-center">
-                                            <button class="btn btn-outline-primary mt-auto" type="submit">Add To Cart</button>
+                                            <a href="/pesan/{{ $data->id }}" class="btn btn-outline-primary mt-auto" type="submit">Add To Cart</a>
                                         </div>
                                     </div>
                                 </div>

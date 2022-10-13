@@ -23,10 +23,10 @@
                             <a class="nav-link {{ ($title === "Best Seller") ? 'active' : '' }}" href="{{ route('best-seller.books') }}">Best Seller</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ ($title === "Book Categories") ? 'active' : '' }}" href="">Categories</a>
+                            <a class="nav-link {{ ($title === "Book Categories") ? 'active' : '' }}" href="/home-categories">Categories</a>
                         </li>
                         <div class="nav-item">
-                            <a class="nav-link" href="">
+                            <a class="nav-link {{ ($title === "Carts") ? 'active' : '' }}" href="{{ route('cart') }}">
                                 <i class="fas fa-fw fa-shopping-cart"></i>
                                 Cart
                                 <span class="badge bg-danger text-white ms-1 rounded-pill">0</span>

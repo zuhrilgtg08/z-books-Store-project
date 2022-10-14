@@ -1,4 +1,4 @@
-@extends('dashboard.layouts.admin', ['title' => 'Buku Managements', 'sbMaster' => true, 'sbActive' => 'data.buku'])
+@extends('dashboard.layouts.admin', ['sbMaster' => true, 'sbActive' => 'data.buku'])
 @section('admin-content')
     <h1 class="h2 mb-3 text-gray-800 text-center">Buku Managements</h1>
     

@@ -27,6 +27,11 @@
             </a>
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                <a class="dropdown-item" href="/home">
+                    <i class="fas fa-fw fa-home fa-sm fa-fw mr-2"></i>
+                    Home
+                </a>
+                <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="{{ route('profile-admin', Auth()->user()->id) }}">
                     <i class="fas fa-fw fa-user fa-sm fa-fw mr-2"></i>
                     Profile Admin
@@ -45,7 +50,7 @@
         </li>
         @else
         <li class="nav-item">
-            <a href="/login" class="nav-link {{ ($title === "Login") ? 'active' : '' }}"><i
+            <a href="/login" class="nav-link {{ Request::is('login') ? 'active' : '' }}"><i
                     class="bi bi-person-circle"></i> Login</a>
         </li>
         @endauth

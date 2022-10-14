@@ -6,6 +6,7 @@ use App\Models\Author;
 use App\Models\Penerbit;
 use App\Models\Category;
 use App\Models\ReviewRating;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -34,6 +35,11 @@ class Buku extends Model
     public function ReviewData()
     {
         return $this->hasMany(ReviewRating::class, 'id_buku');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
     public function scopeFilter($query, array $filters)

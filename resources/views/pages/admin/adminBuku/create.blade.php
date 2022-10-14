@@ -1,4 +1,4 @@
-@extends('dashboard.layouts.admin', ['title' => 'Add Buku', 'sbMaster' => true, 'sbActive' => 'data.buku'])
+@extends('dashboard.layouts.admin', ['sbMaster' => true, 'sbActive' => 'data.buku'])
 @section('admin-content')
     <a class="btn btn-dark" href="{{ route('buku.index') }}">
         <i class="fas fa-fw fa-arrow-left"></i>

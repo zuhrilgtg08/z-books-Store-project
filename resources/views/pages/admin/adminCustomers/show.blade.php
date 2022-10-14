@@ -1,4 +1,4 @@
-@extends('dashboard.layouts.admin', ['title' => 'Detail Customer', 'sbMaster' => true, 'sbActive' => 'data.customer'])
+@extends('dashboard.layouts.admin', ['sbMaster' => true, 'sbActive' => 'data.customer'])
 @section('admin-content')
 <div class="row mb-3">
     <div class="col-md-4">

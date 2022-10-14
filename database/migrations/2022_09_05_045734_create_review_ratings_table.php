@@ -15,8 +15,6 @@ return new class extends Migration
     {
         Schema::create('review_ratings', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email');
             $table->foreignId('id_buku');
             $table->foreignId('id_user');
             $table->unique(['id_user', 'id_buku']);

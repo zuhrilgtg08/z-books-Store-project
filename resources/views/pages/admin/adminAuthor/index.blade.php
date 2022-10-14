@@ -1,4 +1,4 @@
-@extends('dashboard.layouts.admin', ['title' => 'Author', 'sbMaster' => true, 'sbActive' => 'data.author'])
+@extends('dashboard.layouts.admin', ['sbMaster' => true, 'sbActive' => 'data.author'])
 @section('admin-content')
     <h1 class="h2 mb-3 text-gray-800 text-center">Authors Managements</h1>
 

@@ -14,19 +14,19 @@
                 @auth
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link {{ ($title === "Home") ? 'active' : '' }}" href="/home">Home</a>
+                            <a class="nav-link {{ Request::is('home') ? 'active' : '' }}" href="/home">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ ($title === "About") ? 'active' : '' }}" href="/about">About</a>
+                            <a class="nav-link {{ Request::is('about') ? 'active' : '' }}" href="/about">About</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ ($title === "Best Seller") ? 'active' : '' }}" href="{{ route('best-seller.books') }}">Best Seller</a>
+                            <a class="nav-link {{ Request::is('best-seller') ? 'active' : '' }}" href="{{ route('best-seller.books') }}">Best Seller</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ ($title === "Book Categories") ? 'active' : '' }}" href="/home-categories">Categories</a>
+                            <a class="nav-link {{ Request::is('home-categories') ? 'active' : '' }}" href="/home-categories">Categories</a>
                         </li>
                         <div class="nav-item">
-                            <a class="nav-link {{ ($title === "Carts") ? 'active' : '' }}" href="{{ route('cart') }}">
+                            <a class="nav-link {{ Request::is('cart') ? 'active' : '' }}" href="{{ route('cart') }}">
                                 <i class="fas fa-fw fa-shopping-cart"></i>
                                 Cart
                                 <span class="badge bg-danger text-white ms-1 rounded-pill">0</span>
@@ -35,16 +35,6 @@
                     </ul>
 
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item mr-3">
-                            {{-- <a class="btn btn-secondary position-relative" href="">
-                                <i class="fas fa-shopping-cart fa-fw"></i>
-                                Cart
-                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                    1
-                                    <span class="visually-hidden">unread messages</span>
-                                </span>
-                            </a> --}}
-                        </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">

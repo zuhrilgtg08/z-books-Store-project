@@ -1,4 +1,4 @@
-@extends('dashboard.layouts.admin', ['title' => 'Detail Penerbit', 'sbMaster' => true, 'sbActive' => 'data.penerbit'])
+@extends('dashboard.layouts.admin', ['sbMaster' => true, 'sbActive' => 'data.penerbit'])
 @section('admin-content')
 <a href="{{ route('penerbit.index') }}" class="btn btn-dark mb-3">
     <i class="fas fa-fw fa-arrow-left"></i> 

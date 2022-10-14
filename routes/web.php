@@ -113,12 +113,3 @@ Route::any('/pesan/{bukus:id}', [PesanController::class, 'cartIndex'])->middlewa
 
 
 
-// buat pembelajaran
-// Route::get('/review', [HomeController::class, 'readReview'])->name('review')->middleware('auth');
-// Route::fallback(function() {
-//     return "Page Not Foud";
-// });
-// Route::get('/review', function() {
-//     $review = ReviewRating::all();
-//     dd($review);
-// });

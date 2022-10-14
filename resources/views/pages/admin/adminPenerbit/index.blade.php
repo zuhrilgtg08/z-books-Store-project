@@ -1,4 +1,4 @@
-@extends('dashboard.layouts.admin', ['title' => 'Penerbit', 'sbMaster' => true, 'sbActive' => 'data.penerbit'])
+@extends('dashboard.layouts.admin', ['sbMaster' => true, 'sbActive' => 'data.penerbit'])
 @section('admin-content')
     <h1 class="h2 mb-3 text-gray-800 text-center">Penerbit Managements</h1>
 

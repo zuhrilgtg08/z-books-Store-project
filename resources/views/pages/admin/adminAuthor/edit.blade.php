@@ -1,4 +1,4 @@
-@extends('dashboard.layouts.admin', ['title' => 'Edit Author', 'sbMaster' => true, 'sbActive' => 'data.author'])
+@extends('dashboard.layouts.admin', ['sbMaster' => true, 'sbActive' => 'data.author'])
 @section('admin-content')
     <a class="btn btn-dark" href="{{ route('author.index') }}">
         <i class="fas fa-fw fa-arrow-left"></i>

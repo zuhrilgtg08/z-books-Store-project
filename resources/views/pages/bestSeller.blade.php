@@ -58,27 +58,30 @@
             <div class="py-5 container">
                 <div class="container px-4 px-lg-5">
                     <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                        @if (!$buku->isEmpty())
-                            @foreach ($buku as $data)
+                        @if ($bukus->count())
+                            @foreach ($bukus as $data)
                             <div class="col-md-4 mb-5">
                                 <div class="card h-100 border-0 shadow-lg">
                                     <!-- Product image-->
                                     @if ($data->image)
-                                    <img class="card-img-top" src="{{ asset('storage/' . $data->image) }}" alt="cover-book"
-                                        style="width: 100%; height: 100%; object-fit: cover;" />
+                                        <img class="card-img-top" src="{{ asset('storage/' . $data->image) }}" alt="cover-book"
+                                            style="width: 100%; height: 100%; object-fit: cover;" />
                                     @else
-                                    <img class="card-img-top" src="{{ asset('assets/images/cover-404.jpg') }}" alt="cover-book"
-                                        style="width: 100%; height: 100%; object-fit: cover;" />
+                                        <img class="card-img-top" src="{{ asset('assets/images/cover-404.jpg') }}" alt="cover-book"
+                                            style="width: 100%; height: 100%; object-fit: cover;" />
                                     @endif
                                     <!-- Product details-->
                                     <div class="card-body p-2">
                                         <div class="text-center">
                                             <!-- Product name-->
                                             <h6 class="fw-semibold">{{ $data->judul_buku }}</h6>
+                                            <!-- Product Rating-->
+                                            <p class="mt-1">
+                                                Rating : {{ $data->star_rating }}
+                                                <i class="fas fa-fw fa-star text-warning"></i>
+                                            </p>
                                             <!-- Product price-->
                                             <span class="fw-bolder badge text-bg-success fs-6 mb-3">@currency($data->harga)</span>
-                                            <!-- Product stock-->
-                                            <h6 class="fw-normal">{{ $data->stok }} Stok</h6>
                                         </div>
                                     </div>
                                     <!-- Product button cart-->

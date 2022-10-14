@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
         <meta name="author" content="">
-        <title>{{ $title }}</title>
+        <title>Admin Dashboard</title>
         <!-- Chart-js -->
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <!-- icon -->

@@ -1,4 +1,4 @@
-@extends('dashboard.layouts.admin', ['title' => 'Add Category', 'sbMaster' => true, 'sbActive' => 'data.categories'])
+@extends('dashboard.layouts.admin', ['sbMaster' => true, 'sbActive' => 'data.categories'])
 @section('admin-content')
     <a class="btn btn-dark" href="{{ route('categories.index') }}">
         <i class="fas fa-fw fa-arrow-left"></i>

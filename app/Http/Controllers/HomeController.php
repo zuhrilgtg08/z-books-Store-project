@@ -42,12 +42,9 @@ class HomeController extends Controller
         $idBuku = Buku::findOrFail($id);
         $reviews = ReviewRating::where([
                         ['id_buku', '=', $id],
+                        ['id_user', Auth::user()->id]
                     ])->get();
-        // $reviews = ReviewRating::where([
-        //     'id_user', '=', Auth::user()->id,
-        //     'id_buku', '=', $id
-        // ])->first();
-        // dd($reviews);
+
         return view('pages.homeInfoBuku', [
             "info" => $idBuku,
             "reviews" => $reviews
@@ -56,60 +53,24 @@ class HomeController extends Controller
 
     public function reviewRating(Request $request)
     {
-        $reviews = ReviewRating::where('id_user', auth()->user()->id)->where('id_buku', $request->id_buku)->first();
-        // $reviews = ReviewRating::where([
-        //     'id_user', '=', Auth::user()->id,
-        //     'id_buku', '=', $request->id_buku
-        // ])->first();
+        $reviews = ReviewRating::where('id_user', Auth::user()->id)
+                                ->where('id_buku', $request->id_buku)->first();
 
-        if($reviews == null) {
-            $reviews = ReviewRating::create([
-                'name' => $request->name,
-                'email' => $request->email,
-                'number_phone' => $request->number_phone,
-                'id_buku' => $request->id_buku,
-                'id_user' => $request->id_user,
+        if($reviews !== null) {
+            $reviews->update([
                 'comments' => $request->comment,
                 'star_rating' => $request->rating
             ]);
-            $reviews->save();
-            return redirect()->back()->with('success', 'Your review has been submitted Successfully');
-        } else {
-            $reviews->update([
-                'star_rating' => $request->rating,
-                'comments' => $request->comment
-            ]);
-            // return $request->all();
             return redirect()->back()->with('success', 'Your review has been Updated');
+        } else {
+            $reviews = ReviewRating::create([
+                'id_buku' => $request->id_buku,
+                'id_user' => Auth::user()->id,
+                'comments' => $request->comment,
+                'star_rating' => $request->rating
+            ]);
+
+            return redirect()->back()->with('success', 'Your review has been submitted Successfully');
         }
     }
 }
-
-
-
-
-
-
-//untuk pembelajaran
-    // $review = $request->validate([
-        //     'name' => 'required|max:255',
-        //     'email' => 'required|email',
-        //     'number_phone' => 'numeric',
-        //     'comments' => 'required',
-        //     'star_rating' => 'required'
-        // ]);
-
-        // $validateData = [
-        //     'user_id' => $request->user_id,
-        //     'id_buku' => $request->id_buku,
-        //     'comments' => $request->comments,
-        //     'star_rating' => $request->rating
-        // ];
-    // $review = ReviewRating::create($validateData);
-        // return redirect()->back()->with('success', 'Your review has been submitted Successfully,', compact('review'));
-            // public function readReview()
-    // {
-    //     $reviews = ReviewRating::all();
-    //     dd($reviews);
-    //     // return view('pages.homeInfoBuku', compact('review'));
-    // }

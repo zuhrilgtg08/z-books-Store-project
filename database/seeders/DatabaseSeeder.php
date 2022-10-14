@@ -26,7 +26,8 @@ class DatabaseSeeder extends Seeder
             BukuSeeder::class,
             CategorySeeder::class,
             PenerbitSeeder::class,
-            UserSeeder::class
+            UserSeeder::class,
+            ReviewsSeeder::class
         ]);
     }
 }

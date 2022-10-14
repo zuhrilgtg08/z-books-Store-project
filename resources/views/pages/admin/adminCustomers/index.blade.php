@@ -1,4 +1,4 @@
-@extends('dashboard.layouts.admin', ["title" => "Manage Customers", 'sbMaster' => true, 'sbActive' => 'data.customer'])
+@extends('dashboard.layouts.admin', ['sbMaster' => true, 'sbActive' => 'data.customer'])
 @section('admin-content')
 
     <div class="card shadow mb-4">

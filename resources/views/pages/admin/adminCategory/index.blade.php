@@ -1,4 +1,4 @@
-@extends('dashboard.layouts.admin', ['title' => 'Category Managements', 'sbMaster' => true, 'sbActive' => 'data.categories'])
+@extends('dashboard.layouts.admin', ['sbMaster' => true, 'sbActive' => 'data.categories'])
 @section('admin-content')
     <h1 class="h2 mb-3 text-gray-800 text-center">Category Managements</h1>
 

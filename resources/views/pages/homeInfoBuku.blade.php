@@ -122,39 +122,6 @@
     </div>
 </div>
 
-<div class="row mt-3 justify-content-center">
-    <div class="col-lg-4 mt-3">
-        <div class="my-4 text-center">
-            <h3 style="color:#0071a1;" class="font-semibold">{{ $info->judul_buku }}</h3>
-            <p style="color:#e91e63;" class="font-semibold">Published at : {{$info->created_at->format('jS \\of F Y') }}</p>
-            <h4 class="font-semibold text-dark">Comment Section :</h4>
-        </div>
-    </div>
-
-    <div class="col-lg-8 my-4">
-        <div class="card border-0 shadow-lg swiper mySwiper">
-            <div class="swiper-wrapper rounded">
-                @foreach($reviews as $review)
-                    <div class="card-body swiper-slide">
-                            <img src="{{ asset('assets/images/default-user.png') }}" class="avatar">
-
-                            <span class="font-weight-bold ml-2">{{$review->name}}</span>
-                            <p class="mt-1">
-                                @for($i=1; $i<=$review->star_rating; $i++)
-                                    <span><i class="fa fa-star text-warning"></i></span>
-                                @endfor
-                            </p>
-                            <p>{{$review->email}}</p>
-                            <p class="description ">
-                                {{$review->comments}}
-                            </p>
-                    </div>
-                @endforeach
-            </div>
-        </div>
-    </div>
-</div>
-
 <!-- Modal Rating-Comments -->
 <div class="modal fade" id="rating" tabindex="-1" aria-labelledby="rating" aria-hidden="true">
     <div class="modal-dialog">
@@ -170,68 +137,53 @@
                     <input type="hidden" value="{{ $info->id }}" name="id_buku">
                     <input type="hidden" value="{{ auth()->user()->id }}" name="id_user">
 
-                    @if ($reviews->isEmpty())
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Name</label>
-                            <input type="text" class="form-control" id="name" required name="name" 
-                                value="{{ old('name', auth()->user()->name) }}">
-                        </div>
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email Address</label>
-                            <input type="email" class="form-control" id="email" required name="email"
-                                value="{{ old('email', auth()->user()->email) }}">
-                        </div>
+                    @if (!$reviews->isEmpty())
+                        @foreach ($reviews as $item)
+                            <div class="row g-3 mb-3">
+                                <div class="col-md-6">
+                                        <div class="rate">
+                                            <input type="radio" id="star5" class="rate" name="rating" value="5"
+                                                {{ $item->star_rating == 5 ? 'checked' : null }} />
+                                            <label for="star5">5 stars</label>
+                                            <input type="radio" id="star4" class="rate" name="rating" value="4"
+                                                {{ $item->star_rating == 4 ? 'checked' : null }} />
+                                            <label for="star4">4 stars</label>
+                                            <input type="radio" id="star3" class="rate" name="rating" value="3"
+                                                {{ $item->star_rating == 3 ? 'checked' : null }} />
+                                            <label for="star3">3 stars</label>
+                                            <input type="radio" id="star2" class="rate" name="rating" value="2"
+                                                {{ $item->star_rating == 2 ? 'checked' : null }} />
+                                            <label for="star2">2 stars</label>
+                                            <input type="radio" id="star1" class="rate" name="rating" value="1"
+                                                {{ $item->star_rating == 1 ? 'checked' : null }} />
+                                            <label for="star1">1 star</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <textarea class="form-control" name="comment" rows="6" placeholder="Comment" maxlength="200" required>{{ old('comment', $item->comments) }}</textarea>
+                                </div>
+                            </div>
+                        @endforeach
+                    @else 
                         <div class="row g-3 mb-3">
                             <div class="col-md-6">
                                 <div class="rate">
                                     <input type="radio" id="star5" class="rate" name="rating" value="5" />
-                                    <label for="star5" title="text">5 stars</label>
+                                    <label for="star5">5 stars</label>
                                     <input type="radio" id="star4" class="rate" name="rating" value="4" />
-                                    <label for="star4" title="text">4 stars</label>
+                                    <label for="star4">4 stars</label>
                                     <input type="radio" id="star3" class="rate" name="rating" value="3" />
-                                    <label for="star3" title="text">3 stars</label>
+                                    <label for="star3">3 stars</label>
                                     <input type="radio" id="star2" class="rate" name="rating" value="2" />
-                                    <label for="star2" title="text">2 stars</label>
+                                    <label for="star2">2 stars</label>
                                     <input type="radio" id="star1" class="rate" name="rating" value="1" />
-                                    <label for="star1" title="text">1 star</label>
+                                    <label for="star1">1 star</label>
                                 </div>
                             </div>
                         </div>
                         <div class="mb-3">
-                            <textarea class="form-control" name="comment" rows="6" placeholder="Comment" maxlength="200"
-                                required>{{ old('comment') }}</textarea>
-                        </div>
-                    @else 
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Name</label>
-                            <input type="text" class="form-control" id="name" required name="name"
-                                value="{{ old('name', auth()->user()->name) }}" disabled>
-                        </div>
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email Address</label>
-                            <input type="email" class="form-control" id="email" required name="email"
-                                value="{{ old('email', auth()->user()->email) }}" disabled>
-                        </div>
-                        <div class="row g-3 mb-3">
-                            <div class="col-md-6">
-                                @foreach ($reviews as $bintang)
-                                    <div class="rate">
-                                        <input type="radio" id="star5" class="rate" name="rating" value="5" {{ $bintang->star_rating == 5 ? 'checked' : null }}/>
-                                        <label for="star5" title="text">5 stars</label>
-                                        <input type="radio" id="star4" class="rate" name="rating" value="4" {{ $bintang->star_rating == 4 ? 'checked' : null }}/>
-                                        <label for="star4" title="text">4 stars</label>
-                                        <input type="radio" id="star3" class="rate" name="rating" value="3" {{ $bintang->star_rating == 3 ? 'checked' : null }}/>
-                                        <label for="star3" title="text">3 stars</label>
-                                        <input type="radio" id="star2" class="rate" name="rating" value="2" {{ $bintang->star_rating == 2 ? 'checked' : null }}/>
-                                        <label for="star2" title="text">2 stars</label>
-                                        <input type="radio" id="star1" class="rate" name="rating" value="1" {{ $bintang->star_rating == 1 ? 'checked' : null }}/>
-                                        <label for="star1" title="text">1 star</label>
-                                    </div>
-                                @endforeach
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <textarea class="form-control" name="comment" rows="6" maxlength="200" required>@foreach ($reviews as $item){{ $item->comments }}@endforeach</textarea>
+                            <textarea class="form-control" name="comment" rows="6" maxlength="200" required placeholder="Comment">{{ old('comment') }}</textarea>
                         </div>
                     @endif
                         <div class="modal-footer">

@@ -1,4 +1,4 @@
-@extends('dashboard.layouts.admin', ['title' => 'Admin Change Password', 'sbActive' => 'adminrProfile'])
+@extends('dashboard.layouts.admin', ['sbActive' => 'adminrProfile'])
 @section('admin-content')
 <div class="row justify-content-center">
     <div class="col-md-8">

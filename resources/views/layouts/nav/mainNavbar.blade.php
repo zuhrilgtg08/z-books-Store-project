@@ -26,10 +26,12 @@
                             <a class="nav-link {{ Request::is('home-categories') ? 'active' : '' }}" href="/home-categories">Categories</a>
                         </li>
                         <div class="nav-item">
-                            <a class="nav-link {{ Request::is('cart') ? 'active' : '' }}" href="{{ route('cart') }}">
+                            <a class="nav-link" href="">
                                 <i class="fas fa-fw fa-shopping-cart"></i>
                                 Cart
-                                <span class="badge bg-danger text-white ms-1 rounded-pill">0</span>
+                                <span class="badge bg-danger text-white ms-1 rounded-pill">
+                                    0
+                                </span>
                             </a>
                         </div>
                     </ul>

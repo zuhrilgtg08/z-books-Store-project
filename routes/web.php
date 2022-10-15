@@ -98,6 +98,9 @@ Route::post('/review', [HomeController::class, 'reviewRating'])->name('review')-
 
 // Best-Seller
 Route::any('/best-seller', [BestSellerController::class, 'bestSellerBooks'])->name('best-seller.books')->middleware('auth');
+// Route::get('/one-book', [BestSellerController::class, 'oneBook'])->name('one-book')->middleware('auth');
+// Route::get('/cart', [BestSellerController::class, 'index'])->name('cart')->middleware('auth');
+// Route::post('/add-pesanan/{bukus:id}', [BestSellerController::class, 'addPesanan'])->name('add-pesanan')->middleware('auth');
 
 // routes about
 Route::get('/about', function() {
@@ -107,9 +110,7 @@ Route::get('/about', function() {
 // routes categories in client
 Route::get('/home-categories', [HomeCategoriesController::class, 'index'])->middleware('auth');
 
-// routes add to cart alias pesan in client
-Route::get('/cart', [PesanController::class, 'cartOrder'])->middleware('auth')->name('cart');
-Route::any('/pesan/{bukus:id}', [PesanController::class, 'cartIndex'])->middleware('auth');
-
-
+// route add to cart
+// Route::get('/add-pesanan/{id}', [PesanController::class, 'addPesanan'])->name('pesan')->middleware('auth');
+// Route::post('/add-pesanan/{bukus:id}', [PesanController::class, 'addPesanan'])->name('add-pesanan')->middleware('auth');
 

@@ -21,22 +21,34 @@ class DashboardController extends Controller
         $category = Category::all();
         $users = User::where('status_type', '<>', 1)->get();
         
-        $labels = ['Buku', 'Author', 'Penerbit'];
-        $data = [
+        $labels1 = ['Buku', 'Author', 'Penerbit'];
+        $labels2 = ['Rating', 'Categories', 'Users'];
+
+        $data1 = [
             $buku->count(), 
             $author->count(),
             $penerbit->count(),
-            // $category->count(),
-            // $users->count(),
-            // $reviewsRating->count()
+            
+        ];
+
+        $data2 = [
+            $category->count(),
+            $users->count(),
+            $reviewsRating->count()
         ];
         
         return view('pages.admin.index', 
-            compact('buku', 
+            compact(
+                    'reviewsRating',
+                    'buku', 
                     'author', 
                     'penerbit', 
-                    'labels',
-                    'data',
+                    'category',
+                    'users',
+                    'labels1',
+                    'data1',
+                    'labels2',
+                    'data2',
                 ));
     }
 }

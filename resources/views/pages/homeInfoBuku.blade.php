@@ -1,4 +1,4 @@
-@extends('layouts.main', ["title" => "Book Info"])
+@extends('layouts.main')
 @section('main-content')
 <style>
     .scroll {
@@ -124,7 +124,7 @@
 
 <!-- Modal Rating-Comments -->
 <div class="modal fade" id="rating" tabindex="-1" aria-labelledby="rating" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Rating This Book </h5>

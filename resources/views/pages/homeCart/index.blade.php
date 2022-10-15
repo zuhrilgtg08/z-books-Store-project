@@ -40,7 +40,7 @@
                                             <th scope="row"><label for="jumlah">Jumlah Order</label></th>
                                             <td>:</td>
                                             <td><input type="number" name="jumlah" id="jumlah" min="1" 
-                                                max="{{ $cartBukus->stok }}" required">
+                                                max="{{ $cartBukus->stok }}" required" value="1">
                                             </td>
                                         </tr>
                                     </table>

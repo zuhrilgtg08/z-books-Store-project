@@ -87,7 +87,12 @@
                                     <!-- Product button cart-->
                                     <div class="card-footer p-2 border-top-0 bg-transparent">
                                         <div class="text-center">
-                                            <a href="/pesan/{{ $data->id }}" class="btn btn-outline-primary mt-auto" type="submit">Add To Cart</a>
+                                            {{-- <form action="{{ url('/add-pesanan', $data->id) }}" method="POST"> --}}
+                                                {{-- @csrf --}}
+                                                <button type="submit" class="btn btn-outline-primary mt-auto">
+                                                    Add To Cart
+                                                </button>
+                                            {{-- </form> --}}
                                         </div>
                                     </div>
                                 </div>
@@ -103,8 +108,6 @@
             </div>
         </div>
     </div>
-
-    
 @endsection
 
 @section('script')

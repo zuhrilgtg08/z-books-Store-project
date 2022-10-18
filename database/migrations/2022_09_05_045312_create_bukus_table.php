@@ -19,9 +19,9 @@ return new class extends Migration
             $table->string('judul_buku');
             $table->integer('harga');
             $table->integer('stok');
-            $table->foreignId('category_id');
-            $table->foreignId('author_id');
-            $table->foreignId('penerbit_id');
+            $table->foreignId('category_id')->references('id')->on('categories')->onDelete('restrict');
+            $table->foreignId('author_id')->references('id')->on('authors')->onDelete('cascade');
+            $table->foreignId('penerbit_id')->references('id')->on('penerbits')->onDelete('cascade');
             $table->string('image')->nullable();
             $table->text('sinopsis');
             $table->text('excerpt');

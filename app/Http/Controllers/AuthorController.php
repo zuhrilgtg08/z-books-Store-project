@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Throwable;
 use App\Models\Author;
-use \Cviebrock\EloquentSluggable\Services\SlugService;
-use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use \Cviebrock\EloquentSluggable\Services\SlugService;
 
 class AuthorController extends Controller
 {
@@ -137,9 +138,13 @@ class AuthorController extends Controller
         if ($author->image) {
             Storage::delete($author->image);
         }
-
-        Author::destroy($author->id);
-        return redirect()->route('author.index')->with('errors', 'Author berhasil di delete');
+        
+        try {
+            Author::destroy($author->id);
+            return redirect()->route('author.index')->with('errors', 'Author berhasil di delete');
+        } catch (Throwable $th) {
+            return redirect()->route('author.index')->with('errors', 'Author gagal di delete');
+        }
     }
 
     public function checkSlug(Request $request)

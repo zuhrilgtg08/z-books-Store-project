@@ -32,9 +32,7 @@
                             <td>{{ $customer->alamat }}</td>
                             <td>
                                 @if ($customer->image)
-                                    {{-- <div class="col-md-4 text-center" style="overflow:hidden; width: 300px"> --}}
-                                        <img src="{{ asset('storage/' . $customer->image) }}" alt="profile-customers" class="img-fluid" width="100">
-                                    {{-- </div> --}}
+                                    <img src="{{ asset('storage/' . $customer->image) }}" alt="profile-customers" class="img-fluid" width="100">
                                 @else
                                     <img src="{{ asset('assets/images/default-user.png') }}" alt="profile-customers" class="img-fluid" width="100">
                                 @endif

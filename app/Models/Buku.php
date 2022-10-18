@@ -15,7 +15,7 @@ class Buku extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
-    protected $with = ['category', 'penerbit', 'author'];
+    protected $with = ['category', 'penerbit', 'author', 'ReviewData'];
 
     public function penerbit()
     {

@@ -9,27 +9,23 @@
         </div>
     </div>
 
-    <h1 class="h2 text-gray-800 text-center mb-3">Detail Author</h1>
+    <h1 class="h2 text-gray-800 text-center">Detail Author</h1>
 
-    <div class="row justify-content-center mb-3">
-        <div class="col-md-10 text-center">
-            <div class="card border-0 shadow-lg my-5">
-                @if ($author->image)
-                    <div style="max-height:350px; overflow:hidden;">
-                        <img src="{{ asset('storage/' . $author->image) }}" alt="profile-author" class="card-img-top">
-                    </div>
-                @else
-                    <img src="{{ asset('assets/images/default-user.png') }}" alt="profile-author" class="card-img-top">
-                @endif
-                <div class="card-body">
-                    <div class="card-title">
-                        <h1 class="text-center h3 font-weight-bolder">{{ $author->nama_author }}</h1>
-                    </div>
-                    <article class="my-3 fs-5">
-                        {!! $author->biografi_author !!}
-                    </article>
-                </div>
-            </div>
+    <div class="row justify-content-between my-5">
+        <div class="col-md-4">
+            @if ($author->image)
+                <img src="{{ asset('storage/' . $author->image) }}" alt="profile-author" 
+                    class="img-fluid shadow-lg rounded" style="width: 100%; height: 100%; object-fit: cover;">
+            @else
+                <img src="{{ asset('assets/images/default-user.png') }}" alt="profile-author" 
+                    class="img-fluid shadow-lg rounded" style="width: 100%; height: 100%; object-fit: cover;">
+            @endif
+        </div>
+        <div class="col-md-8">
+            <h3 class="text-gray-900">{{ $author->nama_author }}</h3>
+            <article class="my-3 fs-5 text-gray-900">
+                {!! $author->biografi_author !!}
+            </article>
         </div>
     </div>
 @endsection

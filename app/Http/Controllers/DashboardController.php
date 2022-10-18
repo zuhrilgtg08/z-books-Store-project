@@ -28,13 +28,12 @@ class DashboardController extends Controller
             $buku->count(), 
             $author->count(),
             $penerbit->count(),
-            
         ];
 
         $data2 = [
+            $reviewsRating->count(),
             $category->count(),
-            $users->count(),
-            $reviewsRating->count()
+            $users->count()
         ];
         
         return view('pages.admin.index', 

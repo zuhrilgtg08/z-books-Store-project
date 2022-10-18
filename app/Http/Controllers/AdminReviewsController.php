@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\ReviewRating;
+use App\Models\Buku;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AdminReviewsController extends Controller
@@ -14,7 +17,27 @@ class AdminReviewsController extends Controller
      */
     public function index()
     {
-        return view('pages.admin.adminReviews.index');
+        $Result = [
+            "buku" => Buku::with('ReviewData')->first()
+        ];
+
+        $data = $Result['buku']->all()->map(function ($query) {
+            $dataRatings = ReviewRating::where('id_buku', '=', $query->id)->get();
+            if ($dataRatings->count() == 0) {
+                $query->star_rating = 0;
+            } else {
+                $rating = $dataRatings->sum('star_rating') / $dataRatings->count();
+                $query->star_rating = $rating;
+            }
+            return $query;
+        });
+
+        $data = $data->filter(function ($buku) {
+            return $buku->star_rating >= 1;
+        });
+        // dd($data);
+        // $data = $Result['buku']->all();
+        return view('pages.admin.adminReviews.index', compact('data'));
     }
 
     /**
@@ -46,7 +69,11 @@ class AdminReviewsController extends Controller
      */
     public function show($id)
     {
-        //
+        $Result = Buku::with('ReviewData')->where('id', '=', $id)->first();
+        $singleUser = User::with('review')->where('status_type', '<>', 1)->first();
+        dd($singleUser->email);
+        // dd($Result->ReviewData[0]->comments);
+        // return view('pages.admin.adminReviews.show',['data' => $Result]);
     }
 
     /**

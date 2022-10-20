@@ -110,13 +110,12 @@
         datasets: [{
             label: 'Chart Line',
             backgroundColor: [
-                'rgba(39, 127, 245, 0.8)',
+                'rgb(75, 192, 192)',
                 'rgba(22, 235, 24, 1)',
                 'rgba(235, 22, 228, 1)',
             ],
-            borderColor: [
-                'rgba(39, 127, 245, 0.8)',
-            ],
+            fill: false,
+            borderColor: 'rgb(75, 192, 192)',
             data: result2,
             tension: 0.1
         }]

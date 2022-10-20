@@ -44,12 +44,12 @@
                                     <a href="{{ route('admin-reviews.show', $item->id) }}" class="btn btn-primary">
                                         <i class="fas fa-fw fa-eye"></i>
                                     </a>
-                                    <form action="" method="POST"
+                                    <form action="{{ route('admin-reviews.destroy', $item->id) }}" method="POST"
                                         class="d-inline">
                                         @method('DELETE')
                                         @csrf
                                         <button class="btn btn-danger" type="submit"
-                                            onclick="return confirm('Apakah yakin ingin menghapus customer ini ?')">
+                                            onclick="return confirm('Apakah yakin ingin menghapus review buku ini ?')">
                                             <i class="fas fa-fw fa-trash"></i>
                                         </button>
                                     </form>

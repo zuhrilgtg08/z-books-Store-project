@@ -95,7 +95,7 @@
                         <p class="card-text font-semibold">Category: {{ $info->category->name }}</p>
                         <p class="card-text font-semibold">Penerbit: {{ $info->penerbit->nama_penerbit }}</p>
                         <p class="card-text font-semibold">Kode Buku: {{ $info->kode_buku }}</p>
-                        <p class="card-text font-semibold">Tahun: {{ $info->penerbit->tahun_terbit }}</p>
+                        <p class="card-text font-semibold">Terbit Tahun: {{ $info->penerbit->tahun_terbit }}</p>
                         <p class="card-text font-semibold">Stok: {{ $info->stok }} Buku</p>
                         <p class="card-text font-semibold">Harga: @currency($info->harga)</p>
                         <a href="{{ route('home.rating', auth()->user()->id) }}" class="btn btn-success" data-bs-toggle="modal"

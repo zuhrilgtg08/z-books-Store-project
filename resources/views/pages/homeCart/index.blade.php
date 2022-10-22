@@ -1,107 +1,103 @@
-@extends('layouts.main', ["title" => "Carts"])
+@extends('layouts.main')
 @section('main-content')
-    <div class="row justify-content-center my-5">
+    <div class="row mt-4 my-5">
         <h2 class="text-center font-semibold mt-5">Cart Books</h2>
-
-        @foreach ($cartBuku as $cartBukus)
-            @if ($cartBukus->stok > 0)
-                <div class="card border-0 shadow-lg mt-4 mb-3" style="max-width 850px;">
-                    <div class="row">
-                        <div class="col-md-4 p-0">
-                            <img src="{{ asset('storage/' . $cartBukus->image) }}" class="img-fluid rounded-start ml-4" alt="cover-book"
-                                style="width: 100%; height: 100%; object-fit: cover;"/>
-                        </div>
-                        <div class="col-md-8 my-auto p-0">
-                            <div class="card-body">
-                                <h3 class="card-title">{{ $cartBukus->judul_buku }}</h3>
-
-                                <form action="/pesan/{{ $cartBukus->id }}" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="id" value="{{ $cartBukus->id }}">
-                                    <table class="table">
-                                        <tr>
-                                            <input type="hidden" name="harga" value="{{ $cartBukus->harga }}">
-                                            <th scope="row">Harga</th>
-                                            <td>:</td>
-                                            <td>@currency($cartBukus->harga)</td>
-                                        </tr>
-                                        <tr>
-                                            <input type="hidden" name="stok" value="{{ $cartBukus->stok }}">
-                                            <th scope="row">Stok</th>
-                                            <td>:</td>
-                                            <td>{{ $cartBukus->stok }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">Sinopsis</th>
-                                            <td>:</td>
-                                            <td>{{ $cartBukus->excerpt }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row"><label for="jumlah">Jumlah Order</label></th>
-                                            <td>:</td>
-                                            <td><input type="number" name="jumlah" id="jumlah" min="1" 
-                                                max="{{ $cartBukus->stok }}" required" value="1">
-                                            </td>
-                                        </tr>
-                                    </table>
-                                    <div class="d-flex justify-content-center text-center mt-4">
-                                        <button type="submit" class="btn btn-success"><i class="fas fa-fw fa-shopping-bag"></i> 
-                                            Masukkan Ke Keranjang
-                                        </button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @endif
-        @endforeach
+        <div class="col-md-4 mt-4">
+            <a class="btn btn-dark" href="{{ url('/best-seller') }}">
+                <i class="fas fa-fw fa-arrow-left"></i>
+                Continue Shop
+            </a>
+        </div>
     </div>
 
-    
-    {{-- <div class="card">
-        <div class="row">
-            <div class="col-md-4">
-                <img src="{{ asset('storage/' . $barang->image) }}" class="img-fluid" alt="">
+    <div class="col-md-5 mt-3">
+        @if (session()->has('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                {{ session('success') }}
             </div>
-            <div class="col-md-8 my-auto">
-                <div class="card-body">
-                    <h3 class="card-title logo-color">{{ $barang->item_name }}</h3>
-                    <form action="/pesan/{{ $barang->id }}" method="post">
-                        @csrf
-                        <input type="hidden" name="barang_id" value="{{ $barang->id }}">
-                        <table class="table">
-                            <tr>
-                                <input type="hidden" name="price" value="{{ $barang->price }}">
-                                <th scope="row">Harga</th>
-                                <td>:</td>
-                                <td>Rp {{ number_format($barang->price, 0 , ',', '.') }}</td>
-                            </tr>
-                            <tr>
-                                <input type="hidden" name="stock" value="{{ $barang->stock }}">
-                                <th scope="row">Stok</th>
-                                <td>:</td>
-                                <td>{{ $barang->stock }}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Size</th>
-                                <td>:</td>
-                                <td>{{ $barang->size }}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row"><label for="quantity">Jumlah Pesan</label></th>
-                                <td>:</td>
-                                <td><input type="number" name="quantity" id="quantity" min="1" max="{{ $barang->stock }}">
+        @endif
+        
+        @if (session()->has('delete'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                {{ session('delete') }}
+            </div>
+        @endif
+    </div>
+
+    <div class="row justify-content-center my-5 mt-5">
+        <div class="col-md-11 mt-4">
+            <table class="table table-striped text-center table-bordered">
+                <thead class="bg-dark text-light">
+                    <tr>
+                        <th scope="col">No</th>
+                        <th scope="col">Cover</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Harga</th>
+                        <th scope="col" colspan="2">Action</th>
+                    </tr>
+                </thead>
+                <tbody class="align-middle">
+                    @php $no = 1; @endphp
+                    @foreach ($cart as $item)
+                        <tr class="align-content-center">
+                            <td scope="row">{{ $no++ }}</td>
+                            <td>
+                                <img src="{{ asset('storage/' . $item->options->image) }}" 
+                                    alt="cover" class="img-fluid" width="100"/>
+                            </td>
+                            <td><h5>{{ $item->name }}</h5></td>
+                            <!-- Update Cart -->
+                            <form action="{{ route('cart.update') }}" method="POST">
+                                @csrf
+                                <input type="hidden" value="{{ $item->rowId }}" name="rowId" />
+                                <input type="hidden" value="{{ $item->id }}" name="id" />
+                                <td>
+                                    <div class="col-md-6 m-auto">
+                                        <input type="number" value="{{ $item->qty }}" name="quantity" min="1" max="{{ $item->options->stok }}" class="form-control text-center" />
+                                    </div>
                                 </td>
-                            </tr>
-                        </table>
-                        <div class="d-flex justify-content-center text-center">
-                            <button type="submit" class="btn btn-secondary"><i class="bi bi-bag-fill"></i> Masukkan Ke
-                                Keranjang</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
+                                <td>
+                                    <h5>@currency($item->price)</h5>
+                                </td>
+                                <td>
+                                    <button type="submit" class="btn btn-success">
+                                        <i class="far fa-fw fa-edit"></i> Update
+                                    </button>
+                                </td>
+                            </form>
+                            <!-- End Update Cart -->
+                            <!-- Remove Cart -->
+                            <form action="{{ route('cart.remove') }}" method="POST">
+                                @csrf
+                                <td>
+                                    <input type="hidden" value="{{ $item->rowId }}" name="rowId" />
+                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin di hapus?')">
+                                        <i class="fas fa-fw fa-trash-alt"></i> Remove
+                                    </button>
+                                </td>
+                            </form>
+                            <!-- End Remove Cart -->
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
-    </div> --}}
+    </div>
+
+    <div class="row justify-content-end mt-3 my-2">
+        <div class="col-md-4 text-end mt-3">
+            <a href="" class="btn btn-warning text-end">
+                <i class="fas fa-fw fa-money-check"></i> Add Ongkir
+            </a>
+        </div>
+    </div>
+
+    <div class="row justify-content-end mt-3">
+        <div class="col-md-6 mt-3">
+            <h3 class="text-end">Total : Rp. {{ Cart::priceTotal() }}</h3>
+        </div>
+    </div>
 @endsection

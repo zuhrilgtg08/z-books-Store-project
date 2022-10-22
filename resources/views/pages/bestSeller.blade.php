@@ -87,12 +87,16 @@
                                     <!-- Product button cart-->
                                     <div class="card-footer p-2 border-top-0 bg-transparent">
                                         <div class="text-center">
-                                            {{-- <form action="{{ url('/add-pesanan', $data->id) }}" method="POST"> --}}
-                                                {{-- @csrf --}}
-                                                <button type="submit" class="btn btn-outline-primary mt-auto">
+                                            <form action="{{ route('cart.store') }}" method="POST" enctype="multipart/form-data">
+                                                @csrf
+                                                <input type="hidden" name="buku_product_id" value="{{ $data->id }}" />
+                                                <input type="hidden" name="image" name="image" value="{{ $data->image }}" />
+                                                <input type="hidden" name="quantity" value="1" />
+                                                <button type="submit" class="btn btn-danger mt-auto">
+                                                    <i class="fas fa-fw fa-shopping-cart"></i>
                                                     Add To Cart
                                                 </button>
-                                            {{-- </form> --}}
+                                            </form>
                                         </div>
                                     </div>
                                 </div>

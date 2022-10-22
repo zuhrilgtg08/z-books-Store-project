@@ -103,6 +103,16 @@
                             <i class="fas fa-fw fa-thumbs-up"></i>
                             Beri Rating
                         </a>
+                        <form action="{{ route('cart.store') }}" method="POST" enctype="multipart/form-data" class="d-inline">
+                            @csrf
+                            <input type="hidden" name="buku_product_id" value="{{ $info->id }}" />
+                            <input type="hidden" name="image" name="image" value="{{ $info->image }}" />
+                            <input type="hidden" name="quantity" value="1" />
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fas fa-fw fa-shopping-cart"></i>
+                                Add To Cart
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>

@@ -4,9 +4,9 @@ use App\Models\ReviewRating;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\BukuController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\PesanController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
@@ -76,6 +76,7 @@ Route::group([
     Route::get('profile/password/{id}', [AdminProfilePasswordController::class, 'password'])->name('password-admin');
     Route::put('profile/password/{id}', [AdminProfilePasswordController::class, 'changePassword'])->name('password-admin.change');
 });
+
 // profile & change password routes from customer
 Route::group([
     'prefix' => 'user-change',
@@ -98,9 +99,6 @@ Route::post('/review', [HomeController::class, 'reviewRating'])->name('review')-
 
 // Best-Seller
 Route::any('/best-seller', [BestSellerController::class, 'bestSellerBooks'])->name('best-seller.books')->middleware('auth');
-// Route::get('/one-book', [BestSellerController::class, 'oneBook'])->name('one-book')->middleware('auth');
-// Route::get('/cart', [BestSellerController::class, 'index'])->name('cart')->middleware('auth');
-// Route::post('/add-pesanan/{bukus:id}', [BestSellerController::class, 'addPesanan'])->name('add-pesanan')->middleware('auth');
 
 // routes about
 Route::get('/about', function() {
@@ -110,7 +108,8 @@ Route::get('/about', function() {
 // routes categories in client
 Route::get('/home-categories', [HomeCategoriesController::class, 'index'])->middleware('auth');
 
-// route add to cart
-// Route::get('/add-pesanan/{id}', [PesanController::class, 'addPesanan'])->name('pesan')->middleware('auth');
-// Route::post('/add-pesanan/{bukus:id}', [PesanController::class, 'addPesanan'])->name('add-pesanan')->middleware('auth');
-
+// routes Cart
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index')->middleware('auth');
+Route::post('/cart-store', [CartController::class, 'store'])->name('cart.store')->middleware('auth');
+Route::post('/cart-update', [CartController::class, 'update'])->name('cart.update')->middleware('auth');
+Route::post('/cart-remove', [CartController::class, 'remove'])->name('cart.remove')->middleware('auth');

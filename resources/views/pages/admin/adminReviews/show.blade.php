@@ -39,13 +39,17 @@
             </div>
         </div>
         @endforeach
-        @foreach ($userRating as $halo)
-            <p class="card-text">Rating : {{ $halo->star_rating }}
-                <i class="fas fa-fw fa-star text-warning"></i>
-            </p>
-            <p class="card-text">Comments: {{ $halo->comments }}</p>
-            <p class="card-text">User: {{ $halo->user->email }}</p>
-        @endforeach
+        @if (!$userRating->isEmpty())
+            @foreach ($userRating as $halo)
+                <p class="card-text">Rating : {{ $halo->star_rating }}
+                    <i class="fas fa-fw fa-star text-warning"></i>
+                </p>
+                <p class="card-text">Comments: {{ $halo->comments }}</p>
+                <p class="card-text">User: {{ $halo->user->email }}</p>
+            @endforeach
+        @else 
+            <p class="card-text">Review Not Found!</p>
+        @endif
     </div>
 </div>
 {{-- <div class="card border-0 shadow-lg my-3" style="width: 22rem;">

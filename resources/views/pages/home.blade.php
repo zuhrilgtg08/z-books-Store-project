@@ -16,10 +16,13 @@
                     <input type="hidden" name="author" value="{{ request('author') }}">
                 @endif
 
-                <div class="input-group mb-3">
+                <div class="input-group mt-3">
                     <input type="text" class="form-control" name="search" placeholder="Cari Buku..."
                         value="{{ request('search') }}">
-                    <button class="btn btn-outline-success" type="submit" id="cari-btn">Search</button>
+                    <button class="btn btn-outline-success" type="submit" id="cari-btn">
+                        <i class="fas fa-fw fa-search"></i>
+                        Search
+                    </button>
                 </div>
             </form>
         </div>
@@ -48,7 +51,11 @@
                             </p>
                             <p class="card-text">{{$data[0]->excerpt}}</p>
                             <p class="card-text title h4">@currency($data[0]->harga)</p>
-                            <a href="{{ route('home.info', $data[0]->id) }}" class="text-decoration-none btn btn-danger">Read More</a>
+                            <a href="{{ route('home.info', $data[0]->id) }}" 
+                                class="text-decoration-none btn btn-danger">
+                                <i class="fas fa-fw fa-info-circle"></i>
+                                Read More
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -93,8 +100,10 @@
                                 <!-- Product actions-->
                                 <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                     <div class="text-center">
-                                        <a class="btn btn-outline-danger mt-auto"
-                                            href="{{ route('home.info', $buku->id) }}">Read More
+                                        <a class="btn btn-danger mt-auto"
+                                            href="{{ route('home.info', $buku->id) }}">
+                                            <i class="fas fa-fw fa-info-circle"></i>
+                                            Read More
                                         </a>
                                     </div>
                                 </div>
@@ -108,7 +117,9 @@
             </div>
         </div>
     @else
-        <p class="text-center fs-4">Books Not Found.</p>
+        <div class="col-md-6 mt-3 m-auto text-center ">
+            <p class="fs-4 h3 mb-3">Sory, book's Not Found.</p>
+        </div>
     @endif
     
     <div class="container-marketing">

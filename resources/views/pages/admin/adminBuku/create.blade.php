@@ -24,7 +24,7 @@
                         <div class="mb-3">
                             <label for="harga" class="form-label">Harga</label>
                             <input type="number" class="form-control @error('harga') is-invalid @enderror" id="harga"
-                                name="harga" value="{{ old('harga') }}">
+                                name="harga" value="{{ old('harga') }}" required>
                             @error('harga')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -32,14 +32,22 @@
                         <div class="mb-3">
                             <label for="stok" class="form-label">Stok</label>
                             <input type="number" class="form-control @error('stok') is-invalid @enderror" id="stok"
-                                name="stok" value="{{ old('stok') }}">
+                                name="stok" value="{{ old('stok') }}" required>
                             @error('stok')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="mb-3">
+                            <label for="weight" class="form-label">Berat</label>
+                            <input type="number" class="form-control @error('weight') is-invalid @enderror" id="weight" name="weight"
+                                value="{{ old('weight') }}" required>
+                            @error('weight')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
                             <label for="category" class="form-label">Categories</label>
-                            <select class="form-control" name="category_id" id="category">
+                            <select class="form-control" name="category_id" id="category" required>
                                 <option value="" disabled selected>Select Category </option>
                                 @foreach ($categories as $category)
                                     <option value="{{ old('category_id', $category->id) }}">{{ $category->name }}</option>
@@ -48,7 +56,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="author" class="form-label">Authors</label>
-                            <select class="form-control" name="author_id" id="author">
+                            <select class="form-control" name="author_id" id="author" required>
                                 <option value="" disabled selected>Select Author </option>
                                 @foreach ($authors as $author)
                                     <option value="{{ old('author_id', $author->id) }}">{{ $author->nama_author }}</option>
@@ -57,7 +65,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="penerbit" class="form-label">Penerbits</label>
-                            <select class="form-control" name="penerbit_id" id="penerbit">
+                            <select class="form-control" name="penerbit_id" id="penerbit" required>
                                 <option value="" disabled selected>Select Penerbit </option>
                                 @foreach ($penerbits as $penerbit)
                                     <option value="{{ old('penerbit_id', $penerbit->id) }}">{{ $penerbit->nama_penerbit }}</option>

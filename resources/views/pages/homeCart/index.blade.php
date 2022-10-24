@@ -89,8 +89,8 @@
 
     <div class="row justify-content-end mt-3 my-2">
         <div class="col-md-4 text-end mt-3">
-            <a href="" class="btn btn-warning text-end">
-                <i class="fas fa-fw fa-money-check"></i> Add Ongkir
+            <a href="{{ route('checkout.index') }}" class="btn btn-warning text-end">
+                <i class="fas fa-fw fa-money-check"></i> Checkout
             </a>
         </div>
     </div>

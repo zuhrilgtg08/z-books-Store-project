@@ -48,6 +48,7 @@
                                 <h6 class="card-text">Category : {{ $item->name }}</h6>
                             @endif
                         @endforeach
+                        <h6 class="card-text">Berat : {{ $datas['buku']->weight / 1000 }} Kg</h6>
                     </div>
                 </div>
             </div>

@@ -64,14 +64,15 @@ class BukuController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'judul_buku' => 'required|max:255',
+            'judul_buku' => 'required|max:255|unique:bukus',
             'harga' => 'required|numeric',
             'stok' => 'required|numeric',
             'category_id' => 'required|max:150',
             'author_id' => 'required|max:150',
             'penerbit_id' => 'required|max:150',
             'image' => 'required|image|file|max:1024',
-            'sinopsis' => 'required'
+            'sinopsis' => 'required',
+            'weight' => 'required|numeric'
         ]);
 
         $kodeDepan = strtoupper(substr($request->judul_buku, 0, 1));
@@ -103,6 +104,7 @@ class BukuController extends Controller
             'author_id' => $request->author_id,
             'penerbit_id' => $request->penerbit_id,
             'sinopsis' => $request->sinopsis,
+            'weight' => $request->weight
         ];
 
         if ($request->file('image')) {
@@ -110,6 +112,12 @@ class BukuController extends Controller
         }
 
         $validateData['excerpt'] = Str::limit(strip_tags($request->sinopsis), 50);
+        
+        if(!$validateData['harga'] == 0) {
+            $validateData['harga'] = $request->harga;
+        } else {
+            $validateData['harga'] = 50000;
+        }
 
         $buku = Buku::create($validateData);
         // dd($buku);
@@ -168,15 +176,17 @@ class BukuController extends Controller
     public function update(Request $request, $id)
     {
         $data = [
-            'judul_buku' => 'required|max:255',
+            'judul_buku' => 'required|max:255|unique:bukus',
             'harga' => 'required|numeric',
             'stok' => 'required|numeric',
             'category_id' => 'required|max:150',
             'author_id' => 'required|max:150',
             'penerbit_id' => 'required|max:150',
             'image' => 'image|file|max:1024',
-            'sinopsis' => 'required'
+            'sinopsis' => 'required',
+            'weight' => 'required|numeric'
         ];
+
 
         $validateData = $request->validate($data);
 

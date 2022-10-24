@@ -16,15 +16,15 @@ class ReviewsSeeder extends Seeder
     public function run()
     {
         ReviewRating::create([
-            'id_buku' => 2,
+            'id_buku' => 1,
             'id_user' => 1,
             'comments' => 'Ceritanya sangat menarik',
             'star_rating' => 4
         ]);
 
         ReviewRating::create([
-            'id_buku' => 3,
-            'id_user' => 1,
+            'id_buku' => 1,
+            'id_user' => 2,
             'comments' => 'Ceritanya sangat bagus',
             'star_rating' => 5
         ]);

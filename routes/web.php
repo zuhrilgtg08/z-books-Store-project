@@ -9,6 +9,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\PenerbitController;
 use App\Http\Controllers\RegisterController;
@@ -108,8 +109,11 @@ Route::get('/about', function() {
 // routes categories in client
 Route::get('/home-categories', [HomeCategoriesController::class, 'index'])->middleware('auth');
 
-// routes Cart
+// routes Cart in client
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index')->middleware('auth');
 Route::post('/cart-store', [CartController::class, 'store'])->name('cart.store')->middleware('auth');
 Route::post('/cart-update', [CartController::class, 'update'])->name('cart.update')->middleware('auth');
 Route::post('/cart-remove', [CartController::class, 'remove'])->name('cart.remove')->middleware('auth');
+
+// routes checkout in client
+Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index')->middleware('auth');

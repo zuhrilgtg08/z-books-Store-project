@@ -40,14 +40,13 @@
         </div>
         @endforeach
 
-        <hr class="sidebar-divider">
-
         <div class="row mt-3 my-3">
             <div class="col-md pl-4">
                 <h3 class="text-start fw-normal text-danger">Comments Section : </h3>
                 @php $no = 1; @endphp
                 @if (!$userRating->isEmpty())
                     @foreach ($userRating as $halo)
+                        <div class="border border-2 border-dark mb-2"></div>
                         <p class="card-text text-gray-800">User : {{ $halo->user->email }} ({{ $no++ }})</p>
                         <p class="card-text text-gray-800">Rating : {{ $halo->star_rating }}
                             <i class="fas fa-fw fa-star text-warning"></i>

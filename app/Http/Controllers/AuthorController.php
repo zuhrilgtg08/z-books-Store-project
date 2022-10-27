@@ -142,8 +142,8 @@ class AuthorController extends Controller
         try {
             Author::destroy($author->id);
             return redirect()->route('author.index')->with('errors', 'Author berhasil di delete');
-        } catch (Throwable $th) {
-            return redirect()->route('author.index')->with('errors', 'Author gagal di delete');
+        } catch (Throwable $err) {
+            return redirect()->route('author.index')->with('errors', "Author gagal di delete".$err);
         }
     }
 

@@ -27,7 +27,7 @@
                         <div class="mb-3">
                             <label for="slug" class="form-label">Slug</label>
                             <input type="text" class="form-control @error('slug') is-invalid @enderror" id="slug"
-                                name="slug" value="{{ old('slug', $author->slug) }}">
+                                name="slug" value="{{ old('slug', $author->slug) }}" required>
                                 @error('slug')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -42,7 +42,7 @@
                                 @else
                                     <img class="img-preview img-fluid mb-3 sm-2">
                                 @endif
-                                    <input type="file" class="form-control-file" required @error('image') is-invalid @enderror
+                                    <input type="file" class="form-control-file" @error('image') is-invalid @enderror
                                         id="image" name="image" onchange="previewProfile()">
                                 @error('image')
                                     <div class="invalid-feedback">

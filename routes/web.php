@@ -117,3 +117,7 @@ Route::post('/cart-remove', [CartController::class, 'remove'])->name('cart.remov
 
 // routes checkout in client
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index')->middleware('auth');
+Route::get('/province', [CheckoutController::class, 'getProvince'])->name('province')->middleware('auth');
+Route::get('/city/{id}',[CheckoutController::class, 'getCity'])->name('city')->middleware('auth');
+Route::get('/origin={city_origin}&destination={city_destination}&weight={weight}&courier={courier}', [CheckoutController::class, 'getOngkir'])->middleware('auth');
+Route::any('/tes',[CheckoutController::class, 'tes'])->name('tes')->middleware('auth');

@@ -78,7 +78,7 @@ return [
 
     'format' => [
         'decimals' => 0,
-        'decimal_point' => '.',
-        'thousand_separator' => '.',
+        'decimal_point' => '',
+        'thousand_separator' => '',
     ],
 ];

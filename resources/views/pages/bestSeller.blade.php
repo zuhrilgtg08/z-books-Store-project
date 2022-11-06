@@ -9,7 +9,7 @@
 
         .filter-container input {
             border: 1px solid #ddd;
-            width: 4.3rem;
+            width: 6.3rem;
             text-align: center;
             height: 30px;
             border-radius: 5px;
@@ -39,14 +39,14 @@
             <form action="{{ route('best-seller.books') }}" method="POST">
                 @csrf
                 <div class="row filter-container">
-                    <div class="col-md-4 mb-3">
-                        <input id="min_range" name="harga_min" value="{{ $filter_harga_min ?? $harga_min }}" readonly>
+                    <div class="col-md-6 mb-3">
+                        <input id="min_range" name="harga_min" value="@currency($filter_harga_min ?? $harga_min)" readonly>
                     </div>
-                    <div class="col-md-4 mb-3">
-                        <input id="max_range" name="harga_max" value="{{ $filter_harga_max ?? $harga_max }}" readonly>
+                    <div class="col-md-6 mb-3">
+                        <input id="max_range" name="harga_max" value="@currency($filter_harga_max ?? $harga_max)" readonly>
                     </div>
                     <div id="slider-range"></div>
-                    <div class="col-md-4 mt-3">
+                    <div class="col-md-6 mt-3">
                         <button type="submit" class="btn btn-sm">Filter</button>
                     </div>
                 </div>

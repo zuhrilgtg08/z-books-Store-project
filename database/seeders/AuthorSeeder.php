@@ -20,7 +20,7 @@ class AuthorSeeder extends Seeder
             'slug' => 'raditya-dika-1',
             'image' => Null,
             'excerpt' => 'Dika Angkasaputra Moerwani Nasution, yang mengubah...',
-            'biografi_author' => 'Dika Angkasaputra Moerwani Nasution, yang mengubah namanya menjadi Raditya Dika Angkasaputra Moerwani Nasution (lahir 28 Desember 1984[3]) adalah seorang komedian, penulis, sutradara, produser, penulis skenario, pebisnis, YouTuber, dan aktor Indonesia. Buku pertamanya berjudul Kambing Jantan masuk kategori best seller.[3] Buku tersebut menampilkan kehidupan Dika (Raditya Dika) saat kuliah di Australia.[4] Tulisan pria yang akrab disebut Radit ini bisa digolongkan sebagai genre baru.[4] Kala ia merilis buku pertamanya tersebut, memang belum banyak yang masuk ke dunia tulisan komedi.[3] Apalagi bergaya diari pribadi (personal essay).[5] Raditya Dika menikah dengan Anissa Aziza pada 5 Mei 2018 lalu. Setahun menjalani pernikahan sebagai sepasang suami istri, pada 6 Mei 2019, Annisa Aziza melahirkan seorang putri yang diberi nama Alinea Ava Nasution.'
+            'biografi_author' => 'Dika Angkasaputra Moerwani Nasution, yang mengubah namanya menjadi Raditya Dika Angkasaputra Moerwani Nasution (lahir 28 Desember 1984) adalah seorang komedian, penulis, sutradara, produser, penulis skenario, pebisnis, YouTuber, dan aktor Indonesia. Buku pertamanya berjudul Kambing Jantan masuk kategori best seller. Buku tersebut menampilkan kehidupan Dika (Raditya Dika) saat kuliah di Australia. Tulisan pria yang akrab disebut Radit ini bisa digolongkan sebagai genre baru. Kala ia merilis buku pertamanya tersebut, memang belum banyak yang masuk ke dunia tulisan komedi. Apalagi bergaya diari pribadi (personal essay). Raditya Dika menikah dengan Anissa Aziza pada 5 Mei 2018 lalu. Setahun menjalani pernikahan sebagai sepasang suami istri, pada 6 Mei 2019, Annisa Aziza melahirkan seorang putri yang diberi nama Alinea Ava Nasution.'
         ]);
 
         Author::create([
@@ -40,4 +40,3 @@ class AuthorSeeder extends Seeder
         ]);
     }
 }
-

@@ -27,7 +27,9 @@ class DatabaseSeeder extends Seeder
             PenerbitSeeder::class,
             UserSeeder::class,
             ReviewsSeeder::class,
-            BukuSeeder::class
+            BukuSeeder::class,
+            ProvinceSeeder::class,
+            CitiesSeeder::class,
         ]);
     }
 }

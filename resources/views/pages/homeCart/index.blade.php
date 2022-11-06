@@ -10,7 +10,7 @@
         </div>
     </div>
 
-    <div class="col-md-5 mt-3">
+    <div class="col-md-6 mt-3">
         @if (session()->has('success'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -26,14 +26,15 @@
         @endif
     </div>
 
-    <div class="row justify-content-center my-5 mt-5">
-        <div class="col-md-11 mt-4">
+    <div class="row justify-content-center my-5 mt-3">
+        <div class="col-md-12 mt-4">
             <table class="table table-striped text-center table-bordered">
                 <thead class="bg-dark text-light">
                     <tr>
                         <th scope="col">No</th>
                         <th scope="col">Cover</th>
                         <th scope="col">Name</th>
+                        <th scope="col">Code</th>
                         <th scope="col">Quantity</th>
                         <th scope="col">Harga</th>
                         <th scope="col" colspan="2">Action</th>
@@ -49,6 +50,7 @@
                                     alt="cover" class="img-fluid" width="100"/>
                             </td>
                             <td><h5>{{ $item->name }}</h5></td>
+                            <td><h5>{{ $item->options->kode_buku }}</h5></td>
                             <!-- Update Cart -->
                             <form action="{{ route('cart.update') }}" method="POST">
                                 @csrf
@@ -56,7 +58,8 @@
                                 <input type="hidden" value="{{ $item->id }}" name="id" />
                                 <td>
                                     <div class="col-md-6 m-auto">
-                                        <input type="number" value="{{ $item->qty }}" name="quantity" min="1" max="{{ $item->options->stok }}" class="form-control text-center" />
+                                        <input type="number" value="{{ $item->qty }}" name="quantity" min="1" max="{{ $item->options->stok }}" 
+                                            class="form-control text-center qty" />
                                     </div>
                                 </td>
                                 <td>
@@ -87,9 +90,9 @@
         </div>
     </div>
 
-    <div class="row justify-content-end mt-3 my-2">
+    <div class="row justify-content-end mt-3 my-3">
         <div class="col-md-4 text-end mt-3">
-            <a href="{{ route('checkout.index') }}" class="btn btn-warning text-end">
+            <a href="{{ route('checkout.index') }}" class="btn btn-warning text-end" id="checkout">
                 <i class="fas fa-fw fa-money-check"></i> Checkout
             </a>
         </div>
@@ -97,7 +100,18 @@
 
     <div class="row justify-content-end mt-3">
         <div class="col-md-6 mt-3">
-            <h3 class="text-end">Total : Rp. {{ Cart::priceTotal() }}</h3>
+            <h3 class="text-end">Total : @currency(Cart::priceTotal())</h3>
         </div>
     </div>
+@endsection
+
+@section('script')
+    <script>
+        let qty = document.getElementsByClassName("qty");
+        let btnCheckout = document.querySelector("#checkout");
+        
+        Array.from(qty).forEach(q => q.addEventListener('change', function() {
+            btnCheckout.classList.add('disabled');
+        }));
+    </script>
 @endsection

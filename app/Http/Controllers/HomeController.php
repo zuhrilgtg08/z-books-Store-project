@@ -61,7 +61,7 @@ class HomeController extends Controller
                 'comments' => $request->comment,
                 'star_rating' => $request->rating
             ]);
-            return redirect()->back()->with('success', 'Your review has been Updated');
+            return redirect()->back()->with('success', 'Rating berhasil diupdate!');
         } else {
             $reviews = ReviewRating::create([
                 'id_buku' => $request->id_buku,
@@ -70,7 +70,7 @@ class HomeController extends Controller
                 'star_rating' => $request->rating
             ]);
 
-            return redirect()->back()->with('success', 'Your review has been submitted Successfully');
+            return redirect()->back()->with('success', 'Rating berhasil ditambahkan!');
         }
     }
 }

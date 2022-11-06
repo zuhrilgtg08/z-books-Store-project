@@ -69,22 +69,4 @@ class BestSellerController extends Controller
             'filter_harga_max' => $filter_harga_max,
         ]);
     }
-
-    // public function oneBook()
-    // {
-    //     $pesanan = Buku::with('user')->where('id', '=', Auth::user()->id)->first();
-    //     return view('pages.bestSeller', ['pesanan' => $pesanan]);
-    // }
-
-    // public function addPesanan($id)
-    // {
-    //     $addPesanan = Buku::findOrfail($id);
-    //     // dd($addPesanan);
-    //     return view('pages.homeCart.cart', compact('addPesanan'));
-    // }
-
-    // public function index()
-    // {
-    //     return "halo cart pesan kagak jelas";
-    // }
 }

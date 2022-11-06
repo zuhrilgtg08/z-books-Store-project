@@ -43,8 +43,8 @@
                             <h3 class="card-title"> {{ $data[0]->judul_buku }} {{ $tag }}</h3>
                             <p>By. 
                                 <small class="text-muted">
-                                    <a href="/home?author={{ $data[0]->author->slug }}" class="text-decoration-none">{{ $data[0]->author->nama_author }}</a> in 
-                                    <a href="/home?category={{ $data[0]->category->slug }}" class="text-decoration-none">{{ $data[0]->category->name }}</a> made
+                                    <a href="/home?author={{ $data[0]->author->slug }}" class="text-decoration-none">{{ $data[0]->author->nama_author }}</a> Category 
+                                    <a href="/home?category={{ $data[0]->category->slug }}" class="text-decoration-none">{{ $data[0]->category->name }}</a> Penerbit
                                     <a href="/home?penerbit={{ $data[0]->penerbit->slug }}" class="text-decoration-none">{{ $data[0]->penerbit->nama_penerbit }}</a>
                                     {{ $data[0]->created_at->diffForHumans() }}
                                 </small>
@@ -88,7 +88,7 @@
                                         <p>By.
                                             <small class="text-muted">
                                                 <a href="/home?author={{ $buku->author->slug }}"
-                                                    class="text-decoration-none">{{ $buku->author->nama_author }}</a> made
+                                                    class="text-decoration-none">{{ $buku->author->nama_author }}</a> Penerbit 
                                                 <a href="/home?penerbit={{ $buku->penerbit->slug }}"
                                                     class="text-decoration-none">{{ $buku->penerbit->nama_penerbit }}</a>
                                                 {{ $data[0]->created_at->diffForHumans() }}

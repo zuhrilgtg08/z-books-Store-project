@@ -97,6 +97,7 @@
                         <p class="card-text font-semibold">Kode Buku: {{ $info->kode_buku }}</p>
                         <p class="card-text font-semibold">Terbit Tahun: {{ $info->penerbit->tahun_terbit }}</p>
                         <p class="card-text font-semibold">Stok: {{ $info->stok }} Buku</p>
+                        <p class="card-text font-semibold">Berat: {{ $info->weight / 1000}} Kg</p>
                         <p class="card-text font-semibold">Harga: @currency($info->harga)</p>
                         <a href="{{ route('home.rating', auth()->user()->id) }}" class="btn btn-success" data-bs-toggle="modal"
                             data-bs-target="#rating">

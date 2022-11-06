@@ -26,7 +26,7 @@ class BukuSeeder extends Seeder
             'image' => Null,
             'sinopsis' => 'Lacinia ad ipsum ligula lectus est nisl vivamus...',
             'excerpt' => 'Lacinia ad ipsum ligula lectus est nisl vivamus. Venenatis luctus adipiscing est cursus penatibus finibus cras efficitur. Facilisi mi penatibus quisque mattis himenaeos. Tortor gravida pede quis accumsan eu vehicula netus semper. Fames metus gravida etiam bibendum amet. Nibh ultrices si auctor lectus potenti.',
-            'weight' => 5 
+            'weight' => 240
         ]);
     }
 }

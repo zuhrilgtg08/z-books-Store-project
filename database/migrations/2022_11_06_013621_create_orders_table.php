@@ -23,7 +23,7 @@ return new class extends Migration
             $table->float('weight');
             $table->string('transaction_id')->nullable();
             $table->integer('harga_ongkir');
-            $table->integer('total_harga_akhir');
+            $table->integer('total_belanja');
             $table->string('alamat');
             $table->string('payment_type')->nullable();
             $table->string('payment_code')->nullable();

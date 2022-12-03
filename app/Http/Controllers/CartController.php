@@ -12,9 +12,16 @@ class CartController extends Controller
     public function index()
     {
         $result = Keranjang::where('user_id', Auth::user()->id)->get();
-        // dd($result);
+        $total = 0;
+        foreach ($result as $item) {
+            if($item->quantity >= $item->buku->stok) {
+                $total += $item->buku->stok * $item->buku->harga;
+            } else {
+                $total += $item->quantity * $item->buku->harga;
+            }
+        }
 
-        return view('pages.homeCart.index', compact('result'));
+        return view('pages.homeCart.index', compact('result', 'total'));
     }
 
     public function store(Request $request)
@@ -22,10 +29,20 @@ class CartController extends Controller
         $validatedData = $request->validate([
             'buku_id' => 'required',
         ]);
-        // dd($request->all());
+
+        $allItem = Keranjang::with('buku')->where('buku_id', $request->buku_id)->get();
+        foreach ($allItem as $data) {
+            if($data->quantity >= $data->buku->stok) {
+                $data['quantity'] = $data->quantity;
+                return redirect()->route('cart.index')->with('delete', 'Ups, anda memesan melebihi stok yang tersedia');
+            } else {
+                $data->quantity;
+            }
+        }
+
         $item = Keranjang::where('buku_id', $request->buku_id)
                             ->where('user_id', auth()->user()->id)->first();
-        // dd($item);
+                            
         if ($item) {
             $item->update(['quantity' => $item->quantity + 1]);
         } else {

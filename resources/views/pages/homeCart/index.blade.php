@@ -57,7 +57,7 @@
                                 <td>
                                     <div class="col-md-6 m-auto">
                                         @if($item->quantity >= $item->buku->stok)
-                                            <input type="number" value="{{ $fixQty }}" name="quantity" min="1" max="{{ $item->buku->stok }}"
+                                            <input type="number" value="{{ $item->buku->stok }}" name="quantity" min="1" max="{{ $item->buku->stok }}"
                                                 class="form-control text-center qty" disabled />
                                         @else
                                             <input type="number" value="{{ $item->quantity }}" name="quantity" min="1" max="{{ $item->buku->stok }}"
@@ -66,7 +66,11 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <h5>@currency($item->buku->harga * $item->quantity)</h5>
+                                    @if($item->quantity >= $item->buku->stok)
+                                        <h5>@currency($item->buku->harga * $item->buku->stok)</h5>
+                                    @else
+                                        <h5>@currency($item->buku->harga * $item->quantity)</h5>
+                                    @endif
                                 </td>
                             </form>
                             <!-- End Update Cart -->
@@ -95,7 +99,11 @@
         </div>
     </div>
 
-    
+    <div class="row justify-content-end mt-3">
+        <div class="col-md-6 mt-3">
+            <h3 class="text-end">Total Harga : @currency($total)</h3>
+        </div>
+    </div>
 @endsection
 
 @section('script')

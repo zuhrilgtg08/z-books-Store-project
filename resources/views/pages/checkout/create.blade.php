@@ -8,13 +8,14 @@
 
         <div class="row g-5">
             <div class="col-md-7 col-lg-8 order-md-last">
-                <h4 class="mb-3 text-center">Input Data Pesanan</h4>
+                <h4 class="mb-3 text-center">Input Data Pesanan Anda</h4>
                 <form class="d-inline" action="{{ route('checkout.store') }}" method="POST">
                     @csrf
-                    <input type="hidden" value="{{ auth()->user()->id }}" name="user_id" />
-                    <input type="hidden" value="{{ $totalBelanja }}" name="total_belanja" />
-                    <input type="hidden" value="settlement" name="settlement" />
-                    
+                    <input type="hidden" name="total_belanja" value="{{ $totalBelanja }}"/>
+                    @foreach ($itemData as $item)
+                        <input type="hidden" name="keranjang_id" value="{{ $item->id }}" />
+                    @endforeach
+
                     <div class="row g-3">
                         <div class="col-sm-6">
                             <label for="name" class="form-label">Nama Pemesan : </label>
@@ -23,7 +24,7 @@
             
                         <div class="col-sm-6">
                             <label for="phone" class="form-label">Nomor Hp :</label>
-                            <input type="number" class="form-control" id="phone" value="{{ old('phone') }}" name="phone" min="0" />
+                            <input type="text" class="form-control" id="phone" value="{{ Auth::user()->number_phone }}" min="0" required/>
                         </div>
             
                         <div class="col-sm-6">
@@ -33,8 +34,8 @@
 
                         <div class="col-sm-6">
                             <label for="weight" class="form-label">Total Berat :</label>
-                            <input type="text" id="weight" class="form-control text-danger fw-bold" value="{{ $totalBerat / 1000 }} Kg" disabled />
                             <input type="hidden" name="weight" id="weight" class="form-control" value="{{ $totalBerat }}" />
+                            <input type="text" id="weight" class="form-control text-danger fw-bold" value="{{ $totalBerat / 1000 }} Kg" disabled />
                         </div>
 
                         <div class="col-md-6">
@@ -91,8 +92,8 @@
                 <h4 class="d-flex justify-content-between align-items-center mb-3">
                     <span class="text-primary">Pesanan Anda</span>
                 </h4>
-                @foreach ($itemData as $item)
-                    <ul class="list-group mb-3">
+                <ul class="list-group mb-3">
+                    @foreach ($itemData as $item)
                         <li class="list-group-item d-flex justify-content-between lh-sm">
                             <div>
                                 <h6 class="my-0">{{ $item->buku->judul_buku }}</h6>
@@ -100,16 +101,16 @@
                             </div>
                             <span class="text-danger">{{$item->quantity }} item </span>
                         </li>
-                        <li class="list-group-item d-flex justify-content-between">
-                            <span>Total (Rp)</span>
-                            <strong>@currency($totalBelanja)</strong>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between">
-                            <span>Ongkos Kirim </span>
-                            <strong class="cost-ongkir">Rp. 0</strong>
-                        </li>
-                    </ul>
-                @endforeach
+                    @endforeach
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>Total (Rp) : </span>
+                        <strong>@currency($totalBelanja)</strong>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>Ongkos Kirim : </span>
+                        <strong class="cost-ongkir">Rp. 0</strong>
+                    </li>
+                </ul>
             </div>
         </div>
     </main>

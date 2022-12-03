@@ -9,7 +9,6 @@ use App\Models\Province;
 use App\Models\Keranjang;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Arr;
 use App\Services\Midtrans\CreateSnapTokenService;
 
 class CheckoutController extends Controller
@@ -55,23 +54,24 @@ class CheckoutController extends Controller
 
     public function create()
     {
-        // $totalBelanja = 0;
-        // $totalBerat = 0;
+        $totalBelanja = 0;
+        $totalBerat = 0;
         $provinces = Province::all();
-        // $itemData = Keranjang::where('id_user', Auth::user()->id)->get();
-        // foreach($itemData as $item) {
-        //     $totalBerat += $item->buku->weight * $item->quantity;
-        //     $totalBelanja += $item->buku->harga * $item->quantity;
-        // }
+        $itemData = Keranjang::with('buku')->where('user_id', Auth::user()->id)->get();
+        foreach($itemData as $item) {
+            $totalBerat += $item->buku->weight * $item->quantity;
+            $totalBelanja += $item->buku->harga * $item->quantity;
+        }
 
-        return view('pages.checkout.index', 
-            compact('provinces'));
+        return view('pages.checkout.create', 
+            compact('provinces', 'totalBerat', 'totalBelanja', 'itemData'));
     }
     
     public function store(Request $request) 
     {
+        // dd($request->all());
         $validateData = $request->validate([
-            'user_id' => 'required|max:150',
+            'keranjang_id' => 'required|max:150',
             'province_id' => 'required|max:150',
             'destination_id' => 'required|max:150',
             'courier' => 'required|max:150',
@@ -81,29 +81,30 @@ class CheckoutController extends Controller
             'total_belanja' => 'required|numeric',
         ]);
 
-        $validateData = Arr::except($request->all(), [
-            '_token', 'phone'
-        ]);
-
-        $validateData['status'] = 'pending';
+        $dataKeranjang = Keranjang::where('user_id', Auth::user()->id)->get();
+        foreach($dataKeranjang as $data) {
+            $data['status'] = 'settlement';
+            $data->update();
+        }
+        
         $order = Order::create($validateData);
 
         if ($order) {
             if (empty($validateData['snap_token'])) {
                 $midtrans = new CreateSnapTokenService($order);
                 $snapToken = $midtrans->getSnapToken();
-
                 $order->update(['snap_token' => $snapToken]);
             }
             return redirect()->route('checkout.valid')->with('success', 'Pesanan berhasil di tambahkan');
         } else {
             return redirect()->route('checkout.valid')->with('errors', 'Pesanan gagal di tambahkan');
         }
+        // dd($order);
     }
 
     public function valid()
     {
-        $dataValid = Order::where('user_id', '=', Auth::user()->id)->get();
+        // $dataValid = Order::where('user_id', '=', Auth::user()->id)->get();
         $dataValid = Order::all();
         $provinsi = 0;
         $snapToken = null;
@@ -115,30 +116,8 @@ class CheckoutController extends Controller
         return view('pages.checkout.valid', compact('snapToken', 'provinsi'));
     }
 
-    public function validData(Request $request)
-    {
-        $jsonOrder = json_decode($request->json);
-        $dataOrder = [
-            'transaction_id' => $jsonOrder->transaction_id,
-            'status' => $jsonOrder->transaction_status,
-            'payment_type' => $jsonOrder->payment_type,
-            'payment_code' => isset($jsonOrder->payment_code) ? $jsonOrder->payment_code : null,
-            'pdf_url' => isset($jsonOrder->pdf_url) ? $jsonOrder->pdf_url : null
-        ];
 
-        $order = Order::where('uuid', '=', $jsonOrder->order_id);
-        if($order) {
-            $order->update($dataOrder);
-        }
-
-        // dd($order);
-
-        if ($order) {
-            return redirect()->route('checkout.valid')->with('success', 'Pesanan berhasil di update');
-        } else {
-            return redirect()->route('checkout.valid')->with('errors', 'Pesanan gagal di update');
-        }
-    }
+    
 
     public function confirm(Request $request)
     {

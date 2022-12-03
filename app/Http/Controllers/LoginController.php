@@ -25,7 +25,6 @@ class LoginController extends Controller
         if (Auth::attempt($validateData, $remember_me)) {
             $request->session()->regenerate();
             $user = auth()->user();
-            // dd($user);
             return redirect()->intended('/home');
         }
 

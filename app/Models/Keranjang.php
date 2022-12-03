@@ -7,7 +7,6 @@ use App\Models\User;
 use App\Models\Order;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-// use App\Traits\Uuid as Traits;
 
 class Keranjang extends Model
 {

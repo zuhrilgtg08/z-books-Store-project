@@ -2,7 +2,7 @@
 
 namespace App\Services\Midtrans;
 
-use App\Models\Orders;
+use App\Models\Order;
 use App\Services\Midtrans\Midtrans;
 use Midtrans\Notification;
 
@@ -54,24 +54,25 @@ class CallbackService extends Midtrans
         return $this->order;
     }
 
+    // tandain
     protected function _createLocalSignatureKey()
     {
-        $orderId = $this->order->number;
+        $order_id = $this->order->uuid;
         $statusCode = $this->notification->status_code;
-        $grossAmount = $this->order->total_price;
+        $grossAmount = $this->order->total_belanja;
         $serverKey = $this->serverKey;
-        $input = $orderId . $statusCode . $grossAmount . $serverKey;
+        $input = $order_id . $statusCode . $grossAmount . $serverKey;
         $signature = openssl_digest($input, 'sha512');
-
         return $signature;
     }
 
+    // tandain
     protected function _handleNotification()
     {
         $notification = new Notification();
 
-        $orderNumber = $notification->order_id;
-        $order = Orders::where('number', $orderNumber)->first();
+        $orderId = $notification->order_id;
+        $order = Order::where('uuid', $orderId)->first();
 
         $this->notification = $notification;
         $this->order = $order;

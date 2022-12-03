@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\ReviewRating;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\BukuController;
@@ -15,8 +16,10 @@ use App\Http\Controllers\PenerbitController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\BestSellerController;
+use App\Http\Controllers\AdminOrdersController;
 use App\Http\Controllers\AdminReviewsController;
 use App\Http\Controllers\HomeCategoriesController;
+use App\Http\Controllers\PaymentCallbackController;
 use App\Http\Controllers\UserProfilePasswordController;
 use App\Http\Controllers\AdminProfilePasswordController;
 
@@ -65,6 +68,7 @@ Route::get('/admin/dashboard/penerbit/{penerbit:slug}', [PenerbitController::cla
 Route::resource('customer', CustomerController::class)->middleware('admin');
 //Comments routes from admin
 Route::resource('admin-reviews', AdminReviewsController::class)->middleware('admin');
+Route::resource('admin-orders', AdminOrdersController::class)->middleware('admin');
 
 // profile & change password routes from admin
 Route::group([
@@ -112,13 +116,20 @@ Route::get('/home-categories', [HomeCategoriesController::class, 'index'])->midd
 // routes Cart in client
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index')->middleware('auth');
 Route::post('/cart-store', [CartController::class, 'store'])->name('cart.store')->middleware('auth');
-Route::post('/cart-update', [CartController::class, 'update'])->name('cart.update')->middleware('auth');
-Route::post('/cart-remove', [CartController::class, 'remove'])->name('cart.remove')->middleware('auth');
+Route::post('/cart-update/{id}', [CartController::class, 'update'])->name('cart.update')->middleware('auth');
+Route::post('/cart-remove/{id}', [CartController::class, 'remove'])->name('cart.remove')->middleware('auth');
 
 // routes checkout in client
-
-Route::any('/tes',[CheckoutController::class, 'storeOrder'])->name('tes')->middleware('auth');
-Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index')->middleware('auth');
 Route::get('/city/{id}', [CheckoutController::class, 'getCity'])->name('city')->middleware('auth');
-Route::get('/origin={city_origin}&destination={city_destination}&weight={weight}&courier={courier}', [CheckoutController::class, 'getOngkir'])->middleware('auth');
+Route::get('/destination={city_destination}&weight={weight}&courier={courier}', [CheckoutController::class, 'getOngkir'])->middleware('auth');
+Route::get('/checkout/create', [CheckoutController::class, 'create'])->name('checkout.create')->middleware('auth');
+Route::any('/checkout/store', [CheckoutController::class, 'store'])->name('checkout.store')->middleware('auth');
+Route::get('/checkout/valid', [CheckoutController::class, 'valid'])->name('checkout.valid')->middleware('auth');
+Route::post('/checkout/valid', [CheckoutController::class, 'validData'])->name('valid.data')->middleware('auth');
+Route::post('/checkout/confirm', [CheckoutController::class, 'confirm'])->name('checkout.confirm')->middleware('auth');
 // Route::any('/tes',[CheckoutController::class, 'show'])->name('tes')->middleware('auth');
+// Route::any('/tes',[CheckoutController::class, 'storeOrder'])->name('tes')->middleware('auth');
+
+// route paymentController
+// Route::get('/payments/midtrans-notification', [PaymentCallbackController::class, 'tes']);
+// Route::post('/payments/midtrans-notifications', [PaymentCallbackController::class, 'receive'])->middleware('auth');

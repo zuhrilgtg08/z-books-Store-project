@@ -3,14 +3,20 @@
     <h1 class="h2 mb-3 text-gray-800 text-center">Penerbit Managements</h1>
 
     @if (session()->has('success'))
-        <div class="alert alert-success col-md-8" role="alert">
+        <div class="alert alert-success col-md-8 alert-dismissible fade show" role="alert">
             {{ session('success') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
     @endif
-
+    
     @if (session()->has('errors'))
-        <div class="alert alert-danger col-md-8" role="alert">
+        <div class="alert alert-danger col-md-8 alert-dismissible fade show" role="alert">
             {{ session('errors') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
     @endif
 

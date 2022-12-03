@@ -18,7 +18,7 @@ class BukuSeeder extends Seeder
         Buku::create([
             'kode_buku' => 'D0001',
             'judul_buku' => 'Default Books',
-            'harga' => 150000,
+            'harga' => 20000,
             'stok' => 3,
             'category_id' => 1,
             'author_id' => 1,

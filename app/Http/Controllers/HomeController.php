@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Buku;
 use App\Models\User;
+use App\Models\Order;
+use App\Models\Keranjang;
 use App\Models\Author;
 use App\Models\Category;
 use App\Models\Penerbit;
@@ -33,11 +35,11 @@ class HomeController extends Controller
 
         return view('pages.home', [
             "tag" => $tag,
-            "data" => Buku::latest()->filter(request(['search', 'category', 'penerbit', 'author']))->paginate(9)->withQueryString()
+            "data" => Buku::latest()->filter(request(['search', 'category', 'penerbit', 'author']))->paginate(9)->withQueryString(),
         ]);
     }
 
-    public function info($id, Request $request)
+    public function info($id)
     {
         $idBuku = Buku::findOrFail($id);
         $reviews = ReviewRating::where([
@@ -47,7 +49,7 @@ class HomeController extends Controller
 
         return view('pages.homeInfoBuku', [
             "info" => $idBuku,
-            "reviews" => $reviews
+            "reviews" => $reviews,
         ]);
     }
 

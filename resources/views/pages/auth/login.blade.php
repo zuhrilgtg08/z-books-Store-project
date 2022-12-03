@@ -12,6 +12,22 @@
             height: calc(100% - 73px);
         }
 
+        .img-sample img{
+            animation: bounce 3s linear infinite;;
+            transition: all ease-in-out .3s;
+        }
+
+        @keyframes bounce {
+            0%,
+            100% {
+                transform: translateY(0rem);
+            }
+            
+            50% {
+                transform: translateY(-1rem);
+            }
+        }
+
         @media (max-width: 450px) {
             .h-custom {
                 height: 100%;
@@ -22,9 +38,9 @@
     <div class="row justify-content-center my-5">
         <div class="container h-custom mt-4">
             <div class="row d-flex justify-content-center align-items-center h-100 my-5">
-                <div class="col-md-9 col-lg-6 col-xl-5">
+                <div class="col-md-9 col-lg-6 col-xl-5 img-sample">
                     <img src="{{ asset('assets/images/books-illustrasi.png') }}"
-                        class="img-fluid" alt="Sample image">
+                        class="img-fluid rounded-0" alt="Sample image">
                 </div>
                 <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
                     @if (session()->has('success'))

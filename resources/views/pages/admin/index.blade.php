@@ -1,72 +1,89 @@
 @extends('dashboard.layouts.admin', ['sbActive' => 'dashboard'])
 @section('admin-content')
+    <style>
+        .box:hover {
+            transform: scale(1.1);
+            transition: .3s ease-in-out;
+        }
+
+        .box a:hover {
+            text-decoration: underline;
+            color: #333;
+        }
+
+        a{
+            text-decoration: none;
+            color: #333;
+        }
+    </style>
+
 <div class="row justify-content-center mt-3">
-    <div class="col-xl-3 col-md-6 mb-4">
+    <div class="col-xl-3 col-md-6 mb-4 box">
         <div class="card border-left-success shadow h-100 py-2">
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="font-weight-bold text-dark text-uppercase mb-1">
-                            Data Buku
+                            <a href="{{ route('buku.index') }}">Data Buku</a>
                         </div>
                         <div class="h5 mb-0 font-weight-bold text-dark">{{ $buku->count() . " Buku" }}</div>
                     </div>
                     <div class="col-auto">
-                        <i class="fas fa-fw fa-book fa-2x"></i>
+                        <i class="fas fa-fw fa-book fa-2x text-success"></i>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="col-xl-3 col-md-6 mb-4">
+    <div class="col-xl-3 col-md-6 mb-4 box">
         <div class="card border-left-warning shadow h-100 py-2">
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="font-weight-bold text-dark text-uppercase mb-1">
-                            Data Author
+                            <a href="{{ route('author.index') }}">Data Author</a>
                         </div>
                         <div class="h5 mb-0 font-weight-bold text-dark">{{ $author->count() . " Author" }}</div>
                     </div>
                     <div class="col-auto">
-                        <i class="fas fa-fw fa-user fa-2x"></i>
+                        <i class="fas fa-fw fa-user fa-2x text-warning"></i>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="col-xl-3 col-md-6 mb-4">
+    <div class="col-xl-3 col-md-6 mb-4 box">
         <div class="card border-left-primary shadow h-100 py-2">
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="font-weight-bold text-dark text-uppercase mb-1">
-                            Data Penerbit
+                            <a href="{{ route('penerbit.index') }}">Data Penerbit</a>
                         </div>
                         <div class="h5 mb-0 font-weight-bold text-dark">{{ $penerbit->count() . " Penerbit" }}</div>
                     </div>
                     <div class="col-auto">
-                        <i class="fas fa-fw fa-globe-asia fa-2x"></i>
+                        <i class="fas fa-fw fa-globe-asia fa-2x text-primary"></i>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="col-xl-3 col-md-6 mb-4">
+    <div class="col-xl-3 col-md-6 mb-4 box">
         <div class="card border-left-danger shadow h-100 py-2">
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="font-weight-bold text-dark text-uppercase mb-1">
-                            Categories
+                            <a href="{{ route('categories.index') }}">Data Category</a>
                         </div>
-                        <div class="h5 mb-0 font-weight-bold text-dark">{{ $category->count() . " Category" }}</div>
+                        <div class="h5 mb-0 font-weight-bold text-dark">{{ $category->count() . " Categories" }}</div>
                     </div>
                     <div class="col-auto">
-                        <i class="fab fa-fw fa-buffer fa-2x"></i>
+                        <i class="fab fa-fw fa-buffer fa-2x text-danger"></i>
                     </div>
                 </div>
             </div>

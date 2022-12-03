@@ -1,13 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
-use Gloudemans\Shoppingcart\Facades\Cart;
-use App\Models\User;
-use App\Models\Province;
-use App\Models\Cities;
-use App\Models\Order;
 use App\Models\Buku;
+use App\Models\User;
+use App\Models\Order;
+use App\Models\Cities;
+use App\Models\Province;
+use App\Models\Keranjang;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Arr;
 use App\Services\Midtrans\CreateSnapTokenService;
 
 class CheckoutController extends Controller
@@ -15,11 +17,10 @@ class CheckoutController extends Controller
     public function getCity($id)
     {
         $cities = Cities::where('province_id', '=', $id)->select(['id', 'nama_kab_kota'])->get();
-        // $dataCity = json_encode($cities);
         return response()->json($cities);
     }
 
-    public function getOngkir($origin, $destination, $weight, $courier)
+    public function getOngkir($destination, $weight, $courier)
     {
         $curl = curl_init();
 
@@ -31,7 +32,7 @@ class CheckoutController extends Controller
             CURLOPT_TIMEOUT => 30,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_POSTFIELDS => "origin=$origin&destination=$destination&weight=$weight&courier=$courier",
+            CURLOPT_POSTFIELDS => "origin=444&destination=$destination&weight=$weight&courier=$courier",
             CURLOPT_HTTPHEADER => array(
                 "content-type: application/x-www-form-urlencoded",
                 "key: 91dd56b26cc7b9a58d9c1112b28d9244"
@@ -52,79 +53,111 @@ class CheckoutController extends Controller
         }
     }
 
-    public function storeOrder(Request $request, Order $order) 
+    public function create()
     {
-        // $this->validate($request, [
-        //     'user_id' => 'required|max:100',
-        //     'province_id' => 'required|max:100',
-        //     'city_id' => 'required|max:100',
-        //     'destination_id' => 'required|max:100',
-        //     'courier' => 'required|max:100',
-        //     'quantity' => 'required|numeric',
-            // 'total_belanja' => 'required|numeric',
-        //     'weight' => 'required|numeric',
-        //     'cost_services' => 'required|numeric',
-        // ]);
+        // $totalBelanja = 0;
+        // $totalBerat = 0;
+        $provinces = Province::all();
+        // $itemData = Keranjang::where('id_user', Auth::user()->id)->get();
+        // foreach($itemData as $item) {
+        //     $totalBerat += $item->buku->weight * $item->quantity;
+        //     $totalBelanja += $item->buku->harga * $item->quantity;
+        // }
 
-        $paymentStatus = 1;
-        $hargaTotal = ($request->cost_services + $request->total_belanja) + 2000;
-        $snapToken = $order->snap_token;
-        if (empty($snapToken)) {
-            // Jika snap token masih NULL, buat token snap dan simpan ke database
-            $midtrans = new CreateSnapTokenService($order);
-            $snapToken = $midtrans->getSnapToken();
-            $order->snap_token = $snapToken;
-        }
+        return view('pages.checkout.index', 
+            compact('provinces'));
+    }
+    
+    public function store(Request $request) 
+    {
+        $validateData = $request->validate([
+            'user_id' => 'required|max:150',
+            'province_id' => 'required|max:150',
+            'destination_id' => 'required|max:150',
+            'courier' => 'required|max:150',
+            'weight' => 'required|numeric',
+            'alamat' => 'required|max:150',
+            'harga_ongkir' => 'required|numeric',
+            'total_belanja' => 'required|numeric',
+        ]);
 
-        $validateData = [
-            // 'user_id' => $request->user_id,
-            // 'province_id' => $request->province_id,
-            // 'city_id' => $request->city_id,
-            // 'destination_id' => $request->destination_id,
-            // 'courier' => $request->courier,
-            // 'quantity' => $request->quantity,
-            // 'weight' => $request->weight,
-            // 'cost_services' => $request->cost_services,
-            // 'total_belanja' => $request->total_belanja,
-            'total_price' => $hargaTotal,
-            'payment_status' => $paymentStatus,
-            'snap_token' => $snapToken
-        ];
+        $validateData = Arr::except($request->all(), [
+            '_token', 'phone'
+        ]);
 
-        // dd($validateData);
-        $order->create($validateData);
+        $validateData['status'] = 'pending';
+        $order = Order::create($validateData);
 
         if ($order) {
-            return redirect()->route('tes')->with('success', 'Order berhasil di tambahkan');
+            if (empty($validateData['snap_token'])) {
+                $midtrans = new CreateSnapTokenService($order);
+                $snapToken = $midtrans->getSnapToken();
+
+                $order->update(['snap_token' => $snapToken]);
+            }
+            return redirect()->route('checkout.valid')->with('success', 'Pesanan berhasil di tambahkan');
         } else {
-            return redirect()->route('tes')->with('errors', 'Order gagal di tambahkan');
+            return redirect()->route('checkout.valid')->with('errors', 'Pesanan gagal di tambahkan');
         }
     }
 
-    public function index(Order $order)
+    public function valid()
     {
-        // $weightBuku = Buku::select('weight')->first();
-        $midtrans = new CreateSnapTokenService($order);
-        $snapToken = $midtrans->getSnapToken();
-        $order->snap_token = $snapToken;
-        
-        // dd($token_snap);
-        $cart = Cart::Content();
-        $total_berat = 0;
-        $qty_Total = 0;
-        foreach ($cart as $item) {
-            $total_berat += $item->weight * $item->qty;
-            $qty_Total += $item->qty;
+        $dataValid = Order::where('user_id', '=', Auth::user()->id)->get();
+        $dataValid = Order::all();
+        $provinsi = 0;
+        $snapToken = null;
+        foreach ($dataValid as $item) {
+            $snapToken = $item->snap_token;
+            $provinsi = $item->province_id;
         }
 
-        $allProvince = Province::all();
-        return view('pages.checkout.index', [
-            'provinces' => $allProvince,
-            'totalBerat' => $total_berat,
-            'qty_Total' => $qty_Total,
-            'snapToken' => $snapToken
-        ]);
+        return view('pages.checkout.valid', compact('snapToken', 'provinsi'));
     }
+
+    public function validData(Request $request)
+    {
+        $jsonOrder = json_decode($request->json);
+        $dataOrder = [
+            'transaction_id' => $jsonOrder->transaction_id,
+            'status' => $jsonOrder->transaction_status,
+            'payment_type' => $jsonOrder->payment_type,
+            'payment_code' => isset($jsonOrder->payment_code) ? $jsonOrder->payment_code : null,
+            'pdf_url' => isset($jsonOrder->pdf_url) ? $jsonOrder->pdf_url : null
+        ];
+
+        $order = Order::where('uuid', '=', $jsonOrder->order_id);
+        if($order) {
+            $order->update($dataOrder);
+        }
+
+        // dd($order);
+
+        if ($order) {
+            return redirect()->route('checkout.valid')->with('success', 'Pesanan berhasil di update');
+        } else {
+            return redirect()->route('checkout.valid')->with('errors', 'Pesanan gagal di update');
+        }
+    }
+
+    public function confirm(Request $request)
+    {
+        
+    }
+
+    // public function show(Order $order)
+    // {
+    //     $newSnapToken = null;
+    //     foreach($order as $data) {
+    //         $newSnapToken = $data->snap_token;
+    //     }
+        
+    //     return view('pages.checkout.index',[
+    //         'snapToken' => $newSnapToken
+    //     ]);
+    // }
+
+    
 
     // public function show(Order $order)
     // {

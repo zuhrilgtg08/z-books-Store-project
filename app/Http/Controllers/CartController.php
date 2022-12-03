@@ -3,66 +3,54 @@
 namespace App\Http\Controllers;
 
 use App\Models\Buku;
+use App\Models\Keranjang;
 use Illuminate\Http\Request;
-use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
     public function index()
     {
-        $cart = Cart::Content();
-        $total_berat = 0;
-        foreach ($cart as $item) {
-            $total_berat += $item->weight * $item->qty;
-        }
-        // dd($cart);
-        // dd($total_berat);
-        return view('pages.homeCart.index', compact('cart', 'total_berat'));
+        $result = Keranjang::where('user_id', Auth::user()->id)->get();
+        // dd($result);
+
+        return view('pages.homeCart.index', compact('result'));
     }
 
     public function store(Request $request)
     {
-        $product_buku = Buku::findOrfail($request->input('buku_product_id'));
-        Cart::add(
-            [
-                'id' => $product_buku->id,
-                'name' => $product_buku->judul_buku,
-                'qty' => $request->input('quantity'),
-                'price' => $product_buku->harga,
-                'weight' => $product_buku->weight,
-                'options' => [
-                    'kode_buku' => $product_buku->kode_buku, 
-                    'image' => $request->input('image'),
-                    'stok' => $product_buku->stok
-                ],
-            ]
-        );
-
+        $validatedData = $request->validate([
+            'buku_id' => 'required',
+        ]);
+        // dd($request->all());
+        $item = Keranjang::where('buku_id', $request->buku_id)
+                            ->where('user_id', auth()->user()->id)->first();
+        // dd($item);
+        if ($item) {
+            $item->update(['quantity' => $item->quantity + 1]);
+        } else {
+            $validatedData['user_id'] = auth()->user()->id;
+            $validatedData['quantity'] = $request->quantity;
+            $validatedData['status'] = 'pending';
+            Keranjang::create($validatedData);
+        }
         return redirect()->route('cart.index')->with('success', 'Buku berhasil ditambahkan ke Keranjang!');
     }
 
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        $rowId = $request->rowId;
-        // $buku = Buku::find($request->id);
-        Cart::update($rowId, [
-            // "price" => $buku->harga * $request->quantity,
-            "qty" => $request->quantity,
-        ]);
+        $datas = [
+            'quantity' => $request->input('quantity'),
+        ];
+
+        Keranjang::findOrFail($id)->update($datas);
 
         return redirect()->route('cart.index')->with('success', 'Buku pesanan anda berhasil diupdate!');
     }
 
-    public function remove(Request $request)
+    public function remove($id)
     {
-        $rowId = $request->rowId;
-        Cart::remove($rowId);
-
+        Keranjang::destroy($id);
         return redirect()->route('cart.index')->with('delete', 'Buku pesanan anda dihapus dari Keranjang!');
-    }
-
-    public function sumWeight(Request $request) {
-        $berat_buku = Buku::findOrfail($request->input('buku_product_id'));
-        dd($berat_buku);
     }
 }

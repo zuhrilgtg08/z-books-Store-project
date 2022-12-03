@@ -50,10 +50,10 @@
     </li>
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
-    <li class="nav-item {{ isset($sbActive) && $sbActive === 'historyOrder' ? 'active' : '' }}">
-        <a class="nav-link" href="#">
+    <li class="nav-item {{ isset($sbActive) && $sbActive === 'ordersCustomer' ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('admin-orders.index') }}">
             <i class="fas fw fa-history"></i>
-            <span>History Order</span>
+            <span>Orders Customer</span>
         </a>
     </li>
     <hr class="sidebar-divider my-0">

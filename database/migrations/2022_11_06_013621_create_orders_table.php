@@ -15,17 +15,18 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            // $table->foreignId('user_id')->constrained('users')->onDelete('restrict');
-            // $table->foreignId('province_id')->constrained('provinces')->onDelete('restrict');
-            // $table->foreignId('city_id')->constrained('cities')->onDelete('restrict');
-            // $table->foreignId('destination_id')->constrained('cities')->onDelete('restrict');
-            // $table->string('courier');
-            // $table->integer('quantity');
-            // $table->float('weight');
-            // $table->integer('cost_services');
-            // $table->integer('total_belanja');
-            $table->integer('total_price');
-            $table->enum('payment_status', ['1', '2', '3', '4'])->comment('1=menunggu pembayaran, 2=sudah dibayar, 3=kadaluarsa, 4=batal');
+            $table->uuid();
+            $table->foreignId('keranjang_id')->constrained('keranjangs');
+            $table->foreignId('province_id')->constrained('provinces')->onDelete('restrict');
+            $table->foreignId('destination_id')->constrained('cities')->onDelete('restrict');
+            $table->string('courier');
+            $table->float('weight');
+            $table->string('transaction_id')->nullable();
+            $table->integer('harga_ongkir');
+            $table->integer('total_harga_akhir');
+            $table->string('alamat');
+            $table->string('payment_type')->nullable();
+            $table->string('payment_code')->nullable();
             $table->string('snap_token', 36)->nullable();
             $table->timestamps();
         });

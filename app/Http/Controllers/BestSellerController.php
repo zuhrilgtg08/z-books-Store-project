@@ -60,7 +60,7 @@ class BestSellerController extends Controller
                 return $buku->star_rating >= 4;
             });
         }
-        
+
         return view('pages.bestSeller', [
             'bukus' => $bestBukus,
             'harga_min' => $harga_min,

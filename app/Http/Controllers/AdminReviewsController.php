@@ -76,7 +76,7 @@ class AdminReviewsController extends Controller
     public function show($id)
     {
         $buku = Buku::where('id', '=', $id)->get(['image', 'sinopsis', 'judul_buku']);
-        $userRating = ReviewRating::with('user')->where('id_buku', '=', $id)->Where('id_user', '<>', 1)->get(['star_rating', 'comments', 'id_user']);
+        $userRating = ReviewRating::with('user')->where('id_buku', '=', $id)->where('id_user', '<>', 1)->get(['star_rating', 'comments', 'id_user']);
 
         return view('pages.admin.adminReviews.show', compact('buku', 'userRating'));
     }

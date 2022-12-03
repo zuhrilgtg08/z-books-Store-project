@@ -66,7 +66,14 @@
             Back to Home
         </a>
     </div>
-    <div class="col-md-10 mt-3 text-center">
+    <div class="col-lg-4 mt-4">
+        <a href="{{ route('home.rating', auth()->user()->id) }}" class="btn btn-success" data-bs-toggle="modal"
+            data-bs-target="#rating">
+            <i class="fas fa-fw fa-thumbs-up"></i>
+            Add Rating
+        </a>
+    </div>
+    <div class="col-md-6 mt-4">
         @if (session()->has('success'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -99,21 +106,22 @@
                         <p class="card-text font-semibold">Stok: {{ $info->stok }} Buku</p>
                         <p class="card-text font-semibold">Berat: {{ $info->weight / 1000}} Kg</p>
                         <p class="card-text font-semibold">Harga: @currency($info->harga)</p>
-                        <a href="{{ route('home.rating', auth()->user()->id) }}" class="btn btn-success" data-bs-toggle="modal"
-                            data-bs-target="#rating">
-                            <i class="fas fa-fw fa-thumbs-up"></i>
-                            Beri Rating
-                        </a>
-                        <form action="{{ route('cart.store') }}" method="POST" enctype="multipart/form-data" class="d-inline">
-                            @csrf
-                            <input type="hidden" name="buku_product_id" value="{{ $info->id }}" />
-                            <input type="hidden" name="image" name="image" value="{{ $info->image }}" />
-                            <input type="hidden" name="quantity" value="1" />
-                            <button type="submit" class="btn btn-danger">
-                                <i class="fas fa-fw fa-shopping-cart"></i>
-                                Add To Cart
-                            </button>
-                        </form>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <form action="{{ route('cart.store') }}" method="POST" class="d-inline">
+                                    @csrf
+                                    <input type="hidden" name="buku_id" value="{{ $info->id }}" />
+                                    <input type="number" name="quantity" min="1" max="{{ $info->stok }}" 
+                                        class="form-control text-center" value="1" />
+                            </div>
+                            <div class="col-md-6">
+                                    <button type="submit" class="btn btn-danger">
+                                        <i class="fas fa-fw fa-shopping-cart"></i>
+                                        Add To Cart
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

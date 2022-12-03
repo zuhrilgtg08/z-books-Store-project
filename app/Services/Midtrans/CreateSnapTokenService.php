@@ -3,6 +3,9 @@
 namespace App\Services\Midtrans;
 
 use Midtrans\Snap;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Keranjang;
+use App\Models\Order;
 
 class CreateSnapTokenService extends Midtrans
 {
@@ -17,29 +20,35 @@ class CreateSnapTokenService extends Midtrans
 
     public function getSnapToken()
     {
+        $item_details = [];
+        $dataCart = Keranjang::with('buku')->where('status', '=', 'settlement')->get();
+
+        foreach($dataCart as $item) {
+            $item_details[] = [
+                'id' => $item->uuid,
+                'price' => $item->buku->harga,
+                'quantity' => $item->quantity,
+                'name' => $item->buku->judul_buku
+            ];
+        }
+
+        $item_details[] = [
+            'id' => $this->order->id,
+            'price' => $this->order->harga_ongkir,
+            'name' => 'Ongkos Kirim',
+            'quantity' => 1
+        ];
+
         $params = [
             'transaction_details' => [
-                'order_id' => rand(),
-                'gross_amount' => 100000,
+                'order_id' => $this->order->uuid,
+                'gross_amount' => $this->order->total_harga_akhir,
             ],
-            'item_details' => [
-                [
-                    'id' => 1,
-                    'price' => '150000',
-                    'quantity' => 1,
-                    'name' => 'Dummy Buku 1',
-                ],
-                [
-                    'id' => 2,
-                    'price' => '60000',
-                    'quantity' => 2,
-                    'name' => 'Dummy Buku 2',
-                ],
-            ],
+            'item_details' => $item_details,
             'customer_details' => [
-                'first_name' => 'Ahmad Zuhril F',
-                'email' => 'ahmadzuhril95@gmail.com',
-                'phone' => '081234567890',
+                'first_name' => Auth::user()->name,
+                'email' => Auth::user()->email,
+                'phone' => Auth::user()->number_phone,
             ]
         ];
 

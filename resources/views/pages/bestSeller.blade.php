@@ -60,47 +60,50 @@
                     <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                         @if ($bukus->count())
                             @foreach ($bukus as $data)
-                            <div class="col-md-4 mb-5">
-                                <div class="card h-100 border-0 shadow-lg">
-                                    <!-- Product image-->
-                                    @if ($data->image)
+                                <div class="col-md-4 mb-5">
+                                    <div class="card h-100 border-0 shadow-lg">
+                                        <!-- Product image-->
+                                        @if ($data->image)
                                         <img class="card-img-top" src="{{ asset('storage/' . $data->image) }}" alt="cover-book"
                                             style="width: 100%; height: 100%; object-fit: cover;" />
-                                    @else
+                                        @else
                                         <img class="card-img-top" src="{{ asset('assets/images/cover-404.jpg') }}" alt="cover-book"
                                             style="width: 100%; height: 100%; object-fit: cover;" />
-                                    @endif
-                                    <!-- Product details-->
-                                    <div class="card-body p-2">
-                                        <div class="text-center">
-                                            <!-- Product name-->
-                                            <h6 class="fw-semibold">{{ $data->judul_buku }}</h6>
-                                            <!-- Product Rating-->
-                                            <p class="mt-1">
-                                                Rating : {{ $data->star_rating }}
-                                                <i class="fas fa-fw fa-star text-warning"></i>
-                                            </p>
-                                            <!-- Product price-->
-                                            <span class="fw-bolder badge text-bg-success fs-6 mb-3">@currency($data->harga)</span>
+                                        @endif
+                                        <!-- Product details-->
+                                        <div class="card-body p-2">
+                                            <div class="text-center">
+                                                <!-- Product name-->
+                                                <h6 class="fw-semibold">{{ $data->judul_buku }}</h6>
+                                                <!-- Product Rating-->
+                                                <p class="mt-1">
+                                                    Rating : {{ $data->star_rating }}
+                                                    <i class="fas fa-fw fa-star text-warning"></i>
+                                                </p>
+                                                <!-- Product price-->
+                                                <span class="fw-bolder badge text-bg-success fs-6 mb-3">@currency($data->harga)</span>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <!-- Product button cart-->
-                                    <div class="card-footer p-2 border-top-0 bg-transparent">
-                                        <div class="text-center">
-                                            <form action="{{ route('cart.store') }}" method="POST" enctype="multipart/form-data">
-                                                @csrf
-                                                <input type="hidden" name="buku_product_id" value="{{ $data->id }}" />
-                                                <input type="hidden" name="image" name="image" value="{{ $data->image }}" />
-                                                <input type="hidden" name="quantity" value="1" />
-                                                <button type="submit" class="btn btn-danger mt-auto">
-                                                    <i class="fas fa-fw fa-shopping-cart"></i>
-                                                    Add To Cart
-                                                </button>
-                                            </form>
+                                        <!-- Product button cart-->
+                                        <div class="card-footer p-2 border-top-0 bg-transparent">
+                                            <div class="text-center row">
+                                                <div class="col-md-7">
+                                                    <form action="{{ route('cart.store') }}" method="POST">
+                                                        @csrf
+                                                        <input type="hidden" name="buku_id" value="{{ $data->id }}" />
+                                                            <input type="number" name="quantity" max="{{ $data->stok }}" min="1" 
+                                                                class="form-control text-center" value="1" />
+                                                </div>
+                                                <div class="col-md-5">
+                                                        <button type="submit" class="btn btn-danger">
+                                                            <i class="fas fa-fw fa-cart-plus"></i>
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
                             @endforeach
                         @else
                             <div class="col-md-4 mb-5">
@@ -115,8 +118,8 @@
 @endsection
 
 @section('script')
-    <script>
-        $(document).ready(function() {
+<script>
+    $(document).ready(function() {
             $( "#slider-range" ).slider({
                 range: true,
                 min: {{ Js::from($harga_min) }},
@@ -128,5 +131,5 @@
                 }
             });
         });
-    </script>
+</script>
 @endsection

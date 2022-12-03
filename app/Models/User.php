@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Models\ReviewRating;
-use App\Models\Buku;
+use App\Models\Order;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -53,8 +53,8 @@ class User extends Authenticatable
         return $this->hasMany(ReviewRating::class, 'id_user');
     }
 
-    public function buku()
+    public function order()
     {
-        return $this->hasMany(Buku::class);
+        return $this->hasMany(Order::class);
     }
 }

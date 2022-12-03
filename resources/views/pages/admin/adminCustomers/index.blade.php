@@ -6,8 +6,11 @@
             <h1 class="h2 text-gray-800 text-center">Customers Manage</h1>
         </div>
             @if (session()->has('errors'))
-                <div class="alert alert-danger col-md-8 mt-3 ml-3" role="alert">
+                <div class="alert alert-danger col-md-8 mt-3 ml-3 alert-dismissible fade show" role="alert">
                     {{ session('errors') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
             @endif
         <div class="card-body mt-3">

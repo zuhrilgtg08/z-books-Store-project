@@ -29,10 +29,12 @@
                             <a class="nav-link {{ Request::is('cart') ? 'active' : '' }}" href="{{ route('cart.index') }}">
                                 <i class="fas fa-fw fa-shopping-cart"></i>
                                 Cart
-                                <span class="badge bg-danger text-white ms-1 rounded-pill">
-                                    {{ Cart::content()->count() }}
-                                </span>
-                            </a>
+                                @if (!empty($keranjang))
+                                    <span class="badge bg-danger text-white ms-1 rounded-pill">
+                                        {{ $keranjang->count() }}
+                                    </span>
+                                @endif
+                            </a> 
                         </div>
                     </ul>
 
@@ -41,6 +43,13 @@
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 Welcome Back, {{ auth()->user()->name }}
+                                
+                                @if (auth()->user()->image)
+                                    <img src="{{ asset('storage/' . auth()->user()->image) }}" alt="profile" class="rounded-circle" width="40" height="40" />
+                                @else
+                                    <img src="{{ asset('sbadmin/img/undraw_profile.svg') }}" alt="profile" class="rounded-circle" width="40" height="40" />
+                                @endif
+                                
                             </a>
 
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -49,7 +58,8 @@
                                         <li>
                                             <a class="dropdown-item" href="/admin/dashboard">
                                                 <i class="fa-solid fa-server"></i> 
-                                                Admin Dashboard</a>
+                                                Admin Dashboard
+                                            </a>
                                         </li>
                                         <li>
                                             <hr class="dropdown-divider">

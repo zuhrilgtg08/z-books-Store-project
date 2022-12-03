@@ -28,55 +28,52 @@
 
     <div class="row justify-content-center my-5 mt-3">
         <div class="col-md-12 mt-4">
-            <table class="table table-striped text-center table-bordered">
+            <table class="table table-striped text-center table-bordered" id="table-data">
                 <thead class="bg-dark text-light">
                     <tr>
                         <th scope="col">No</th>
-                        <th scope="col">Cover</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Code</th>
-                        <th scope="col">Quantity</th>
+                        <th scope="col">Judul Buku</th>
+                        <th scope="col">Kode</th>
+                        <th scope="col">Jumlah</th>
                         <th scope="col">Harga</th>
                         <th scope="col" colspan="2">Action</th>
                     </tr>
                 </thead>
                 <tbody class="align-middle">
                     @php $no = 1; @endphp
-                    @foreach ($cart as $item)
+                    @foreach ($result as $item)
                         <tr class="align-content-center">
                             <td scope="row">{{ $no++ }}</td>
                             <td>
-                                <img src="{{ asset('storage/' . $item->options->image) }}" 
-                                    alt="cover" class="img-fluid" width="100"/>
+                                <h5>{{ $item->buku->judul_buku }}</h5>
                             </td>
-                            <td><h5>{{ $item->name }}</h5></td>
-                            <td><h5>{{ $item->options->kode_buku }}</h5></td>
+                            <td>
+                                <h5>{{ $item->buku->kode_buku }}</h5>
+                            </td>
+
                             <!-- Update Cart -->
-                            <form action="{{ route('cart.update') }}" method="POST">
+                            <form action="{{ route('cart.update', $item->id) }}" method="POST" id="submit_form">
                                 @csrf
-                                <input type="hidden" value="{{ $item->rowId }}" name="rowId" />
-                                <input type="hidden" value="{{ $item->id }}" name="id" />
                                 <td>
                                     <div class="col-md-6 m-auto">
-                                        <input type="number" value="{{ $item->qty }}" name="quantity" min="1" max="{{ $item->options->stok }}" 
-                                            class="form-control text-center qty" />
+                                        @if($item->quantity >= $item->buku->stok)
+                                            <input type="number" value="{{ $fixQty }}" name="quantity" min="1" max="{{ $item->buku->stok }}"
+                                                class="form-control text-center qty" disabled />
+                                        @else
+                                            <input type="number" value="{{ $item->quantity }}" name="quantity" min="1" max="{{ $item->buku->stok }}"
+                                                class="form-control text-center qty" />
+                                        @endif
                                     </div>
                                 </td>
                                 <td>
-                                    <h5>@currency($item->price)</h5>
-                                </td>
-                                <td>
-                                    <button type="submit" class="btn btn-success">
-                                        <i class="far fa-fw fa-edit"></i> Update
-                                    </button>
+                                    <h5>@currency($item->buku->harga * $item->quantity)</h5>
                                 </td>
                             </form>
                             <!-- End Update Cart -->
                             <!-- Remove Cart -->
-                            <form action="{{ route('cart.remove') }}" method="POST">
+                            <form action="{{ route('cart.remove', $item->id) }}" method="POST">
                                 @csrf
                                 <td>
-                                    <input type="hidden" value="{{ $item->rowId }}" name="rowId" />
                                     <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin di hapus?')">
                                         <i class="fas fa-fw fa-trash-alt"></i> Remove
                                     </button>
@@ -92,26 +89,39 @@
 
     <div class="row justify-content-end mt-3 my-3">
         <div class="col-md-4 text-end mt-3">
-            <a href="{{ route('checkout.index') }}" class="btn btn-warning text-end" id="checkout">
-                <i class="fas fa-fw fa-money-check"></i> Checkout
+            <a href="{{ route('checkout.create') }}" class="btn btn-warning text-end no-btn" id="checkout">
+                <i class="fas fa-fw fa-money-check"></i> Buat Pesanan
             </a>
         </div>
     </div>
 
-    <div class="row justify-content-end mt-3">
-        <div class="col-md-6 mt-3">
-            <h3 class="text-end">Total : @currency(Cart::priceTotal())</h3>
-        </div>
-    </div>
+    
 @endsection
 
 @section('script')
     <script>
-        let qty = document.getElementsByClassName("qty");
         let btnCheckout = document.querySelector("#checkout");
-        
-        Array.from(qty).forEach(q => q.addEventListener('change', function() {
+        let tableData = document.getElementById("table-data").rows.length;
+
+        if(tableData <= 1) {
             btnCheckout.classList.add('disabled');
-        }));
+        } else {
+            btnCheckout.classList.remove('disabled');
+        }
+
+        let form = document.querySelector('#submit_form');
+        let qty = document.getElementsByClassName("qty");
+        
+        Array.from(qty).forEach(function(q){
+            q.addEventListener('change', debounce(() => q.form.submit()));
+        });
+
+        function debounce(func, timeout = 50){
+            let timer;
+            return (...args) => {
+                clearTimeout(timer);
+                timer = setTimeout(() => { func.apply(this, args) }, timeout);
+            };
+        }
     </script>
 @endsection

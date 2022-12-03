@@ -41,7 +41,6 @@ class AdminProfilePasswordController extends Controller
 
         $admin->update($validateData);
 
-        // dd($super);
         if ($admin) {
             return back()->with('success', 'Profile berhasil di ubah');
         } else {

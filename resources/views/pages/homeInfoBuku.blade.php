@@ -111,8 +111,8 @@
                                 <form action="{{ route('cart.store') }}" method="POST" class="d-inline">
                                     @csrf
                                     <input type="hidden" name="buku_id" value="{{ $info->id }}" />
-                                    <input type="number" name="quantity" min="1" max="{{ $info->stok }}" 
-                                        class="form-control text-center" value="1" />
+                                    <input type="number" name="quantity" min="0" max="{{ $info->stok }}" 
+                                        class="form-control text-center" value="{{ ($info->stok > 0) ? 1 : 0 }}" />
                             </div>
                             <div class="col-md-6">
                                     <button type="submit" class="btn btn-danger">

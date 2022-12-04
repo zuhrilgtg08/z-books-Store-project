@@ -11,7 +11,8 @@ class CartController extends Controller
 {
     public function index()
     {
-        $result = Keranjang::where('user_id', Auth::user()->id)->get();
+        $result = Keranjang::where('user_id', Auth::user()->id)
+                            ->where('status', '=', 'pending')->get();
         $total = 0;
         foreach ($result as $item) {
             if($item->quantity >= $item->buku->stok) {
@@ -41,10 +42,12 @@ class CartController extends Controller
         }
 
         $item = Keranjang::where('buku_id', $request->buku_id)
-                            ->where('user_id', auth()->user()->id)->first();
-                            
+                            ->where('user_id', auth()->user()->id)
+                            ->where('status', '<>', 'settlement')->first();
         if ($item) {
             $item->update(['quantity' => $item->quantity + 1]);
+            $validatedData['user_id'] = auth()->user()->id;
+            $validatedData['status'] = 'pending';
         } else {
             $validatedData['user_id'] = auth()->user()->id;
             $validatedData['quantity'] = $request->quantity;

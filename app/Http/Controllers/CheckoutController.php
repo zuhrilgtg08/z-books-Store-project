@@ -69,7 +69,6 @@ class CheckoutController extends Controller
     
     public function store(Request $request) 
     {
-        // dd($request->all());
         $validateData = $request->validate([
             'keranjang_id' => 'required|max:150',
             'province_id' => 'required|max:150',
@@ -83,8 +82,12 @@ class CheckoutController extends Controller
 
         $dataKeranjang = Keranjang::where('user_id', Auth::user()->id)->get();
         foreach($dataKeranjang as $data) {
-            $data['status'] = 'settlement';
-            $data->update();
+            $data->update([
+                'status' => 'settlement'
+            ]);
+            $data->buku->update([
+                'stok' => $data->buku->stok - $data->quantity
+            ]);
         }
         
         $order = Order::create($validateData);
@@ -95,14 +98,13 @@ class CheckoutController extends Controller
                 $snapToken = $midtrans->getSnapToken();
                 $order->update(['snap_token' => $snapToken]);
             }
-            return redirect()->route('checkout.valid')->with('success', 'Pesanan berhasil di tambahkan');
+            return redirect()->route('checkout.pembayaran')->with('success', 'Pesanan berhasil di tambahkan');
         } else {
-            return redirect()->route('checkout.valid')->with('errors', 'Pesanan gagal di tambahkan');
+            return redirect()->route('checkout.pembayaran')->with('errors', 'Pesanan gagal di tambahkan');
         }
-        // dd($order);
     }
 
-    public function valid()
+    public function pembayaran()
     {
         // $dataValid = Order::where('user_id', '=', Auth::user()->id)->get();
         $dataValid = Order::all();
@@ -113,7 +115,32 @@ class CheckoutController extends Controller
             $provinsi = $item->province_id;
         }
 
-        return view('pages.checkout.valid', compact('snapToken', 'provinsi'));
+        return view('pages.checkout.pembayaran', compact('snapToken', 'provinsi'));
+    }
+
+    public function konfirmasiPembayaran(Request $request)
+    {
+        $jsonOrder = json_decode($request->json);
+        $dataOrder = [
+            'transaction_id' => $jsonOrder->transaction_id,
+            // 'status' => $jsonOrder->transaction_status,
+            'payment_type' => $jsonOrder->payment_type,
+            'payment_code' => isset($jsonOrder->payment_code) ? $jsonOrder->payment_code : null,
+            // 'pdf_url' => isset($jsonOrder->pdf_url) ? $jsonOrder->pdf_url : null
+        ];
+
+        $order = Order::where('uuid', '=', $jsonOrder->order_id);
+        if ($order) {
+            $order->update($dataOrder);
+        }
+
+        // dd($order);
+
+        if ($order) {
+            return redirect()->route('checkout.pembayaran')->with('success', 'Pesanan berhasil di bayar');
+        } else {
+            return redirect()->route('checkout.pembayaran')->with('errors', 'Pesanan gagal di bayar');
+        }
     }
 
 

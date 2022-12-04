@@ -124,9 +124,9 @@ Route::get('/city/{id}', [CheckoutController::class, 'getCity'])->name('city')->
 Route::get('/destination={city_destination}&weight={weight}&courier={courier}', [CheckoutController::class, 'getOngkir'])->middleware('auth');
 Route::get('/checkout/create', [CheckoutController::class, 'create'])->name('checkout.create')->middleware('auth');
 Route::any('/checkout/store', [CheckoutController::class, 'store'])->name('checkout.store')->middleware('auth');
-Route::get('/checkout/valid', [CheckoutController::class, 'valid'])->name('checkout.valid')->middleware('auth');
-// Route::post('/checkout/valid', [CheckoutController::class, 'validData'])->name('valid.data')->middleware('auth');
-Route::post('/checkout/confirm', [CheckoutController::class, 'confirm'])->name('checkout.confirm')->middleware('auth');
+Route::get('/checkout/pembayaran', [CheckoutController::class, 'pembayaran'])->name('checkout.pembayaran')->middleware('auth');
+Route::post('/checkout/pembayaran', [CheckoutController::class, 'konfirmasiPembayaran'])->name('checkout.konfirmasi_pembayaran')->middleware('auth');
+// Route::post('/checkout/confirm', [CheckoutController::class, 'confirm'])->name('checkout.confirm')->middleware('auth');
 // Route::any('/tes',[CheckoutController::class, 'show'])->name('tes')->middleware('auth');
 // Route::any('/tes',[CheckoutController::class, 'storeOrder'])->name('tes')->middleware('auth');
 

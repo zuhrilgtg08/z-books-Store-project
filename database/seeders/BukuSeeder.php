@@ -19,7 +19,7 @@ class BukuSeeder extends Seeder
             'kode_buku' => 'D0001',
             'judul_buku' => 'Default Books',
             'harga' => 20000,
-            'stok' => 3,
+            'stok' => 20,
             'category_id' => 1,
             'author_id' => 1,
             'penerbit_id' => 2,

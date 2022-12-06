@@ -12,7 +12,7 @@ class Order extends Model
 {
     use HasFactory, Traits;
     protected $guarded = ['id'];
-    protected $with = ['keranjang'];
+    // protected $with = ['keranjang'];
     protected $table = 'orders';
 
     public function keranjang()

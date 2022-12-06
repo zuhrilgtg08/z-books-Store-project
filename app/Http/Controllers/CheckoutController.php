@@ -57,7 +57,8 @@ class CheckoutController extends Controller
         $totalBelanja = 0;
         $totalBerat = 0;
         $provinces = Province::all();
-        $itemData = Keranjang::with('buku')->where('user_id', Auth::user()->id)->get();
+        $itemData = Keranjang::with('buku')->where('user_id', Auth::user()->id)
+                                            ->where('status', '=', 'pending')->get();
         foreach($itemData as $item) {
             $totalBerat += $item->buku->weight * $item->quantity;
             $totalBelanja += $item->buku->harga * $item->quantity;
@@ -86,7 +87,7 @@ class CheckoutController extends Controller
                 'status' => 'settlement'
             ]);
             $data->buku->update([
-                'stok' => $data->buku->stok - $data->quantity
+                'stok' => $data->buku->stok - $data['quantity']
             ]);
         }
         
@@ -120,6 +121,7 @@ class CheckoutController extends Controller
 
     public function konfirmasiPembayaran(Request $request)
     {
+        $keranjang = Keranjang::where('user_id', Auth::user()->id)->get();
         $jsonOrder = json_decode($request->json);
         $dataOrder = [
             'transaction_id' => $jsonOrder->transaction_id,
@@ -128,6 +130,10 @@ class CheckoutController extends Controller
             'payment_code' => isset($jsonOrder->payment_code) ? $jsonOrder->payment_code : null,
             // 'pdf_url' => isset($jsonOrder->pdf_url) ? $jsonOrder->pdf_url : null
         ];
+
+        foreach($keranjang as $data ) {
+            $data->update(['status' => 'sudah dibayar']);
+        }
 
         $order = Order::where('uuid', '=', $jsonOrder->order_id);
         if ($order) {

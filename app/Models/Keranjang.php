@@ -12,7 +12,7 @@ class Keranjang extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
-    protected $with = ['user', 'buku'];
+    protected $with = ['user', 'buku', 'order'];
     protected $table = 'keranjangs';
 
     public function buku()
@@ -23,5 +23,10 @@ class Keranjang extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function order()
+    {
+        return $this->hasMany(Order::class, 'keranjang_id');
     }
 }

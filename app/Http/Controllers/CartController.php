@@ -33,7 +33,7 @@ class CartController extends Controller
 
         $allItem = Keranjang::with('buku')->where('buku_id', $request->buku_id)->get();
         foreach ($allItem as $data) {
-            if($data->quantity >= $data->buku->stok) {
+            if($data->quantity > $data->buku->stok) {
                 $data['quantity'] = $data->quantity;
                 return redirect()->route('cart.index')->with('delete', 'Ups, anda memesan melebihi stok yang tersedia');
             } else {
@@ -44,11 +44,21 @@ class CartController extends Controller
         $item = Keranjang::where('buku_id', $request->buku_id)
                             ->where('user_id', auth()->user()->id)
                             ->where('status', '<>', 'settlement')->first();
+
+        $data = Keranjang::where('buku_id', $request->buku_id)
+                            ->where('user_id', auth()->user()->id)->get();
         if ($item) {
             $item->update(['quantity' => $item->quantity + 1]);
             $validatedData['user_id'] = auth()->user()->id;
             $validatedData['status'] = 'pending';
         } else {
+            foreach ($data as $item_keranjang) {
+                if($item_keranjang->buku_id) {
+                    $validatedData['user_id'] = auth()->user()->id;
+                    $validatedData['quantity'] = $request->quantity;
+                    $validatedData['status'] = 'pending';
+                }
+            }
             $validatedData['user_id'] = auth()->user()->id;
             $validatedData['quantity'] = $request->quantity;
             $validatedData['status'] = 'pending';

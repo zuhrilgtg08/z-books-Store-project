@@ -30,30 +30,30 @@
                 <thead class="bg-gradient-dark text-light">
                     <tr>
                         <th>No</th>
-                        <th>Nama User</th>
-                        <th>Tujuan</th>
-                        <th>Kurir</th>
+                        <th>Kode Pesanan</th>
+                        {{-- <th>Kota</th> --}}
+                        {{-- <th>Alamat</th> --}}
                         <th>Payment Status</th>
                         <th>Total Harga</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
-                {{-- <tbody>
+                <tbody>
                     @php $no = 1; @endphp
-                    @foreach ($datas as $order)
+                    @foreach ($resultOrder as $order)
                         <tr>
                             <td>{{ $no++ }}</td>
-                            <td>{{ $order->name }}</td>
-                            <td>{{ $order->nama_kab_kota }}</td>
-                            <td>{{ $order->courier }}</td>
+                            <td>{{ $order->uuid }}</td>
+                            {{-- <td>{{ $order->nama_kab_kota }}</td> --}}
+                            {{-- <td>{{ $order->alamat }}</td> --}}
                             <td>
-                                @if($order->status == 'pending')
-                                    <span class="badge badge-primary">{{ $order->status }}</span>
+                                @if($order->keranjang->status == 'pending')
+                                    <span class="badge badge-primary">{{ $order->keranjang->status }}</span>
                                 @else
-                                    <span class="badge badge-success">{{ $order->status }}</span>
+                                    <span class="badge badge-success">{{ $order->keranjang->status }}</span>
                                 @endif
                             </td>
-                            <td>{{ $order->total_belanja }}</td>
+                            <td>@currency($order->harga_ongkir + $order->total_belanja)</td>
                             <td>
                                 <a href="" class="btn btn-success"><i class="fas fa-fw fa-print"></i></a>
                                 <a href="{{ route('admin-orders.show', $order->id) }}" class="btn btn-primary"><i class="fas fa-fw fa-eye"></i></a>
@@ -68,7 +68,7 @@
                             </td>
                         </tr>
                     @endforeach
-                </tbody> --}}
+                </tbody>
             </table>
         </div>
     </div>

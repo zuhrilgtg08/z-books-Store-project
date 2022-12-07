@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('buku_id');
             $table->string('status')->default('pending');
             $table->integer('quantity');
+            $table->string('payments')->nullable();
             $table->timestamps();
         });
     }

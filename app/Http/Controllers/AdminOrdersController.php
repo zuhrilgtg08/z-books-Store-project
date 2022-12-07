@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Keranjang;
 use Illuminate\Http\Request;
 use App\Models\Order;
 
@@ -12,9 +13,17 @@ class AdminOrdersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
-        return view('pages.admin.adminOrders.index');
+        $resultOrder = Order::with('keranjang')
+                                ->join('cities', 'cities.id', '=', 'orders.destination_id')
+                                ->get([
+                                    'orders.*',
+                                    'cities.nama_kab_kota'
+                                ]);
+        return view('pages.admin.adminOrders.index', compact('resultOrder'));
+
     }
 
     /**

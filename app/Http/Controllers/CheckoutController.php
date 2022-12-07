@@ -81,13 +81,16 @@ class CheckoutController extends Controller
             'total_belanja' => 'required|numeric',
         ]);
 
-        $dataKeranjang = Keranjang::where('user_id', Auth::user()->id)->get();
+        $dataKeranjang = Keranjang::where('user_id', Auth::user()->id)
+                                    ->where('status', '=', 'pending')
+                                    ->get();
+                                    
         foreach($dataKeranjang as $data) {
             $data->update([
                 'status' => 'settlement'
             ]);
             $data->buku->update([
-                'stok' => $data->buku->stok - $data['quantity']
+                'stok' => $data->buku->stok - $data->quantity
             ]);
         }
         
@@ -132,7 +135,7 @@ class CheckoutController extends Controller
         ];
 
         foreach($keranjang as $data ) {
-            $data->update(['status' => 'sudah dibayar']);
+            $data->update(['payments' => 'lunas']);
         }
 
         $order = Order::where('uuid', '=', $jsonOrder->order_id);

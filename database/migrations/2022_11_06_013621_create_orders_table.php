@@ -16,8 +16,7 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->uuid();
-            // $table->foreignId('keranjang_id')->constrained('keranjangs')->onDelete('restrict');
-            $table->foreignId('keranjang_id')->references('id')->on('keranjangs')->onDelete('restrict');
+            $table->foreignId('keranjang_id')->constrained('keranjangs')->onDelete('restrict');
             $table->foreignId('province_id')->constrained('provinces')->onDelete('restrict');
             $table->foreignId('destination_id')->constrained('cities')->onDelete('restrict');
             $table->string('courier');

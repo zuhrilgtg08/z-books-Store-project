@@ -20,11 +20,10 @@ class CreateSnapTokenService extends Midtrans
 
     public function getSnapToken()
     {
-        // $dataOrder = Order::with('keranjang')->where('keranjang_id', '=', $this->order->keranjang_id)->get();
         $dataOrder = Keranjang::where('user_id', Auth::user()->id)
-                                ->where('status', '<>', 'sudah dibayar')->get();
+                                ->where('status', '<>', 'pending')
+                                ->where('payments', null)->get();
                             
-        // dd($dataOrder);
         $item_details = [];
 
         foreach($dataOrder as $item) {

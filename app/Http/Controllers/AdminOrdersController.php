@@ -22,6 +22,7 @@ class AdminOrdersController extends Controller
                                     'orders.*',
                                     'cities.nama_kab_kota'
                                 ]);
+                                
         return view('pages.admin.adminOrders.index', compact('resultOrder'));
 
     }

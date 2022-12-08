@@ -31,8 +31,6 @@
                     <tr>
                         <th>No</th>
                         <th>Kode Pesanan</th>
-                        {{-- <th>Kota</th> --}}
-                        {{-- <th>Alamat</th> --}}
                         <th>Payment Status</th>
                         <th>Total Harga</th>
                         <th>Actions</th>
@@ -44,8 +42,6 @@
                         <tr>
                             <td>{{ $no++ }}</td>
                             <td>{{ $order->uuid }}</td>
-                            {{-- <td>{{ $order->nama_kab_kota }}</td> --}}
-                            {{-- <td>{{ $order->alamat }}</td> --}}
                             <td>
                                 @if($order->keranjang->status == 'pending')
                                     <span class="badge badge-primary">{{ $order->keranjang->status }}</span>

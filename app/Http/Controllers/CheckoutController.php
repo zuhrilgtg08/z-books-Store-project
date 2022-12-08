@@ -110,16 +110,17 @@ class CheckoutController extends Controller
 
     public function pembayaran()
     {
-        // $dataValid = Order::where('user_id', '=', Auth::user()->id)->get();
         $dataValid = Order::all();
-        $provinsi = 0;
+        $dataKeranjang = Keranjang::with(['buku'])->where('user_id', Auth::user()->id)
+                                    ->where('payments', 'lunas')->first();
+        // $provinsi = 0;
         $snapToken = null;
         foreach ($dataValid as $item) {
             $snapToken = $item->snap_token;
-            $provinsi = $item->province_id;
+            // $provinsi = $item->province_id;
         }
 
-        return view('pages.checkout.pembayaran', compact('snapToken', 'provinsi'));
+        return view('pages.checkout.pembayaran', compact('snapToken', 'dataKeranjang'));
     }
 
     public function konfirmasiPembayaran(Request $request)

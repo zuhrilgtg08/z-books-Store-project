@@ -26,6 +26,7 @@
 
     <div class="card-body">
         <div class="table-responsive">
+            <a href="" class="btn btn-success mb-3"><i class="fas fa-fw fa-print"></i> Export Pdf</a>
             <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
                 <thead class="bg-gradient-dark text-light">
                     <tr>
@@ -51,7 +52,6 @@
                             </td>
                             <td>@currency($order->harga_ongkir + $order->total_belanja)</td>
                             <td>
-                                <a href="" class="btn btn-success"><i class="fas fa-fw fa-print"></i></a>
                                 <a href="{{ route('admin-orders.show', $order->id) }}" class="btn btn-primary"><i class="fas fa-fw fa-eye"></i></a>
                                 <form action="{{ route('admin-orders.destroy', $order->id) }}" method="POST" class="d-inline">
                                     @method('DELETE')

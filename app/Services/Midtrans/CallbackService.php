@@ -27,7 +27,7 @@ class CallbackService extends Midtrans
 
     public function isSuccess()
     {
-        $statusCode = $this->notification->status_code;
+        $statusCode = $this->notification->transaction_status;
         $transactionStatus = $this->notification->transaction_status;
         $fraudStatus = !empty($this->notification->fraud_status) ? ($this->notification->fraud_status == 'accept') : true;
 
@@ -58,7 +58,7 @@ class CallbackService extends Midtrans
     protected function _createLocalSignatureKey()
     {
         $order_id = $this->order->uuid;
-        $statusCode = $this->notification->status_code;
+        $statusCode = $this->notification->transaction_status;
         $grossAmount = $this->order->total_belanja;
         $serverKey = $this->serverKey;
         $input = $order_id . $statusCode . $grossAmount . $serverKey;

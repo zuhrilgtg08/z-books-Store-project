@@ -21,10 +21,12 @@ return new class extends Migration
             $table->foreignId('destination_id')->constrained('cities')->onDelete('restrict');
             $table->string('courier');
             $table->float('weight');
-            $table->string('transaction_id')->nullable();
             $table->integer('harga_ongkir');
             $table->integer('total_belanja');
             $table->string('alamat');
+            $table->string('transaction_id')->nullable();
+            $table->string('transaction_status')->nullable();
+            $table->date('transaction_time')->nullable();
             $table->string('payment_type')->nullable();
             $table->string('payment_code')->nullable();
             $table->string('snap_token', 36)->nullable();

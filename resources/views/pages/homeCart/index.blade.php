@@ -1,11 +1,11 @@
 @extends('layouts.main')
 @section('main-content')
-    <div class="row mt-4 my-5">
-        <h2 class="text-center font-semibold mt-5">Cart Books</h2>
+    <div class="row mt-5 my-5">
+        <h2 class="text-center font-semibold mt-5">keranjang Pesanan</h2>
         <div class="col-md-4 mt-4">
             <a class="btn btn-dark" href="{{ url('/best-seller') }}">
                 <i class="fas fa-fw fa-arrow-left"></i>
-                Continue Shop
+                Lanjut Belanja
             </a>
         </div>
     </div>
@@ -93,8 +93,8 @@
 
     <div class="row justify-content-end mt-3 my-3">
         <div class="col-md-4 text-end mt-3">
-            <a href="{{ route('checkout.create') }}" class="btn btn-warning text-end no-btn" id="checkout">
-                <i class="fas fa-fw fa-money-check"></i> Buat Pesanan
+            <a href="{{ route('checkout.create') }}" class="btn btn-primary text-end" id="checkout">
+                <i class="fas fa-fw fa-shopping-basket"></i> Buat Pesanan
             </a>
         </div>
     </div>

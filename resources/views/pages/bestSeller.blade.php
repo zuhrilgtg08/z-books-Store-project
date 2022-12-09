@@ -40,10 +40,10 @@
                 @csrf
                 <div class="row filter-container">
                     <div class="col-md-6 mb-3">
-                        <input id="min_range" name="harga_min" value="@currency($filter_harga_min ?? $harga_min)" readonly>
+                        <input id="min_range" name="harga_min" value="{{ $filter_harga_min ?? $harga_min }}" readonly>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <input id="max_range" name="harga_max" value="@currency($filter_harga_max ?? $harga_max)" readonly>
+                        <input id="max_range" name="harga_max" value="{{ $filter_harga_max ?? $harga_max }}" readonly>
                     </div>
                     <div id="slider-range"></div>
                     <div class="col-md-6 mt-3">

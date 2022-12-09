@@ -43,7 +43,7 @@ class CartController extends Controller
 
         $item = Keranjang::where('buku_id', $request->buku_id)
                             ->where('user_id', auth()->user()->id)
-                            ->where('status', '<>', 'settlement')->first();
+                            ->where('status', '<>', 'process')->first();
 
         $data = Keranjang::where('buku_id', $request->buku_id)
                             ->where('user_id', auth()->user()->id)->get();

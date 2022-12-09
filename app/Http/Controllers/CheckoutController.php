@@ -8,11 +8,25 @@ use App\Models\Cities;
 use App\Models\Province;
 use App\Models\Keranjang;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use App\Services\Midtrans\CreateSnapTokenService;
 
 class CheckoutController extends Controller
 {
+    private $province;
+    private $cities;
+    private $keranjang;
+    private $order;
+
+    public function __construct()
+    {
+        $this->province = new Province();
+        $this->cities = new Cities();
+        $this->keranjang = new Keranjang();
+        $this->order = new Order();
+    }
+
     public function getCity($id)
     {
         $cities = Cities::where('province_id', '=', $id)->select(['id', 'nama_kab_kota'])->get();
@@ -87,7 +101,7 @@ class CheckoutController extends Controller
                                     
         foreach($dataKeranjang as $data) {
             $data->update([
-                'status' => 'settlement'
+                'status' => 'process'
             ]);
             $data->buku->update([
                 'stok' => $data->buku->stok - $data->quantity
@@ -112,15 +126,37 @@ class CheckoutController extends Controller
     {
         $dataValid = Order::all();
         $dataKeranjang = Keranjang::with(['buku'])->where('user_id', Auth::user()->id)
-                                    ->where('payments', 'lunas')->first();
-        // $provinsi = 0;
-        $snapToken = null;
-        foreach ($dataValid as $item) {
-            $snapToken = $item->snap_token;
-            // $provinsi = $item->province_id;
+                                    ->get();
+        $keranjang_id = 0;
+        foreach($dataKeranjang as $item) {
+            $keranjang_id = $item->id;
         }
 
-        return view('pages.checkout.pembayaran', compact('snapToken', 'dataKeranjang'));
+        $resultOrder = Order::with(['keranjang'])->where('keranjang_id', $keranjang_id)
+                                ->where('transaction_id', null)->get();
+        dd($resultOrder);
+
+
+        $tglInvoice = 0;
+        $statusInvoice = 0;
+        $provinsi = null;
+        $noInovice = 0;
+        $snapToken = null;
+        foreach ($dataValid as $item) {
+            $provinsi = $item->province_id == $this->province->id;
+            $snapToken = $item->snap_token;
+            $tglInvoice = $item->transaction_time;
+            $statusInvoice = $item->transaction_status;
+            $noInovice = Str::limit(strip_tags($item->uuid), 20);
+        }
+
+        return view('pages.checkout.pembayaran', 
+            compact('snapToken', 
+                    'dataKeranjang', 
+                    'dataValid', 
+                    'noInovice', 'tglInvoice',
+                    'statusInvoice',
+                    'provinsi'));
     }
 
     public function konfirmasiPembayaran(Request $request)
@@ -129,10 +165,10 @@ class CheckoutController extends Controller
         $jsonOrder = json_decode($request->json);
         $dataOrder = [
             'transaction_id' => $jsonOrder->transaction_id,
-            // 'status' => $jsonOrder->transaction_status,
+            'transaction_status' => $jsonOrder->transaction_status,
+            'transaction_time' => $jsonOrder->transaction_time,
             'payment_type' => $jsonOrder->payment_type,
             'payment_code' => isset($jsonOrder->payment_code) ? $jsonOrder->payment_code : null,
-            // 'pdf_url' => isset($jsonOrder->pdf_url) ? $jsonOrder->pdf_url : null
         ];
 
         foreach($keranjang as $data ) {
@@ -144,78 +180,10 @@ class CheckoutController extends Controller
             $order->update($dataOrder);
         }
 
-        // dd($order);
-
         if ($order) {
             return redirect()->route('checkout.pembayaran')->with('success', 'Pesanan berhasil di bayar');
         } else {
             return redirect()->route('checkout.pembayaran')->with('errors', 'Pesanan gagal di bayar');
         }
     }
-
-
-    
-
-    public function confirm(Request $request)
-    {
-        
-    }
-
-    // public function show(Order $order)
-    // {
-    //     $newSnapToken = null;
-    //     foreach($order as $data) {
-    //         $newSnapToken = $data->snap_token;
-    //     }
-        
-    //     return view('pages.checkout.index',[
-    //         'snapToken' => $newSnapToken
-    //     ]);
-    // }
-
-    
-
-    // public function show(Order $order)
-    // {
-    //     // $hargaTotal = ($request->services + $request->total_belanja) + 2000;
-    //     $snapToken = $order->snap_token;
-    //     dd($snapToken);
-    //     // dd($request->all(), $hargaTotal);
-    //     return view('pages.checkout.index', compact('snapToken'));
-    // }
-
-
-    // public function tes(Request $request)
-    // {
-    //     // $buku = Buku::select('stok')->get();
-    //     // $data = 
-    //     $hargaTotal = ($request->services + $request->total_belanja) + 2000;
-    //     dd($request->all(), $hargaTotal);
-    //     // $totalHarga = 0;
-    //     // foreach($hargaTotal as $data) {
-    //     //     $totalHarga += $data;
-    //     // }
-    //     // dd($request->weight);
-    //     // dd($hargaTotal);
-
-    //     // $snapToken = $order->snap_token;
-    //     // if (empty($snapToken)) {
-    //     //     // Jika snap token masih NULL, buat token snap dan simpan ke database
-
-    //     //     $midtrans = new CreateSnapTokenService($order);
-    //     //     $snapToken = $midtrans->getSnapToken();
-
-    //     //     $order->snap_token = $snapToken;
-    //     //     $order->save();
-    //     //     dd($snapToken);
-
-    //     //     return view('pages.checkout.index',[
-    //     //         'snapToken' => $snapToken
-    //     //     ]);
-    //     // }
-    //     // return 'halo';
-    // }
 }
-
-    
-    

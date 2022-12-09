@@ -24,8 +24,11 @@ class LoginController extends Controller
 
         if (Auth::attempt($validateData, $remember_me)) {
             $request->session()->regenerate();
-            $user = auth()->user();
-            return redirect()->intended('/home');
+            if(auth()->user()->id == 1) {
+                return redirect()->intended('/admin/dashboard');
+            } else {
+                return redirect()->intended('/home');
+            }
         }
 
         return back()->with('loginFailed', 'Sory, Login Failed!');

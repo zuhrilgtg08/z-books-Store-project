@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('main-content')
-    <main>
+    <main class="mt-5">
         <div class="py-5 text-center">
             <h3>Buat Pesanan</h3>
         </div>
@@ -81,16 +81,16 @@
                     <hr class="my-4">
                     
                     <div class="text-end">
-                        <button class="btn btn-primary" type="submit">
-                            <i class="fas fa-fw fa-check"></i> 
-                            Konfirmasi Pesanan
+                        <button class="btn btn-success" type="submit">
+                            <i class="fas fa-fw fa-wallet"></i> 
+                            Bayar Sekarang
                         </button>
                     </div>
                 </form>
             </div>
             <div class="col-md-5 col-lg-4">
                 <h4 class="d-flex justify-content-between align-items-center mb-3">
-                    <span class="text-primary">Pesanan Anda</span>
+                    <span class="text-danger">Pesanan Anda</span>
                 </h4>
                 <ul class="list-group mb-3">
                     @foreach ($itemData as $item)

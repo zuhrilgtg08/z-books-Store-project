@@ -78,14 +78,16 @@
                             </thead>
                             <tbody>
                                 @php $no = 1; @endphp
-                                @foreach ($dataKeranjang as $item)
-                                    <tr>
-                                        <td>{{ $no++ }}</td>
-                                        <td>{{ $item->buku->judul_buku }}</td>
-                                        <td>{{ $item->quantity }}</td>
-                                        <td>@currency($item->buku->harga)</td>
-                                        <td>@currency($item->buku->harga * $item->quantity)</td>
-                                    </tr>
+                                @foreach ($resultOrder as $item)
+                                    @if($item->status !== 'complete')
+                                        <tr>
+                                            <td>{{ $no++ }}</td>
+                                            <td>{{ $item->buku->judul_buku }}</td>
+                                            <td>{{ $item->quantity }}</td>
+                                            <td>@currency($item->buku->harga)</td>
+                                            <td>@currency($item->buku->harga * $item->quantity)</td>
+                                        </tr>
+                                    @endif
                                 @endforeach
                             </tbody>
                         </table>
@@ -110,14 +112,14 @@
                             <p>Terima kasih atas pembelian Anda</p>
                         </div>
                         <div class="col-xl-3">
-                            <button type="button" class="btn btn-success text-capitalize" id="pay-button">
+                            {{-- <button type="button" class="btn btn-success text-capitalize" id="pay-button">
                                 <i class="fas fa-fw fa-wallet"></i>
                                 Bayar Sekarang
                             </button>
                             <form action="" id="submit_form" method="POST">
                                 @csrf
                                 <input type="hidden" name="json" id="json_callback">
-                            </form>
+                            </form> --}}
                         </div>
                     </div>
                 </div>

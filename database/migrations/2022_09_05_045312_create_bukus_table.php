@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('bukus', function (Blueprint $table) {
             $table->id();
             $table->string('kode_buku');
-            $table->string('judul_buku')->unique();
+            $table->string('judul_buku');
             $table->integer('harga');
             $table->integer('stok');
             $table->foreignId('category_id')->references('id')->on('categories')->onDelete('cascade');

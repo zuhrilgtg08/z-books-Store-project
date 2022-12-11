@@ -70,16 +70,22 @@ class CheckoutController extends Controller
     {
         $totalBelanja = 0;
         $totalBerat = 0;
+
+        $order = Order::all();
+        $snapToken = null;
         $provinces = Province::all();
         $itemData = Keranjang::with('buku')->where('user_id', Auth::user()->id)
-                                            ->where('status', '=', 'pending')->get();
+                                            ->where('status', '<>', 'complete')->get();
+        foreach($order as $data) {
+            $snapToken = $data->snap_token;
+        }
         foreach($itemData as $item) {
             $totalBerat += $item->buku->weight * $item->quantity;
             $totalBelanja += $item->buku->harga * $item->quantity;
         }
 
         return view('pages.checkout.create', 
-            compact('provinces', 'totalBerat', 'totalBelanja', 'itemData'));
+            compact('provinces', 'totalBerat', 'totalBelanja', 'itemData', 'snapToken'));
     }
     
     public function store(Request $request) 
@@ -92,17 +98,17 @@ class CheckoutController extends Controller
             'weight' => 'required|numeric',
             'alamat' => 'required|max:150',
             'harga_ongkir' => 'required|numeric',
+            'layanan_ongkir' => 'required|string',
             'total_belanja' => 'required|numeric',
         ]);
 
+        // dd($request->all());
+
         $dataKeranjang = Keranjang::where('user_id', Auth::user()->id)
-                                    ->where('status', '=', 'pending')
+                                    ->where('status', '<>', 'complete')
                                     ->get();
                                     
         foreach($dataKeranjang as $data) {
-            $data->update([
-                'status' => 'process'
-            ]);
             $data->buku->update([
                 'stok' => $data->buku->stok - $data->quantity
             ]);
@@ -116,9 +122,9 @@ class CheckoutController extends Controller
                 $snapToken = $midtrans->getSnapToken();
                 $order->update(['snap_token' => $snapToken]);
             }
-            return redirect()->route('checkout.pembayaran')->with('success', 'Pesanan berhasil di tambahkan');
+            return redirect()->route('checkout.create')->with('success', 'Pesanan berhasil di tambahkan');
         } else {
-            return redirect()->route('checkout.pembayaran')->with('errors', 'Pesanan gagal di tambahkan');
+            return redirect()->route('checkout.create')->with('errors', 'Pesanan gagal di tambahkan');
         }
     }
 
@@ -132,10 +138,11 @@ class CheckoutController extends Controller
             $keranjang_id = $item->id;
         }
 
-        $resultOrder = Order::with(['keranjang'])->where('keranjang_id', $keranjang_id)
-                                ->where('transaction_id', null)->get();
-        dd($resultOrder);
-
+        // $resultOrder = Order::with(['keranjang'])->where('keranjang_id', $keranjang_id)
+        //                         ->get();
+        $resultOrder = Keranjang::with(['buku', 'user', 'order'])
+                                ->where('user_id', auth()->user()->id)
+                                ->get();
 
         $tglInvoice = 0;
         $statusInvoice = 0;
@@ -156,12 +163,14 @@ class CheckoutController extends Controller
                     'dataValid', 
                     'noInovice', 'tglInvoice',
                     'statusInvoice',
-                    'provinsi'));
+                    'provinsi',
+                    'resultOrder'));
     }
 
     public function konfirmasiPembayaran(Request $request)
     {
-        $keranjang = Keranjang::where('user_id', Auth::user()->id)->get();
+        $keranjang = Keranjang::where('user_id', Auth::user()->id)
+                                ->where('payments', null)->get();
         $jsonOrder = json_decode($request->json);
         $dataOrder = [
             'transaction_id' => $jsonOrder->transaction_id,
@@ -172,7 +181,10 @@ class CheckoutController extends Controller
         ];
 
         foreach($keranjang as $data ) {
-            $data->update(['payments' => 'lunas']);
+            $data->update([
+                'status' => 'complete',
+                'payments' => 'lunas'
+            ]);
         }
 
         $order = Order::where('uuid', '=', $jsonOrder->order_id);

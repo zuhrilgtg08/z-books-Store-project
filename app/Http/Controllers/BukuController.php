@@ -64,7 +64,7 @@ class BukuController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'judul_buku' => 'required|max:255|unique:bukus',
+            'judul_buku' => 'required|max:255',
             'harga' => 'required|numeric',
             'stok' => 'required|numeric',
             'category_id' => 'required|max:150',
@@ -176,7 +176,7 @@ class BukuController extends Controller
     public function update(Request $request, $id)
     {
         $data = [
-            'judul_buku' => 'required|max:255|unique:bukus',
+            'judul_buku' => 'required|max:255',
             'harga' => 'required|numeric',
             'stok' => 'required|numeric',
             'category_id' => 'required|max:150',

@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('courier');
             $table->float('weight');
             $table->integer('harga_ongkir');
+            $table->string('layanan_ongkir');
             $table->integer('total_belanja');
             $table->string('alamat');
             $table->string('transaction_id')->nullable();

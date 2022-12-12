@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Keranjang;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CustomerOrderHistroyController extends Controller
 {
@@ -13,7 +15,8 @@ class CustomerOrderHistroyController extends Controller
      */
     public function index()
     {
-        return view('pages.checkout.invoice');
+        $resultOrder = Keranjang::with('buku')->where('user_id', Auth::user()->id)->where('status', '=', 'complete')->get();
+        return view('pages.checkout.invoice', compact('resultOrder'));
     }
 
     /**

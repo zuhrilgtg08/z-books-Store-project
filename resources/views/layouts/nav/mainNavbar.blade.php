@@ -66,7 +66,7 @@
                                     @endcan
                                 @else
                                     <li>
-                                        <a class="dropdown-item" href="#">
+                                        <a class="dropdown-item" href="{{ route('customer_order_history.index') }}">
                                             <i class="fas fa-fw fa-newspaper"></i>
                                             History Order
                                         </a>

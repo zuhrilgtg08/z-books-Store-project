@@ -7,19 +7,21 @@
         </div>
 
         <div class="row justify-content-center">
-            @if (session()->has('success'))
-                <div class="alert alert-success col-md-6 alert-dismissible fade show" role="alert">
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    {{ session('success') }}
-                </div>
-            @endif
-            
-            @if (session()->has('errors'))
-                <div class="alert alert-danger col-md-6 alert-dismissible fade show" role="alert" id="alert">
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    {{ session('errors') }}
-                </div>
-            @endif
+            <div class="text-start">
+                @if (session()->has('success'))
+                    <div class="alert alert-success col-md-6 alert-dismissible fade show" role="alert">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        {{ session('success') }}
+                    </div>
+                @endif
+                
+                @if (session()->has('errors'))
+                    <div class="alert alert-danger col-md-6 alert-dismissible fade show" role="alert" id="alert">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        {{ session('errors') }}
+                    </div>
+                @endif
+            </div>
 
             <div class="col-lg-9 mt-4">
                 <div class="card border-0 shadow-lg">
@@ -44,13 +46,15 @@
                                         @endforeach
                                     </ul>
                                     <ul class="list-group mb-3">
-                                        <li class="list-group-item d-flex justify-content-between lh-sm">
-                                            <div>
-                                                <h6 class="my-0">Judul Buku</h6>
-                                                <small class="text-danger">Harga Buku</small>
-                                            </div>
-                                            <span class="text-danger"> item </span>
-                                        </li>
+                                        @foreach ($dataKeranjang as $cart)
+                                            <li class="list-group-item d-flex justify-content-between lh-sm">
+                                                <div>
+                                                    <h6 class="my-0">{{ $cart->buku->judul_buku }}</h6>
+                                                    <small class="text-danger">@currency($cart->buku->harga)</small>
+                                                </div>
+                                                <span class="text-danger">{{ $cart->quantity }} Item</span>
+                                            </li>
+                                        @endforeach
                                     </ul>
                                 </div>
                             </div>

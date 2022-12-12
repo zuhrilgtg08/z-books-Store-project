@@ -139,13 +139,8 @@ class CheckoutController extends Controller
             $snapToken = $item->snap_token;
         }
 
-        // $keranjangStatus = null;
-        // $dataKeranjang = Keranjang::with(['buku'])->where('user_id', Auth::user()->id)->where('status', '<>', 'complete')->get();
-        // foreach ($dataKeranjang as $item) {
-        //     $keranjangStatus = $item->status;
-        // }
-
-        return view('pages.checkout.pembayaran', compact('snapToken', 'dataPesanan'));
+        $dataKeranjang = Keranjang::with(['buku'])->where('user_id', Auth::user()->id)->where('status', '<>', 'complete')->get();
+        return view('pages.checkout.pembayaran', compact('snapToken', 'dataPesanan', 'dataKeranjang'));
     }
 
     public function konfirmasiPembayaran(Request $request)

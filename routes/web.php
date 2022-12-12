@@ -1,10 +1,10 @@
 <?php
 
-use App\Models\ReviewRating;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\BukuController;
+use App\Http\Controllers\CustomerOrderHistroyController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
@@ -19,7 +19,6 @@ use App\Http\Controllers\BestSellerController;
 use App\Http\Controllers\AdminOrdersController;
 use App\Http\Controllers\AdminReviewsController;
 use App\Http\Controllers\HomeCategoriesController;
-use App\Http\Controllers\PaymentCallbackController;
 use App\Http\Controllers\UserProfilePasswordController;
 use App\Http\Controllers\AdminProfilePasswordController;
 
@@ -122,10 +121,11 @@ Route::post('/cart-remove/{id}', [CartController::class, 'remove'])->name('cart.
 // routes checkout in client
 Route::get('/city/{id}', [CheckoutController::class, 'getCity'])->name('city')->middleware('auth');
 Route::get('/destination={city_destination}&weight={weight}&courier={courier}', [CheckoutController::class, 'getOngkir'])->middleware('auth');
-Route::get('/checkout/create', [CheckoutController::class, 'create'])->name('checkout.create')->middleware('auth');
 Route::any('/checkout/store', [CheckoutController::class, 'store'])->name('checkout.store')->middleware('auth');
+Route::get('/checkout/create', [CheckoutController::class, 'create'])->name('checkout.create')->middleware('auth');
 Route::get('/checkout/pembayaran', [CheckoutController::class, 'pembayaran'])->name('checkout.pembayaran')->middleware('auth');
 Route::post('/checkout/pembayaran', [CheckoutController::class, 'konfirmasiPembayaran'])->name('checkout.konfirmasi_pembayaran')->middleware('auth');
+Route::resource('customer_order_history', CustomerOrderHistroyController::class)->middleware('auth');
 // Route::post('/checkout/confirm', [CheckoutController::class, 'confirm'])->name('checkout.confirm')->middleware('auth');
 // Route::any('/tes',[CheckoutController::class, 'show'])->name('tes')->middleware('auth');
 // Route::any('/tes',[CheckoutController::class, 'storeOrder'])->name('tes')->middleware('auth');

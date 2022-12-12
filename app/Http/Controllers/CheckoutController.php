@@ -68,22 +68,21 @@ class CheckoutController extends Controller
 
     public function create()
     {
-        $totalBelanja = 0;
-        $totalBerat = 0;
-
         $order = Order::all();
-        $snapToken = null;
         $provinces = Province::all();
         $itemData = Keranjang::with('buku')->where('user_id', Auth::user()->id)
-                                            ->where('status', '<>', 'complete')->get();
-        foreach($order as $data) {
+                                ->where('status', '<>', 'complete')->get();
+        $totalBelanja = 0;
+        $totalBerat = 0;
+        $snapToken = null;
+        foreach ($order as $data) {
             $snapToken = $data->snap_token;
         }
         foreach($itemData as $item) {
             $totalBerat += $item->buku->weight * $item->quantity;
             $totalBelanja += $item->buku->harga * $item->quantity;
         }
-
+    
         return view('pages.checkout.create', 
             compact('provinces', 'totalBerat', 'totalBelanja', 'itemData', 'snapToken'));
     }
@@ -101,8 +100,6 @@ class CheckoutController extends Controller
             'layanan_ongkir' => 'required|string',
             'total_belanja' => 'required|numeric',
         ]);
-
-        // dd($request->all());
 
         $dataKeranjang = Keranjang::where('user_id', Auth::user()->id)
                                     ->where('status', '<>', 'complete')
@@ -122,49 +119,33 @@ class CheckoutController extends Controller
                 $snapToken = $midtrans->getSnapToken();
                 $order->update(['snap_token' => $snapToken]);
             }
-            return redirect()->route('checkout.create')->with('success', 'Pesanan berhasil di tambahkan');
+            return redirect()->route('checkout.pembayaran')->with('success', 'Pesanan berhasil di tambahkan');
         } else {
-            return redirect()->route('checkout.create')->with('errors', 'Pesanan gagal di tambahkan');
+            return redirect()->route('checkout.pembayaran')->with('errors', 'Pesanan gagal di tambahkan');
         }
     }
 
     public function pembayaran()
     {
-        $dataValid = Order::all();
-        $dataKeranjang = Keranjang::with(['buku'])->where('user_id', Auth::user()->id)
-                                    ->get();
-        $keranjang_id = 0;
-        foreach($dataKeranjang as $item) {
-            $keranjang_id = $item->id;
-        }
-
-        // $resultOrder = Order::with(['keranjang'])->where('keranjang_id', $keranjang_id)
-        //                         ->get();
-        $resultOrder = Keranjang::with(['buku', 'user', 'order'])
-                                ->where('user_id', auth()->user()->id)
-                                ->get();
-
-        $tglInvoice = 0;
-        $statusInvoice = 0;
-        $provinsi = null;
-        $noInovice = 0;
+        $dataPesanan = Order::join('provinces', 'provinces.id', '=', 'orders.province_id')
+                            ->join('cities', 'cities.id', '=', 'orders.destination_id')
+                            ->get([
+                                'orders.*',
+                                'cities.nama_kab_kota',
+                                'provinces.name_province'
+                            ]);
         $snapToken = null;
-        foreach ($dataValid as $item) {
-            $provinsi = $item->province_id == $this->province->id;
+        foreach ($dataPesanan as $item) {
             $snapToken = $item->snap_token;
-            $tglInvoice = $item->transaction_time;
-            $statusInvoice = $item->transaction_status;
-            $noInovice = Str::limit(strip_tags($item->uuid), 20);
         }
 
-        return view('pages.checkout.pembayaran', 
-            compact('snapToken', 
-                    'dataKeranjang', 
-                    'dataValid', 
-                    'noInovice', 'tglInvoice',
-                    'statusInvoice',
-                    'provinsi',
-                    'resultOrder'));
+        // $keranjangStatus = null;
+        // $dataKeranjang = Keranjang::with(['buku'])->where('user_id', Auth::user()->id)->where('status', '<>', 'complete')->get();
+        // foreach ($dataKeranjang as $item) {
+        //     $keranjangStatus = $item->status;
+        // }
+
+        return view('pages.checkout.pembayaran', compact('snapToken', 'dataPesanan'));
     }
 
     public function konfirmasiPembayaran(Request $request)
@@ -193,9 +174,9 @@ class CheckoutController extends Controller
         }
 
         if ($order) {
-            return redirect()->route('checkout.pembayaran')->with('success', 'Pesanan berhasil di bayar');
+            return redirect()->route('customer_order_history.index')->with('success', 'Pesanan berhasil di bayar');
         } else {
-            return redirect()->route('checkout.pembayaran')->with('errors', 'Pesanan gagal di bayar');
+            return redirect()->route('customer_order_history.index')->with('errors', 'Pesanan gagal di bayar');
         }
     }
 }

@@ -49,7 +49,6 @@
                                 @else
                                     <img src="{{ asset('sbadmin/img/undraw_profile.svg') }}" alt="profile" class="rounded-circle" width="40" height="40" />
                                 @endif
-                                
                             </a>
 
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -66,6 +65,15 @@
                                         </li>
                                     @endcan
                                 @else
+                                    <li>
+                                        <a class="dropdown-item" href="#">
+                                            <i class="fas fa-fw fa-newspaper"></i>
+                                            History Order
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
                                     <li>
                                         <a class="dropdown-item" href="{{ route('profile-user', Auth()->user()->id) }}">
                                             <i class="fa-solid fa-fw fa-user-pen"></i>

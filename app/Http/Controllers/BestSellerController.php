@@ -22,7 +22,7 @@ class BestSellerController extends Controller
         #data buku ketika di filter
         if ($filter_harga_min && $filter_harga_max) {
             if ($filter_harga_min > 0 && $filter_harga_max > 0) {
-                $bukus = Buku::select('judul_buku', 'harga','image', 'id')
+                $bukus = Buku::select('judul_buku', 'harga', 'stok', 'image', 'id')
                                 ->whereBetween('harga', [$filter_harga_min, $filter_harga_max])
                                     ->orderBy('id', 'Desc')->get();
     

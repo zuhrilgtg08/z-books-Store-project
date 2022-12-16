@@ -77,7 +77,7 @@
                                                 <h6 class="fw-semibold">{{ $data->judul_buku }}</h6>
                                                 <!-- Product Rating-->
                                                 <p>
-                                                    Rating : {{ $data->star_rating }}
+                                                    Rating : @star($data->star_rating)
                                                     <i class="fas fa-fw fa-star text-warning"></i>
                                                 </p>
                                                 <p>

@@ -25,7 +25,7 @@
                 <h4 class="mb-3 text-center">Input Data Pesanan Anda</h4>
                 <form class="d-inline" action="{{ route('checkout.store') }}" method="POST">
                     @csrf
-                    <input type="hidden" name="total_belanja" value="{{ $totalBelanja }}"/>
+                    <input type="hidden" name="total_belanja" value="{{ $totalBelanja }}" id="total_belanja"/>
                     @foreach ($itemData as $item)
                         <input type="hidden" name="keranjang_id" value="{{ $item->id }}" />
                     @endforeach
@@ -38,7 +38,7 @@
             
                         <div class="col-sm-6">
                             <label for="phone" class="form-label">Nomor Hp :</label>
-                            <input type="text" class="form-control" id="phone" value="{{ Auth::user()->number_phone }}" min="0" required/>
+                            <input type="text" class="form-control" id="phone" value="{{ Auth::user()->number_phone }}" min="0" disabled readonly />
                         </div>
             
                         <div class="col-sm-6">
@@ -55,7 +55,7 @@
                         <div class="col-md-6">
                             <label for="province" class="form-label">Provinsi Tujuan :</label>
                             <select class="form-select" name="province_id" id="province" required>
-                                <option value="" selected disabled>Provinsi Tujuan</option>
+                                <option value="" selected disabled>Pilih Provinsi</option>
                                 @foreach ($provinces as $item)
                                     <option value="{{ $item->id }}">{{ old('province_id', $item['name_province']) }}</option>
                                 @endforeach
@@ -124,7 +124,7 @@
                         </li>
                     @endforeach
                     <li class="list-group-item d-flex justify-content-between">
-                        <span>Total (Rp) : </span>
+                        <span>Total Pesanan (Rp) : </span>
                         <strong>@currency($totalBelanja)</strong>
                     </li>
                     <li class="list-group-item d-flex justify-content-between">
@@ -136,6 +136,14 @@
                         <strong class="paket-ongkir">-</strong>
                     </li>
                 </ul>
+                <div class="card border-0 shadow-lg">
+                    <div class="card-body">
+                        <h5 class="d-flex justify-content-between align-items-center">
+                            <span>Total Harga (Rp) : </span>
+                            <strong class="total-harga text-success">Rp. 0</strong>
+                        </h5>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
@@ -178,16 +186,19 @@
                             success:function(response) {
                                 $('select[name="harga_ongkir"]').empty();
                                 $('select[name="layanan_ongkir"]').empty();
+                                $('.total-harga').empty();
                                 response = response[0];
                                     $.each(response.costs, function(key, value) {
                                         let cost = value.cost[0];
                                         $('select[name="harga_ongkir"]').append('<option value="'+ cost.value + '">' + ' Rp. ' + cost.value + '</option>');
                                         $('select[name="layanan_ongkir"]').append('<option value="'+ value.service + ' : ' + cost.etd + ' (days) '+'">' + value.service + ' - ' + value.description + ' : ' + cost.etd + ' (days) ' + '</option>');
                                     });
+                                const total_belanja = $('#total_belanja').val();
                                 let costKurir = response.costs[0].cost[0].value;
                                 let paketOngkir = `${response.costs[0].service} : ${response.costs[0].cost[0].etd} (days)`;
                                 $('.cost-ongkir').html(`Rp. ${costKurir}`);
                                 $('.paket-ongkir').html(paketOngkir);
+                                $('.total-harga').html(`Rp. ${parseInt(costKurir) + parseInt(total_belanja)}`);
                             }
                         });
                     }else {
@@ -198,7 +209,9 @@
 
                 $('#services').on('change', function(){
                     let services = $(this).val();
+                    const total_belanja = $('#total_belanja').val();
                     $('.cost-ongkir').html(`Rp. ${services}`);
+                    $('.total-harga').html(`Rp. ${parseInt(services) + parseInt(total_belanja)}`);
                 });
 
                 $('#layanan-ongkir').on('change', function(){

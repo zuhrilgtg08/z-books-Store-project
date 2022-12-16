@@ -7,23 +7,23 @@
         </div>
 
         <div class="row justify-content-center">
-            <div class="text-start">
-                @if (session()->has('success'))
-                    <div class="alert alert-success col-md-6 alert-dismissible fade show" role="alert">
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        {{ session('success') }}
-                    </div>
-                @endif
-                
-                @if (session()->has('errors'))
-                    <div class="alert alert-danger col-md-6 alert-dismissible fade show" role="alert" id="alert">
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        {{ session('errors') }}
-                    </div>
-                @endif
-            </div>
-
             <div class="col-lg-9 mt-4">
+                <div class="text-start col-md-6 mb-3">
+                    @if (session()->has('success'))
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            {{ session('success') }}
+                        </div>
+                    @endif
+                
+                    @if (session()->has('errors'))
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert" id="alert">
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            {{ session('errors') }}
+                        </div>
+                    @endif
+                </div>
+                
                 <div class="card border-0 shadow-lg">
                     <div class="card-body mt-3">
                         <div class="row justify-content-between">
@@ -45,6 +45,9 @@
                                             @endif
                                         @endforeach
                                     </ul>
+                                    <h5 class="d-flex align-items-center">
+                                        <span>Detail Pesanan : </span>
+                                    </h5>
                                     <ul class="list-group mb-3">
                                         @foreach ($dataKeranjang as $cart)
                                             <li class="list-group-item d-flex justify-content-between lh-sm">
@@ -80,7 +83,7 @@
                                             </li>
                                             <li class="list-group-item d-flex justify-content-between">
                                                 <span>Total Harga (Rp) : </span>
-                                                <strong>@currency($order->total_belanja + $order->harga_ongkir)</strong>
+                                                <strong class="text-success fw-bold">@currency($order->total_belanja + $order->harga_ongkir)</strong>
                                             </li>
                                         @endif
                                     @endforeach

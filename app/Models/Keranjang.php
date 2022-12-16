@@ -27,6 +27,6 @@ class Keranjang extends Model
 
     public function order()
     {
-        return $this->hasMany(Order::class, 'keranjang_id');
+        return $this->belongsTo(Order::class, 'order_id');
     }
 }

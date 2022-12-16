@@ -17,16 +17,9 @@ class ReviewsSeeder extends Seeder
     {
         ReviewRating::create([
             'id_buku' => 1,
-            'id_user' => 1,
-            'comments' => 'Ceritanya sangat menarik',
-            'star_rating' => 4
-        ]);
-
-        ReviewRating::create([
-            'id_buku' => 1,
             'id_user' => 2,
             'comments' => 'Ceritanya sangat bagus',
-            'star_rating' => 5
+            'star_rating' => 4
         ]);
     }
 }

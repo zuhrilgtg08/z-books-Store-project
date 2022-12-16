@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->foreignId('buku_id');
+            $table->foreignId('order_id');
             $table->string('status')->default('pending');
             $table->integer('quantity');
             $table->string('payments')->nullable();

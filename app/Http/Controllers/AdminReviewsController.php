@@ -37,11 +37,6 @@ class AdminReviewsController extends Controller
         });
 
         $rating = ReviewRating::select('id')->get(['id']);
-        // foreach($rating as $r){
-        //     $r->id;
-        // }
-
-        // dd($rating);
         
         return view('pages.admin.adminReviews.index', compact('data', 'rating'));
     }

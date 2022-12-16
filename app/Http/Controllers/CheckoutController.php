@@ -104,14 +104,19 @@ class CheckoutController extends Controller
         $dataKeranjang = Keranjang::where('user_id', Auth::user()->id)
                                     ->where('status', '<>', 'complete')
                                     ->get();
-                                    
-        foreach($dataKeranjang as $data) {
+
+        
+
+        $order = Order::create($validateData);
+        foreach ($dataKeranjang as $data) {
             $data->buku->update([
                 'stok' => $data->buku->stok - $data->quantity
             ]);
+
+            $data->update([
+                'order_id' => $order->id
+            ]);
         }
-        
-        $order = Order::create($validateData);
 
         if ($order) {
             if (empty($validateData['snap_token'])) {

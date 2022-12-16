@@ -57,11 +57,13 @@ class CartController extends Controller
                     $validatedData['user_id'] = auth()->user()->id;
                     $validatedData['quantity'] = $request->quantity;
                     $validatedData['status'] = 'pending';
+                    $validatedData['order_id'] = 0;
                 }
             }
             $validatedData['user_id'] = auth()->user()->id;
             $validatedData['quantity'] = $request->quantity;
             $validatedData['status'] = 'pending';
+            $validatedData['order_id'] = 0;
             Keranjang::create($validatedData);
         }
         return redirect()->route('cart.index')->with('success', 'Buku berhasil ditambahkan ke Keranjang!');

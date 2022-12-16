@@ -125,11 +125,11 @@ Route::any('/checkout/store', [CheckoutController::class, 'store'])->name('check
 Route::get('/checkout/create', [CheckoutController::class, 'create'])->name('checkout.create')->middleware('auth');
 Route::get('/checkout/pembayaran', [CheckoutController::class, 'pembayaran'])->name('checkout.pembayaran')->middleware('auth');
 Route::post('/checkout/pembayaran', [CheckoutController::class, 'konfirmasiPembayaran'])->name('checkout.konfirmasi_pembayaran')->middleware('auth');
-Route::resource('customer_order_history', CustomerOrderHistroyController::class)->middleware('auth');
-// Route::post('/checkout/confirm', [CheckoutController::class, 'confirm'])->name('checkout.confirm')->middleware('auth');
-// Route::any('/tes',[CheckoutController::class, 'show'])->name('tes')->middleware('auth');
-// Route::any('/tes',[CheckoutController::class, 'storeOrder'])->name('tes')->middleware('auth');
 
-// route paymentController
-// Route::get('/payments/midtrans-notification', [PaymentCallbackController::class, 'tes']);
-// Route::post('/payments/midtrans-notifications', [PaymentCallbackController::class, 'receive'])->middleware('auth');
+// History route in customer
+Route::resource('customer_order_history', CustomerOrderHistroyController::class)->middleware('auth');
+
+// Route generate PDF
+
+Route::get('/admin_orders/detailExport/{orders:id}', [AdminOrdersController::class, 'detailExport'])->name('admin_orders.detailExport')->middleware('admin');
+Route::get('/export_data/pdf', [AdminOrdersController::class, 'createPDF'])->name('export.data.pdf')->middleware('admin');

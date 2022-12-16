@@ -26,41 +26,36 @@
 
     <div class="card-body">
         <div class="table-responsive">
-            <a href="" class="btn btn-success mb-3"><i class="fas fa-fw fa-print"></i> Export Pdf</a>
+            <a href="{{ route('export.data.pdf') }}" class="btn btn-success mb-3"><i class="fas fa-fw fa-print"></i> Export Pdf</a>
             <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
                 <thead class="bg-gradient-dark text-light">
                     <tr>
                         <th>No</th>
                         <th>Kode Pesanan</th>
+                        <th>Jumlah</th>
+                        <th>Harga</th>
                         <th>Payment Status</th>
-                        <th>Total Harga</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     @php $no = 1; @endphp
-                    @foreach ($resultOrder as $order)
+                    @foreach ($resultOrder as $data)
                         <tr>
                             <td>{{ $no++ }}</td>
-                            <td>{{ $order->uuid }}</td>
+                            <td>{{ $data->order->uuid }}</td>
+                            <td>{{ $data->quantity }}</td>
+                            <td>{{ $data->buku->harga }}</td>
                             <td>
-                                @if($order->keranjang->status == 'pending')
-                                    <span class="badge badge-primary">{{ $order->keranjang->status }}</span>
+                                @if($data->status == 'pending')
+                                    <span class="badge badge-primary">{{ $data->status }}</span>
                                 @else
-                                    <span class="badge badge-success">{{ $order->keranjang->status }}</span>
+                                    <span class="badge badge-success">{{ $data->status }}</span>
                                 @endif
                             </td>
-                            <td>@currency($order->harga_ongkir + $order->total_belanja)</td>
                             <td>
-                                <a href="{{ route('admin-orders.show', $order->id) }}" class="btn btn-primary"><i class="fas fa-fw fa-eye"></i></a>
-                                <form action="{{ route('admin-orders.destroy', $order->id) }}" method="POST" class="d-inline">
-                                    @method('DELETE')
-                                    @csrf
-                                    <button class="btn btn-danger" type="submit"
-                                        onclick="return confirm('Apakah yakin ingin menghapus pesanan ini ?')">
-                                        <i class="fas fa-fw fa-trash"></i>
-                                    </button>
-                                </form>
+                                <a href="{{ route('admin-orders.show', $data->order->id) }}" class="btn btn-primary"><i class="fas fa-fw fa-eye"></i></a>
+                                <a href="{{ route('admin_orders.detailExport', $data->order->id) }}" class="btn btn-success"><i class="fas fa-fw fa-print"></i></a>
                             </td>
                         </tr>
                     @endforeach

@@ -51,7 +51,6 @@ class BukuController extends Controller
             'penerbits' => Penerbit::select('id', 'nama_penerbit')->get()
         ];
 
-        // dd($results);
         return view('pages.admin.adminBuku.create', $results);
     }
 
@@ -65,14 +64,14 @@ class BukuController extends Controller
     {
         $this->validate($request, [
             'judul_buku' => 'required|max:255',
-            'harga' => 'required|numeric',
-            'stok' => 'required|numeric',
+            'harga' => 'required|numeric|integer|min:1',
+            'stok' => 'required|numeric|integer|min:1',
             'category_id' => 'required|max:150',
             'author_id' => 'required|max:150',
             'penerbit_id' => 'required|max:150',
             'image' => 'required|image|file|max:1024',
             'sinopsis' => 'required',
-            'weight' => 'required|numeric'
+            'weight' => 'required|numeric|integer|min:1'
         ]);
 
         $kodeDepan = strtoupper(substr($request->judul_buku, 0, 1));
@@ -120,7 +119,6 @@ class BukuController extends Controller
         }
 
         $buku = Buku::create($validateData);
-        // dd($buku);
 
         if ($buku) {
             return redirect()->route('buku.index')->with('success', 'Buku berhasil di tambahkan');
@@ -143,7 +141,7 @@ class BukuController extends Controller
             'categories' => Category::select('id', 'name')->get(),
             'penerbits' => Penerbit::select('id', 'nama_penerbit')->get()
         ];
-        // dd($datas);
+
         return view('pages.admin.adminBuku.show', compact('datas'));
     }
 
@@ -162,7 +160,6 @@ class BukuController extends Controller
             'penerbits' => Penerbit::select('id', 'nama_penerbit')->get()
         ];
 
-        // dd($results);
         return view('pages.admin.adminBuku.edit', $results);
     }
 
@@ -177,14 +174,14 @@ class BukuController extends Controller
     {
         $data = [
             'judul_buku' => 'required|max:255',
-            'harga' => 'required|numeric',
-            'stok' => 'required|numeric',
+            'harga' => 'required|numeric|integer|min:1',
+            'stok' => 'required|numeric|integer|min:1',
             'category_id' => 'required|max:150',
             'author_id' => 'required|max:150',
             'penerbit_id' => 'required|max:150',
             'image' => 'image|file|max:1024',
             'sinopsis' => 'required',
-            'weight' => 'required|numeric'
+            'weight' => 'required|numeric|integer|min:1'
         ];
 
 
@@ -201,7 +198,6 @@ class BukuController extends Controller
 
         $buku = Buku::find($id)->update($validateData);
 
-        // dd($buku);
         if ($buku) {
             return redirect()->route('buku.index')->with('success', 'Buku berhasil di ubah');
         } else {

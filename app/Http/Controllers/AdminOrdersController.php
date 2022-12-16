@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
+use PDF;
 use App\Models\Keranjang;
 use Illuminate\Http\Request;
-use App\Models\Order;
 
 class AdminOrdersController extends Controller
 {
@@ -16,15 +17,15 @@ class AdminOrdersController extends Controller
 
     public function index()
     {
-        $resultOrder = Order::with('keranjang')
-                                ->join('cities', 'cities.id', '=', 'orders.destination_id')
-                                ->get([
-                                    'orders.*',
-                                    'cities.nama_kab_kota'
-                                ]);
-                                
+        $resultOrder = Keranjang::with('order', 'buku')->get();
         return view('pages.admin.adminOrders.index', compact('resultOrder'));
+    }
 
+    public function createPdf()
+    {
+        $data = Keranjang::all();
+        $pdf = PDF::loadView('Lpdf.orderAdmin', compact('data'));
+        return $pdf->download("data_order_customer " . date('d-m-Y') . '.pdf');
     }
 
     /**
@@ -54,9 +55,14 @@ class AdminOrdersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Order $order)
+    public function show($id)
     {
         
+    }
+
+    public function detailExport($id)
+    {
+        dd($id);
     }
 
     /**

@@ -32,6 +32,10 @@ class AppServiceProvider extends ServiceProvider
         Blade::directive('currency', function ($input) {
             return "Rp. <?php echo number_format($input,0,',','.'); ?>";
         });
+
+        Blade::directive('star', function($input){
+            return "<?php echo number_format($input,1,'.',''); ?>";
+        }) ;
         
         Gate::define('admin', function (User $user) {
             return $user->status_type;

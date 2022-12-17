@@ -55,6 +55,7 @@
                                             <td><span class="badge bg-success">{{ $item->status }}</span></td>
                                             <td>
                                                 <a href="{{ route('customer_order_history.show', $item->order->id) }}" class="btn btn-primary"><i class="fas fa-fw fa-info"></i></a>
+                                                <a href="{{ route('history.detailExport', $item->order->id) }}" class="btn btn-success"><i class="fas fa-fw fa-print"></i></a>
                                                 <form action="{{ route('customer_order_history.destroy', $item->order->id) }}" method="POST" class="d-inline">
                                                     @method('DELETE')
                                                     @csrf

@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Order;
 use PDF;
+use App\Models\Order;
 use App\Models\Keranjang;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminOrdersController extends Controller
 {
@@ -57,12 +58,40 @@ class AdminOrdersController extends Controller
      */
     public function show($id)
     {
-        
-    }
+        $dataOrder = Keranjang::with('order', 'buku')->where('order_id', $id)->get();
+        $noInvoice = null;
+        $province = null;
+        $kota = null;
+        $alamat = null;
+        $kurir = null;
+        $paket = null;
+        $ongkir = 0;
+        $beli = 0;
+        $total = 0;
 
-    public function detailExport($id)
-    {
-        dd($id);
+        foreach ($dataOrder as $data) {
+            $nama = $data->user->name;
+            $no_telp = sprintf("%s-%s-%s", substr($data->user->number_phone, 0, 4), substr($data->user->number_phone, 4, 4), substr($data->user->number_phone, 8));
+            $kurir = $data->order->courier;
+            $paket = $data->order->layanan_ongkir;
+            $ongkir = $data->order->harga_ongkir;
+            $beli = $data->order->total_belanja;
+            $total = $data->order->harga_ongkir + $data->order->total_belanja;
+            $noInvoice = $data->order->uuid;
+            $province = $data->order->province->name_province;
+            $kota = $data->order->cities->nama_kab_kota;
+            $alamat = $data->order->alamat;
+        }
+
+        return view('pages.admin.adminOrders.show', 
+                compact(
+                'dataOrder', 'kurir', 'paket', 'ongkir', 'beli',
+                'noInvoice', 'total', 'nama',
+                'province', 
+                'kota', 
+                'alamat', 
+                'no_telp'
+            ));
     }
 
     /**

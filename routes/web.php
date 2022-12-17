@@ -130,6 +130,5 @@ Route::post('/checkout/pembayaran', [CheckoutController::class, 'konfirmasiPemba
 Route::resource('customer_order_history', CustomerOrderHistroyController::class)->middleware('auth');
 
 // Route generate PDF
-
-Route::get('/admin_orders/detailExport/{orders:id}', [AdminOrdersController::class, 'detailExport'])->name('admin_orders.detailExport')->middleware('admin');
+Route::get('/history/{orders:id}', [CustomerOrderHistroyController::class, 'detailExport'])->name('history.detailExport')->middleware('auth');
 Route::get('/export_data/pdf', [AdminOrdersController::class, 'createPDF'])->name('export.data.pdf')->middleware('admin');

@@ -55,7 +55,7 @@
                             </td>
                             <td>
                                 <a href="{{ route('admin-orders.show', $data->order->id) }}" class="btn btn-primary"><i class="fas fa-fw fa-eye"></i></a>
-                                <a href="{{ route('admin_orders.detailExport', $data->order->id) }}" class="btn btn-success"><i class="fas fa-fw fa-print"></i></a>
+                                {{-- <a href="{{ route('admin_orders.detailExport', $data->order->id) }}" class="btn btn-success"><i class="fas fa-fw fa-print"></i></a> --}}
                             </td>
                         </tr>
                     @endforeach

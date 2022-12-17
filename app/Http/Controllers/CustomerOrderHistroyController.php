@@ -6,6 +6,8 @@ use App\Models\Keranjang;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use PDF;
+
 
 class CustomerOrderHistroyController extends Controller
 {
@@ -85,6 +87,44 @@ class CustomerOrderHistroyController extends Controller
                 'alamat', 
                 'no_telp'
             ));
+    }
+
+    public function detailExport($id)
+    {
+        $dataOrder = Keranjang::with('buku', 'order')->where('user_id', Auth::user()->id)
+                            ->where('order_id', $id)->get();
+
+        $noInvoice = null;
+        $province = null;
+        $kota = null;
+        $alamat = null;
+        $kurir = null;
+        $paket = null;
+        $ongkir = 0;
+        $beli = 0;
+        $total = 0;
+        $no_telp = sprintf("%s-%s-%s", substr(Auth::user()->number_phone, 0, 4), substr(Auth::user()->number_phone, 4, 4), substr(Auth::user()->number_phone, 8));
+
+        foreach ($dataOrder as $data) {
+            $kurir = $data->order->courier;
+            $paket = $data->order->layanan_ongkir;
+            $ongkir = $data->order->harga_ongkir;
+            $beli = $data->order->total_belanja;
+            $total = $data->order->harga_ongkir + $data->order->total_belanja;
+            $noInvoice = $data->order->uuid;
+            $province = $data->order->province->name_province;
+            $kota = $data->order->cities->nama_kab_kota;
+            $alamat = $data->order->alamat;
+        }
+
+        $pdf = PDF::loadView('Lpdf.historyCustomer',
+            compact(
+                'dataOrder', 'kurir', 'paket',
+                'ongkir', 'beli', 'noInvoice', 'total',
+                'province', 'kota', 'alamat', 'no_telp'
+            )
+        );
+        return $pdf->download("detail_order " . date('d-m-Y') . '.pdf');
     }
 
     /**

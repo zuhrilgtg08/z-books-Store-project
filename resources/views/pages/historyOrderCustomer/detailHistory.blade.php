@@ -19,12 +19,6 @@
                                 <div class="col-md-8">
                                     <p class="fw-bolder">Terima kasih atas pembelian Anda</p>
                                 </div>
-                                <div class="col-md-4 mb-3 text-end">
-                                    <button type="submit" class="btn btn-success">
-                                        <i class="fas fa-fw fa-print"></i>
-                                        Print
-                                    </button>
-                                </div>
                             </div>
                             <div class="row">
                                 <ul class="list-unstyled">
@@ -61,14 +55,13 @@
                                 <div class="row d-flex justify-content-end">
                                     <div class="col-md-8 text-end">
                                         <ul class="list-unstyled">
-                                            
-                                                <li class="text-black">Kurir : {{ $kurir }}</li>
-                                                <li class="text-black">Paket : {{ $paket }}</li>
-                                                <li class="text-black">Harga Ongkir : @currency($ongkir)</li>
-                                                <li class="text-black">Total Harga Pembelian : @currency($beli)</li>
-                                                <li class="text-black mt-2">
-                                                    <h3 class="text-success fw-bold">Total : @currency($total)</h3>
-                                                </li>
+                                            <li class="text-black">Kurir : {{ $kurir }}</li>
+                                            <li class="text-black">Paket : {{ $paket }}</li>
+                                            <li class="text-black">Harga Ongkir : @currency($ongkir)</li>
+                                            <li class="text-black">Total Harga Pembelian : @currency($beli)</li>
+                                            <li class="text-black mt-2">
+                                                <h3 class="text-success fw-bold">Total : @currency($total)</h3>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>

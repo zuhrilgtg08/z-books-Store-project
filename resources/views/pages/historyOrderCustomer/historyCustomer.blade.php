@@ -52,7 +52,13 @@
                                             <td>{{ $item->quantity}}</td>
                                             <td>@currency($item->buku->harga)</td>
                                             <td>@currency($item->buku->harga * $item->quantity)</td>
-                                            <td><span class="badge bg-success">{{ $item->status }}</span></td>
+                                            <td>
+                                                @if($item->order->transaction_status == 'pending')
+                                                    <span class="badge bg-warning">{{ $item->order->transaction_status }}</span>
+                                                @else
+                                                    <span class="badge bg-success">{{ $item->order->transaction_status }}</span>
+                                                @endif
+                                            </td>
                                             <td>
                                                 <a href="{{ route('customer_order_history.show', $item->order->id) }}" class="btn btn-primary"><i class="fas fa-fw fa-info"></i></a>
                                                 <a href="{{ route('history.detailExport', $item->order->id) }}" class="btn btn-success"><i class="fas fa-fw fa-print"></i></a>

@@ -1,8 +1,8 @@
-@extends('layouts.main', ["title" => "Home"])
+@extends('layouts.main')
 @section('main-content')
     <div class="row justify-content-center mt-5">
         <div class="col-md-6 mt-5">
-            <h3 class="mt-3 font-semibold text-center">Books Search</h3>
+            <h3 class="mt-3 font-semibold text-center">Cari Buku</h3>
             <form action="/home" method="GET">
                 @if (request('category'))
                     <input type="hidden" name="category" value="{{ request('category') }}">
@@ -21,7 +21,7 @@
                         value="{{ request('search') }}">
                     <button class="btn btn-outline-success" type="submit" id="cari-btn">
                         <i class="fas fa-fw fa-search"></i>
-                        Search
+                        Cari
                     </button>
                 </div>
             </form>
@@ -54,7 +54,7 @@
                             <a href="{{ route('home.info', $data[0]->id) }}" 
                                 class="text-decoration-none btn btn-danger">
                                 <i class="fas fa-fw fa-info-circle"></i>
-                                Read More
+                                Info Buku
                             </a>
                         </div>
                     </div>
@@ -103,7 +103,7 @@
                                         <a class="btn btn-danger mt-auto"
                                             href="{{ route('home.info', $buku->id) }}">
                                             <i class="fas fa-fw fa-info-circle"></i>
-                                            Read More
+                                            Info Buku
                                         </a>
                                     </div>
                                 </div>
@@ -118,17 +118,17 @@
         </div>
     @else
         <div class="col-md-6 mt-3 m-auto text-center ">
-            <p class="fs-4 h3 mb-3">Sory, book's Not Found.</p>
+            <p class="fs-4 h3 mb-3">Sory, Buku Tidak ada!.</p>
         </div>
     @endif
     
     <div class="container-marketing">
         <div class="row featurette">
             <div class="col-md-7">
-                <h3 class="featurette-heading fw-normal lh-1"> Book is the window of the world </h3>
+                <h3 class="featurette-heading fw-normal lh-1"> Buku adalah jendela dunia </h3>
                 <p class="lead">
-                    Through books we can know about many things that exist in the world. To know what is in the bowels of the earth, we need
-                    not enter into the bowels of the earth. But enough just by reading a book.
+                    Melalui buku kita bisa mengetahui tentang banyak hal yang ada di dunia. Untuk mengetahui apa yang ada di perut bumi,
+                    kita tidak perlu masuk ke dalam perut bumi. Tapi cukup hanya dengan membaca buku.
                 </p>
             </div>
             <div class="col-md-5">

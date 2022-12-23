@@ -41,7 +41,7 @@
             }
 
             td {
-                border: 1px solid #808080;
+                border: 1px solid #747171;
                 padding: 8px 8px 0px 8px;
             }
 
@@ -53,15 +53,18 @@
 
     <body>
         <center>
-            <h1 style="text-decoration: underline;">DATA ORDER CUSTOMER</h1>
+            <h1 style="text-decoration: underline;">DATA RIWAYAT PESANAN</h1>
             <table>
                 <thead>
                     <tr>
                         <th>No</th>
                         <th>Kode Pesanan</th>
+                        <th>Judul Buku</th>
                         <th>Jumlah</th>
-                        <th>Harga Buku</th>
-                        <th>Status Pembayaran</th>
+                        <th>Harga</th>
+                        <th>Harga Ongkir</th>
+                        <th>Total Harga</th>
+                        <th>Payment Status</th>
                         <th>Tanggal Masuk</th>
                     </tr>
                 </thead>
@@ -71,9 +74,12 @@
                         <tr>
                             <td>{{ $no++ }}</td>
                             <td>{{ $dt->order->uuid}}</td>
+                            <td>{{ $dt->buku->judul_buku}}</td>
                             <td>{{ $dt->quantity}}</td>
                             <td>@currency($dt->buku->harga)</td>
-                            <td>{{ $dt->status}}</td>
+                            <td>@currency($dt->order->harga_ongkir)</td>
+                            <td>@currency($dt->order->harga_ongkir + $dt->order->total_belanja)</td>
+                            <td>{{ $dt->payments}}</td>
                             <td>{{ date('Y-m-d', strtotime($dt->created_at)) }}</td>
                         </tr>
                     @endforeach

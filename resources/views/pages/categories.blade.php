@@ -2,7 +2,7 @@
 @section('main-content')
     <div class="row justify-content-center mt-5">
         <div class="col-md-4">
-            <h2 class="text-center font-semibold mt-5">Books Categories</h2>
+            <h2 class="text-center font-semibold mt-5">Kategori Buku</h2>
         </div>
     </div>
     <div class="container">

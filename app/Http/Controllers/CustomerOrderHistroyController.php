@@ -64,8 +64,6 @@ class CustomerOrderHistroyController extends Controller
         $beli = 0;
         $total = 0;
 
-        $no_telp = sprintf("%s-%s-%s", substr(Auth::user()->number_phone, 0, 4), substr(Auth::user()->number_phone, 4, 4), substr(Auth::user()->number_phone, 8));
-
         foreach($detailOrder as $data) {
             $kurir = $data->order->courier;
             $paket = $data->order->layanan_ongkir;
@@ -85,7 +83,6 @@ class CustomerOrderHistroyController extends Controller
                 'province', 
                 'kota', 
                 'alamat', 
-                'no_telp'
             ));
     }
 
@@ -103,7 +100,6 @@ class CustomerOrderHistroyController extends Controller
         $ongkir = 0;
         $beli = 0;
         $total = 0;
-        $no_telp = sprintf("%s-%s-%s", substr(Auth::user()->number_phone, 0, 4), substr(Auth::user()->number_phone, 4, 4), substr(Auth::user()->number_phone, 8));
 
         foreach ($dataOrder as $data) {
             $kurir = $data->order->courier;
@@ -121,7 +117,7 @@ class CustomerOrderHistroyController extends Controller
             compact(
                 'dataOrder', 'kurir', 'paket',
                 'ongkir', 'beli', 'noInvoice', 'total',
-                'province', 'kota', 'alamat', 'no_telp'
+                'province', 'kota', 'alamat',
             )
         );
         return $pdf->download("detail_order " . date('d-m-Y') . '.pdf');

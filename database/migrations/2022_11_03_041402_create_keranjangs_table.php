@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('status')->default('pending');
             $table->integer('quantity');
             $table->string('payments')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

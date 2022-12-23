@@ -23,7 +23,7 @@ class AdminProfilePasswordController extends Controller
             'email' => 'email:dns',
             'image' => 'image|file|max:1024',
             'alamat' => 'max:150',
-            'number_phone' => 'numeric|min:10|integer',
+            'number_phone' => 'numeric|min:10',
         ]);
 
         if ($request->file('image')) {

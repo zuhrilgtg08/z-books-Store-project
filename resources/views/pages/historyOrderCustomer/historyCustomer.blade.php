@@ -2,7 +2,7 @@
 @section('main-content')
     <main class="py-4">
         <div class="my-5 text-center mb-5">
-            <h3>History Pembayaran / Pesanan</h3>
+            <h3>Riwayat Pesanan</h3>
         </div>
 
         @if (session()->has('success'))
@@ -62,7 +62,7 @@
                                             <td>
                                                 <a href="{{ route('customer_order_history.show', $item->order->id) }}" class="btn btn-primary"><i class="fas fa-fw fa-info"></i></a>
                                                 <a href="{{ route('history.detailExport', $item->order->id) }}" class="btn btn-success"><i class="fas fa-fw fa-print"></i></a>
-                                                <form action="{{ route('customer_order_history.destroy', $item->order->id) }}" method="POST" class="d-inline">
+                                                <form action="{{ route('customer_order_history.destroy', $item->id) }}" method="POST" class="d-inline">
                                                     @method('DELETE')
                                                     @csrf
                                                     <button class="btn btn-danger" type="submit" onclick="return confirm('Apakah yakin ingin menghapus pesanan ini ?')">

@@ -30,7 +30,7 @@
 
     <div class="row justify-content-center mt-5">
         <div class="col-md-4 my-5">
-            <h2 class="text-center">Best Seller Books</h2>
+            <h2 class="text-center">Penjualan Terbaik</h2>
         </div>
     </div>
     <div class="row position-relative justify-content-start">

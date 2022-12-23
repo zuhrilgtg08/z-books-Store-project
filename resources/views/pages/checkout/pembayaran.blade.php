@@ -33,8 +33,8 @@
                                         @foreach ($dataPesanan as $order)
                                             @if ($order->transaction_status == null)
                                                 <li class="text-muted">Kepada : <span class="fw-bolder">{{ Auth::user()->name }}</span></li>
-                                                <li class="text-muted">Provinsi : {{ $order->name_province }}</li>
-                                                <li class="text-muted">Kota/Kabupaten : {{ $order->nama_kab_kota }}</li>
+                                                <li class="text-muted">Provinsi : {{ $order->province->name_province }}</li>
+                                                <li class="text-muted">Kota/Kabupaten : {{ $order->cities->nama_kab_kota }}</li>
                                                 <li class="text-muted">Alamat : {{ $order->alamat }}</li>
                                                 <li class="text-muted text-primary">No Telp : <i class="fas fa-fw fa-phone"></i>
                                                     {{ Auth::user()->number_phone }}

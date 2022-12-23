@@ -118,7 +118,8 @@
                         <li class="list-group-item d-flex justify-content-between lh-sm">
                             <div>
                                 <h6 class="my-0">{{ $item->buku->judul_buku }}</h6>
-                                <small class="text-danger">Kode Buku : {{ $item->buku->kode_buku }}</small>
+                                <small class="text-danger d-block">Kode Buku : {{ $item->buku->kode_buku }}</small>
+                                <small class="text-success fw-bold">Harga : @currency($item->buku->harga)</small>
                             </div>
                             <span class="text-danger">{{$item->quantity }} item </span>
                         </li>

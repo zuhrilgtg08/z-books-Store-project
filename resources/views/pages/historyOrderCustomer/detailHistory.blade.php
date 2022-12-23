@@ -2,14 +2,14 @@
 @section('main-content')
     <main class="py-4">
         <div class="my-5 text-center mb-5">
-            <h3>Print Invoice</h3>
+            <h3>Detail Pembayaran</h3>
         </div>
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="col-md-4 mb-3">
                     <a href="{{ route('customer_order_history.index') }}" class="btn btn-dark">
                         <i class="fas fa-fw fa-arrow-left"></i>
-                        Back to History
+                        Kembali
                     </a>
                 </div>
                 <div class="card border-0 shadow-lg">
@@ -28,7 +28,7 @@
                                     <li class="text-black mt-1">Kota/Kabupaten : {{ $kota }}</li>
                                     <li class="text-black mt-1">Alamat : {{ $alamat }}</li>
                                     <li class="text-success mt-1"><span class="text-black">Email : </span>{{ Auth::user()->email }}</li>
-                                    <li class="text-success mt-1"><span class="text-black">No Telp : </span>{{ $no_telp }}</li>
+                                    <li class="text-success mt-1"><span class="text-black">No Telp : </span>{{ Auth::user()->number_phone }}</li>
                                 </ul>
                                 <table class="table table-striped table-bordered text-center">
                                     <thead class="text-white bg-dark">

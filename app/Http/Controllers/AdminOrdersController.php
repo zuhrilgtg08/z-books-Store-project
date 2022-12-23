@@ -18,13 +18,13 @@ class AdminOrdersController extends Controller
 
     public function index()
     {
-        $resultOrder = Keranjang::with('order', 'buku')->get();
+        $resultOrder = Keranjang::with('order', 'buku')->where('user_id', '<>', 1)->withTrashed()->get();
         return view('pages.admin.adminOrders.index', compact('resultOrder'));
     }
 
     public function createPdf()
     {
-        $data = Keranjang::all();
+        $data = Keranjang::with('order', 'buku')->withTrashed()->get();
         $pdf = PDF::loadView('Lpdf.orderAdmin', compact('data'));
         return $pdf->download("data_order_customer " . date('d-m-Y') . '.pdf');
     }
@@ -58,7 +58,7 @@ class AdminOrdersController extends Controller
      */
     public function show($id)
     {
-        $dataOrder = Keranjang::with('order', 'buku')->where('order_id', $id)->get();
+        $dataOrder = Keranjang::with('order', 'buku')->where('order_id', $id)->withTrashed()->get();
         $noInvoice = null;
         $province = null;
         $kota = null;

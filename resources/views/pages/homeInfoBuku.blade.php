@@ -58,18 +58,18 @@
 
 <div class="row justify-content-center py-5">
     <div class="row mt-3">
-        <h2 class="text-center font-semibold">Book Information</h2>
+        <h2 class="text-center font-semibold">Detail Buku</h2>
         <div class="col-lg-2 mt-4">
             <a class="btn btn-dark" href="{{ url('/home') }}">
                 <i class="fas fa-fw fa-arrow-left"></i>
-                Back to Home
+                Kembali
             </a>
         </div>
-        <div class="col-lg-4 mt-4">
+        <div class="col-lg-6 mt-4">
             <a href="{{ route('home.rating', auth()->user()->id) }}" class="btn btn-success" data-bs-toggle="modal"
                 data-bs-target="#rating">
                 <i class="fas fa-fw fa-thumbs-up"></i>
-                Add Rating
+                Tambah Rating
             </a>
         </div>
         <div class="col-md-6 mt-4">
@@ -98,8 +98,8 @@
                 <div class="col-md-7">
                     <div class="card-body">
                         <h6 class="card-title font-weight-bolder text-center text-danger">{{ $info->judul_buku }}</h4>
-                        <p class="card-text font-semibold">Author: {{ $info->author->nama_author }}</p>
-                        <p class="card-text font-semibold">Category: {{ $info->category->name }}</p>
+                        <p class="card-text font-semibold">Penulis: {{ $info->author->nama_author }}</p>
+                        <p class="card-text font-semibold">Kategori: {{ $info->category->name }}</p>
                         <p class="card-text font-semibold">Penerbit: {{ $info->penerbit->nama_penerbit }}</p>
                         <p class="card-text font-semibold">Kode Buku: {{ $info->kode_buku }}</p>
                         <p class="card-text font-semibold">Terbit Tahun: {{ $info->penerbit->tahun_terbit }}</p>
@@ -117,7 +117,7 @@
                             <div class="col-md-6">
                                     <button type="submit" class="btn btn-danger">
                                         <i class="fas fa-fw fa-shopping-cart"></i>
-                                        Add To Cart
+                                        Tambah
                                     </button>
                                 </form>
                             </div>
@@ -146,7 +146,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Rating This Book </h5>
+                <h5 class="modal-title" id="exampleModalLabel">Rating buku ini </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             

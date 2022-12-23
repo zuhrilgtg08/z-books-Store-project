@@ -32,6 +32,7 @@
                     <tr>
                         <th>No</th>
                         <th>Kode Pesanan</th>
+                        <th>Judul Buku</th>
                         <th>Jumlah</th>
                         <th>Harga</th>
                         <th>Payment Status</th>
@@ -44,8 +45,9 @@
                         <tr>
                             <td>{{ $no++ }}</td>
                             <td>{{ $data->order->uuid }}</td>
+                            <td>{{ $data->buku->judul_buku }}</td>
                             <td>{{ $data->quantity }}</td>
-                            <td>{{ $data->buku->harga }}</td>
+                            <td>@currency($data->buku->harga)</td>
                             <td>
                                 @if($data->status == 'pending')
                                     <span class="badge badge-primary">{{ $data->status }}</span>
@@ -54,8 +56,7 @@
                                 @endif
                             </td>
                             <td>
-                                <a href="{{ route('admin-orders.show', $data->order->id) }}" class="btn btn-primary"><i class="fas fa-fw fa-eye"></i></a>
-                                {{-- <a href="{{ route('admin_orders.detailExport', $data->order->id) }}" class="btn btn-success"><i class="fas fa-fw fa-print"></i></a> --}}
+                                <a href="{{ route('admin-orders.show', $data->id) }}" class="btn btn-primary"><i class="fas fa-fw fa-eye"></i></a>
                             </td>
                         </tr>
                     @endforeach

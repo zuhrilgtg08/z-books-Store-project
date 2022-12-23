@@ -39,7 +39,7 @@
     <div class="container mt-4">
         <main class="py-4">
             <div class="my-5 text-center mb-5">
-                <h3>Invoice</h3>
+                <h3>Detail Pembayaran</h3>
             </div>
             <div class="row justify-content-center">
                 <div class="col-md-8">
@@ -63,7 +63,7 @@
                                         <li class="text-success mt-1"><span class="text-black">Email :
                                             </span>{{ Auth::user()->email }}</li>
                                         <li class="text-success mt-1"><span class="text-black">No Telp :
-                                            </span>{{ $no_telp }}
+                                            </span> {{ Auth::user()->number_phone }}
                                         </li>
                                     </ul>
                                     <table>

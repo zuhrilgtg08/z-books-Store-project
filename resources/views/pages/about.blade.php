@@ -1,17 +1,17 @@
-@extends('layouts.main', ["title" => "About"])
+@extends('layouts.main')
 @section('main-content')
 
 <div class="row justify-content-center mt-5">
-    <h2 class="text-center font-semibold mt-5">About Store</h2>
+    <h2 class="text-center font-semibold mt-5">Tentang Toko</h2>
     <div class="col-md-10 mt-3">
         <div class="mt-3">
             <div class="row justify-content-between align-items-center">
                 <div class="col-md-8 m-auto p-auto">
                     <p>
-                        Z-Book's was founded in 1985 to provide high-quality imported books and magazines to readers in Indonesia. Through the
-                        years, our network has grown and we now have over 45 retail outlets in strategic shopping areas around Indonesia
-                        including airports and malls. Enables you to select from over 21 million international books and magazines with fast, guaranteed delivery and low
-                        prices.
+                        Z-Book's didirikan pada tahun 2020 untuk menyediakan buku dan majalah impor berkualitas tinggi kepada pembaca di Indonesia.
+                        Selama bertahun-tahun, jaringan kami telah berkembang dan kami sekarang memiliki lebih dari 45 gerai ritel di area
+                        perbelanjaan strategis di seluruh Indonesia termasuk bandara dan mal. Memungkinkan Anda memilih dari lebih dari 21 juta
+                        buku dan majalah internasional dengan pengiriman cepat, terjamin, dan harga murah.
                     </p>
                 </div>
                 <div class="col-md-4">
@@ -31,13 +31,10 @@
                 </div>
                 <div class="col-md-8 m-auto p-auto">
                     <div class="card-body">
-                        <h5 class="font-semibold card-title mb-3">Ahmad Zuhril Fahrizal (Owner Store)</h5>
+                        <h5 class="font-semibold card-title mb-3">Ahmad Zuhril Fahrizal (Owner Toko)</h5>
                         <p class="card-text">
-                            hello, my name is Ahmad Zuhril Fahrizal. I am a business actor in the field of selling books
-                            for all students or
-                            students. Turnover per month that I get can reach 12 million. Plus, the books here are
-                            written by many famous and great
-                            writers.
+                            halo, nama saya Ahmad Zuhril Fahrizal. saya pelaku usaha di bidang penjualan buku untuk semua pelajar atau mahasiswa. Omzet per bulan yang saya dapatkan bisa
+                            mencapai 12 juta. Plus, buku-buku di sini ditulis oleh banyak penulis terkenal dan hebat.
                         </p>
                     </div>
                 </div>
@@ -46,7 +43,7 @@
 
         <div class="mt-5 text-center">
             <div class="card-body">
-                <h5 class="mb-3">For bussiness can you contact with : </h5>
+                <h5 class="mb-3">Untuk bisnis anda bisa kontak melalui : </h5>
                 <a href="https://www.facebook.com/ahmad.z.fahrizal.35/" class="btn btn-primary" target="blank">
                     <i class="fab fa-fw fa-facebook"></i>
                     Facebook

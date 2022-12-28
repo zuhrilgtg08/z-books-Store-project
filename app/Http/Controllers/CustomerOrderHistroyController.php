@@ -53,7 +53,7 @@ class CustomerOrderHistroyController extends Controller
      */
     public function show($id)
     {
-        $detailOrder = Keranjang::where('order_id', $id)->get();
+        $detailOrder = Keranjang::where('order_id', $id)->withTrashed()->get();
         $noInvoice = null;
         $province = null;
         $kota = null;
@@ -89,7 +89,7 @@ class CustomerOrderHistroyController extends Controller
     public function detailExport($id)
     {
         $dataOrder = Keranjang::with('buku', 'order')->where('user_id', Auth::user()->id)
-                            ->where('order_id', $id)->get();
+                            ->where('order_id', $id)->withTrashed()->get();
 
         $noInvoice = null;
         $province = null;
@@ -154,8 +154,10 @@ class CustomerOrderHistroyController extends Controller
      */
     public function destroy($id)
     {
-        $order = Keranjang::findOrFail($id);
-        $order->delete();
-        return redirect()->route('customer_order_history.index')->with('errors', 'Data pesanan berhasil dihapus');
+        $order = Keranjang::destroy($id);
+        if($order) {
+            return redirect()->route('customer_order_history.index')->with('errors', 'Data pesanan berhasil dihapus!');
+        }
+            return redirect()->route('customer_order_history.index')->with('success', 'Data pesanan gagal dihapus!');
     }
 }

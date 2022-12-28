@@ -38,7 +38,6 @@
                                         <th scope="col">Judul Buku</th>
                                         <th scope="col">Jumlah</th>
                                         <th scope="col">Harga</th>
-                                        <th scope="col">Total</th>
                                         <th scope="col">Status</th>
                                         <th scope="col">Action</th>
                                     </tr>
@@ -50,7 +49,6 @@
                                             <td>{{ $no++ }}</td>
                                             <td>{{ $item->buku->judul_buku }}</td>
                                             <td>{{ $item->quantity}}</td>
-                                            <td>@currency($item->buku->harga)</td>
                                             <td>@currency($item->buku->harga * $item->quantity)</td>
                                             <td>
                                                 @if($item->order->transaction_status == 'pending')

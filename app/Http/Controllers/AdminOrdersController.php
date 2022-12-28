@@ -58,7 +58,8 @@ class AdminOrdersController extends Controller
      */
     public function show($id)
     {
-        $dataOrder = Keranjang::with('order', 'buku')->where('order_id', $id)->withTrashed()->get();
+        $dataOrder = Keranjang::with('order', 'buku')->where('order_id', $id)
+                                ->where('user_id', '!=', 1)->withTrashed()->get();
         $noInvoice = null;
         $province = null;
         $kota = null;
@@ -71,7 +72,7 @@ class AdminOrdersController extends Controller
 
         foreach ($dataOrder as $data) {
             $nama = $data->user->name;
-            $no_telp = sprintf("%s-%s-%s", substr($data->user->number_phone, 0, 4), substr($data->user->number_phone, 4, 4), substr($data->user->number_phone, 8));
+            $no_telp = $data->user->number_phone;
             $kurir = $data->order->courier;
             $paket = $data->order->layanan_ongkir;
             $ongkir = $data->order->harga_ongkir;

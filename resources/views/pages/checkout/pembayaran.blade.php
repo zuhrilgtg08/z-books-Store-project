@@ -112,7 +112,7 @@
     <script type="text/javascript">
         var payButton = document.getElementById('pay-button');
         payButton.addEventListener('click', function () {
-                window.snap.pay('{{ $snapToken }}', {
+                window.snap.pay('<?=$snapToken?>', {
                     onSuccess: function(result){
                     send_response_to_form(result);
                 },

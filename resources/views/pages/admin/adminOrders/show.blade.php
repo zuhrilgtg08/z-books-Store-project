@@ -59,7 +59,7 @@
                                     <li class="text-black">Provinsi : {{ $province }}</li>
                                     <li class="text-black">Kota/Kabupaten : {{ $kota }}</li>
                                     <li class="text-black">Alamat : {{ $alamat }}</li>
-                                    <li class="text-black">No Telp : {{ $no_telp }}</li>
+                                    <li class="text-black">No Telp : {{ $no_telp }} </li>
                                 </ul>
                             </div>
                         </div>

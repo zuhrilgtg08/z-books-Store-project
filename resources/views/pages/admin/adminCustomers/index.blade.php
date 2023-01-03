@@ -3,7 +3,7 @@
 
     <div class="card shadow mb-4">
         <div class="card-header py-3 mb-3">
-            <h1 class="h2 text-gray-800 text-center">Customers Manage</h1>
+            <h1 class="h2 text-gray-800 text-center">Customer's Managements</h1>
         </div>
             @if (session()->has('errors'))
                 <div class="alert alert-danger col-md-8 mt-3 ml-3 alert-dismissible fade show" role="alert">
@@ -19,10 +19,10 @@
                     <thead class="bg-dark text-light">
                         <tr>
                             <th>No</th>
-                            <th>Name</th>
-                            <th>Address</th>
+                            <th>Nama</th>
+                            <th>Alamat</th>
                             <th>Profile</th>
-                            <th>Phone Number</th>
+                            <th>Nomor Handphone</th>
                             <th>Action</th>
                         </tr>
                     </thead>

@@ -26,7 +26,8 @@ class AdminOrdersController extends Controller
     {
         $data = Keranjang::with('order', 'buku')->withTrashed()->get();
         $pdf = PDF::loadView('Lpdf.orderAdmin', compact('data'));
-        return $pdf->download("data_order_customer " . date('d-m-Y') . '.pdf');
+        $pdf->setPaper('legal', 'landscape');
+        return $pdf->download("data_riwayat_customer " . date('d-m-Y') . '.pdf');
     }
 
     /**

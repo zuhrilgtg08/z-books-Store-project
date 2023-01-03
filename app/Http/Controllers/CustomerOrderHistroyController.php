@@ -120,7 +120,7 @@ class CustomerOrderHistroyController extends Controller
                 'province', 'kota', 'alamat',
             )
         );
-        return $pdf->download("detail_order " . date('d-m-Y') . '.pdf');
+        return $pdf->download("struk_pembayaran " . date('d-m-Y') . '.pdf');
     }
 
     /**

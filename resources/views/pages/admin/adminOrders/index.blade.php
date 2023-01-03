@@ -34,7 +34,6 @@
                         <th>Kode Pesanan</th>
                         <th>Judul Buku</th>
                         <th>Jumlah</th>
-                        <th>Harga</th>
                         <th>Payment Status</th>
                         <th>Actions</th>
                     </tr>
@@ -47,7 +46,6 @@
                             <td>{{ $data->order->uuid }}</td>
                             <td>{{ $data->buku->judul_buku }}</td>
                             <td>{{ $data->quantity }}</td>
-                            <td>@currency($data->buku->harga)</td>
                             <td>
                                 @if($data->status == 'pending')
                                     <span class="badge badge-primary">{{ $data->status }}</span>

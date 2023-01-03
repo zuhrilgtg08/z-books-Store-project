@@ -68,7 +68,7 @@
                                     <li>
                                         <a class="dropdown-item" href="{{ route('customer_order_history.index') }}">
                                             <i class="fas fa-fw fa-newspaper"></i>
-                                            History Order
+                                            History Pesanan
                                         </a>
                                     </li>
                                     <li>

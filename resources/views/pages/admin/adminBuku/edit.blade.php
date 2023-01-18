@@ -14,79 +14,84 @@
                 <form action="{{ route('buku.update', $buku->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
-                    <div class="mb-3">
-                        <label for="judul-buku" class="form-label">Judul Buku</label>
-                        <input type="text" class="form-control @error('judul_buku') is-invalid @enderror"
-                            id="judul-buku" name="judul_buku" required
-                            value="{{ old('judul_buku', $buku->judul_buku) }}">
-                        @error('judul_buku')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-                    <div class="mb-3">
-                        <label for="harga" class="form-label">Harga</label>
-                        <input type="number" class="form-control @error('harga') is-invalid @enderror" id="harga"
-                            name="harga" value="{{ old('harga', $buku->harga) }}" required>
-                        @error('harga')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-                    <div class="mb-3">
-                        <label for="stok" class="form-label">Stok</label>
-                        <input type="number" class="form-control @error('stok') is-invalid @enderror" id="stok"
-                            name="stok" value="{{ old('stok', $buku->stok) }}" required>
-                        @error('stok')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-                    <div class="mb-3">
-                        <label for="weight" class="form-label">Berat</label>
-                        <input type="number" class="form-control @error('weight') is-invalid @enderror" id="weight" name="weight"
-                            value="{{ old('weight', $buku->weight) }}" required>
-                        @error('weight')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-                    <div class="mb-3">
-                        <label for="category" class="form-label">Categories</label>
-                        <select class="form-control" name="category_id" id="category">
-                            <option value="" disabled selected>Select Category </option>
-                            @foreach ($categories as $category)
-                                <option value="{{ old('category_id', $category->id) }}" @if ($category->id ==
-                                    $buku->category_id)
-                                    selected
-                                    @endif>
-                                    {{ $category->name }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="author" class="form-label">Authors</label>
-                        <select class="form-control" name="author_id" id="author">
-                            <option value="" disabled selected>Select Author </option>
-                            @foreach ($authors as $author)
-                                <option value="{{ old('author_id', $author->id) }}" @if ($author->id == $buku->author_id)
-                                    selected
-                                    @endif>
-                                    {{ $author->nama_author }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="penerbit" class="form-label">Penerbits</label>
-                        <select class="form-control" name="penerbit_id" id="penerbit">
-                            <option value="" disabled selected>Select Penerbit </option>
-                            @foreach ($penerbits as $penerbit)
-                                <option value="{{ old('penerbit_id', $penerbit->id) }}" @if ($penerbit->id ==
-                                    $buku->penerbit_id)
-                                    selected
-                                    @endif>
-                                    {{ $penerbit->nama_penerbit }}
-                                </option>
-                            @endforeach
-                        </select>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="judul-buku" class="form-label">Judul Buku</label>
+                                <input type="text" class="form-control @error('judul_buku') is-invalid @enderror" id="judul-buku" name="judul_buku"
+                                    required value="{{ old('judul_buku', $buku->judul_buku) }}">
+                                @error('judul_buku')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
+                                <label for="harga" class="form-label">Harga</label>
+                                <input type="number" class="form-control @error('harga') is-invalid @enderror" id="harga" name="harga"
+                                    value="{{ old('harga', $buku->harga) }}" required>
+                                @error('harga')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
+                                <label for="stok" class="form-label">Stok</label>
+                                <input type="number" class="form-control @error('stok') is-invalid @enderror" id="stok" name="stok"
+                                    value="{{ old('stok', $buku->stok) }}" required>
+                                @error('stok')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
+                                <label for="weight" class="form-label">Berat</label>
+                                <input type="number" class="form-control @error('weight') is-invalid @enderror" id="weight" name="weight"
+                                    value="{{ old('weight', $buku->weight) }}" required>
+                                @error('weight')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="category" class="form-label">Categories</label>
+                                <select class="form-control" name="category_id" id="category">
+                                    <option value="" disabled selected>Select Category </option>
+                                    @foreach ($categories as $category)
+                                    <option value="{{ old('category_id', $category->id) }}" @if ($category->id ==
+                                        $buku->category_id)
+                                        selected
+                                        @endif>
+                                        {{ $category->name }}
+                                    </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="author" class="form-label">Authors</label>
+                                <select class="form-control" name="author_id" id="author">
+                                    <option value="" disabled selected>Select Author </option>
+                                    @foreach ($authors as $author)
+                                    <option value="{{ old('author_id', $author->id) }}" @if ($author->id == $buku->author_id)
+                                        selected
+                                        @endif>
+                                        {{ $author->nama_author }}
+                                    </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="penerbit" class="form-label">Penerbits</label>
+                                <select class="form-control" name="penerbit_id" id="penerbit">
+                                    <option value="" disabled selected>Select Penerbit </option>
+                                    @foreach ($penerbits as $penerbit)
+                                    <option value="{{ old('penerbit_id', $penerbit->id) }}" @if ($penerbit->id ==
+                                        $buku->penerbit_id)
+                                        selected
+                                        @endif>
+                                        {{ $penerbit->nama_penerbit }}
+                                    </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
                     </div>
                     <div class="mb-3">
                         <label for="image" class="form-label">Cover Buku</label>

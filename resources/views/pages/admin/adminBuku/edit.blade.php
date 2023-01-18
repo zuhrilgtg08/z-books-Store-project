@@ -115,10 +115,10 @@
                         <label for="sinopsis" class="form-label">Sinopsis</label>
                         <input type="hidden" class="form-control @error('sinopsis') is-invalid @enderror" id="sinopsis"
                             name="sinopsis" required value="{{ old('sinopsis', $buku->sinopsis) }}">
-                        @error('sinopsis')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                        <trix-editor input="sinopsis"></trix-editor>
+                            <trix-editor input="sinopsis"></trix-editor>
+                            @error('sinopsis')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                     </div>
                     <div class="mb-3 text-center">
                         <button type="submit" class="btn btn-primary">Update</button>

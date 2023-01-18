@@ -55,10 +55,10 @@
                             <input type="hidden" class="form-control @error('biografi_author') is-invalid @enderror"
                                 id="biografi-author" name="biografi_author" required
                                 value="{{ old('biografi_author', $author->biografi_author) }}">
+                                <trix-editor input="biografi-author"></trix-editor>
                                 @error('biografi_author')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
-                            <trix-editor input="biografi-author"></trix-editor>
                         </div>
 
                         <div class="mb-3 text-center">

@@ -26,7 +26,7 @@
                                 <div class="mb-3">
                                     <label for="harga" class="form-label">Harga</label>
                                     <input type="number" class="form-control @error('harga') is-invalid @enderror" id="harga" name="harga"
-                                        value="{{ old('harga') }}" required>
+                                        value="{{ old('harga') }}" required min="1">
                                     @error('harga')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -34,7 +34,7 @@
                                 <div class="mb-3">
                                     <label for="stok" class="form-label">Stok</label>
                                     <input type="number" class="form-control @error('stok') is-invalid @enderror" id="stok" name="stok"
-                                        value="{{ old('stok') }}" required>
+                                        value="{{ old('stok') }}" required min="1">
                                     @error('stok')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -42,7 +42,7 @@
                                 <div class="mb-3">
                                     <label for="weight" class="form-label">Berat</label>
                                     <input type="number" class="form-control @error('weight') is-invalid @enderror" id="weight" name="weight"
-                                        value="{{ old('weight') }}" required>
+                                        value="{{ old('weight') }}" required min="1">
                                     @error('weight')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror

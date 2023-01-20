@@ -79,7 +79,7 @@
                                 @csrf
                                 <td>
                                     <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin di hapus?')">
-                                        <i class="fas fa-fw fa-trash-alt"></i> Remove
+                                        <i class="fas fa-fw fa-trash-alt"></i> Hapus
                                     </button>
                                 </td>
                             </form>

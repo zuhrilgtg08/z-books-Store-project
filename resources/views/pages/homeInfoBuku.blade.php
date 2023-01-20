@@ -84,15 +84,15 @@
 </div>
 
 
-<div class="row mt-3">
+<div class="row">
     <div class="col-md-7 mb-3">
-        <div class="card border-0 shadow-lg mt-4 mb-3" style="max-width: 600px;">
+        <div class="card border-0 shadow-lg mb-3" style="max-width: 600px;">
             <div class="row g-0">
                 <div class="col-md-5 text-center shadow-inner m-auto">
                     @if ($info->image)
                         <img src="{{ asset('storage/' . $info->image) }}" alt="book-info" class="img-fluid rounded" style="width: 100%; height: 100%; object-fit: cover;"/>
                     @else
-                        <img src="{{ asset('assets/cover-404.jpg') }}" alt="book-info" class="img-fluid rounded" style="width: 100%; height: 100%; object-fit: cover;" />
+                        <img src="{{ asset('assets/images/cover-404.jpg') }}" alt="book-info" class="img-fluid rounded" style="width: 100%; height: 100%; object-fit: cover;" />
                     @endif
                 </div>
                 <div class="col-md-7">
@@ -111,7 +111,7 @@
                                 <form action="{{ route('cart.store') }}" method="POST" class="d-inline">
                                     @csrf
                                     <input type="hidden" name="buku_id" value="{{ $info->id }}" />
-                                    <input type="number" name="quantity" min="0" max="{{ $info->stok }}" 
+                                    <input type="number" name="quantity" min="1" max="{{ $info->stok }}" 
                                         class="form-control text-center" value="{{ ($info->stok > 0) ? 1 : 0 }}" />
                             </div>
                             <div class="col-md-6">
@@ -128,7 +128,7 @@
         </div>
     </div>
     <div class="col-md-5 mb-3">
-        <div class="card border-0 shadow-lg mt-4 mb-3" style="max-width: 600px;">
+        <div class="card border-0 shadow-lg mb-3" style="max-width: 600px;">
             <div class="card-title bg-dark text-center">
                 <h5 class="text-light font-semibold my-3">Sinopsis : </h5>
             </div>

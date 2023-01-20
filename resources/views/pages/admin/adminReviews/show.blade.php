@@ -27,8 +27,8 @@
                     <img src="{{ asset('storage/' . $item->image) }}" 
                         alt="cover" class="img-fluid rounded-start">
                 @else
-                <img src="{{ asset('assets/images/default-user.png') }}" 
-                    alt="cover" class="img-fluid rounded-start">
+                    <img src="{{ asset('assets/images/cover-404.jpg') }}" 
+                        alt="covers" class="img-fluid rounded-start">
                 @endif
             </div>
             <div class="col-md-6">

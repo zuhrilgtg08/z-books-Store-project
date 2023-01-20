@@ -95,7 +95,7 @@
                                                     <form action="{{ route('cart.store') }}" method="POST">
                                                         @csrf
                                                         <input type="hidden" name="buku_id" value="{{ $data->id }}" />
-                                                            <input type="number" name="quantity" max="{{ $data->stok }}" min="0" 
+                                                            <input type="number" name="quantity" max="{{ $data->stok }}" min="1" 
                                                                 class="form-control text-center" value="{{ ($data->stok > 0) ? 1 : 0 }}" />
                                                 </div>
                                                 <div class="col-md-5">

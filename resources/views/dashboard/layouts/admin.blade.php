@@ -28,6 +28,11 @@
             trix-toolbar [data-trix-button-group="file-tools"] {
                 display: none;
             }
+            input::-webkit-outer-spin-button,
+            input::-webkit-inner-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+            }
         </style>
     </head>
 

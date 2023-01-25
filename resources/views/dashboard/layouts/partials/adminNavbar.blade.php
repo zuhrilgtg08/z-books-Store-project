@@ -39,7 +39,7 @@
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="{{ route('password-admin', Auth()->user()->id) }}">
                     <i class="fas fa-fw fa-user-lock fa-sm fa-fw mr-2"></i>
-                    Changes Password
+                    Ubah Password
                 </a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
@@ -71,7 +71,7 @@
             </div>
             <form action="/logout" method="POST">
                 @csrf
-                <div class="modal-body">Are You sure to Logout in Dashboard pages ? </div>
+                <div class="modal-body">Apakah Anda yakin untuk Logout di halaman Dashboard ? </div>
                 <div class="modal-footer">
                     <a class="btn btn-dark" data-dismiss="modal" href="#">Cancel</a>
                     <button type="submit" class="btn btn-danger">Logout</button>

@@ -95,7 +95,7 @@
 
                         <div class="mb-3">
                             <label for="alamat" class="form-label">Alamat :</label>
-                            <textarea class="form-control" placeholder="Tulis Alamat" id="alamat" style="height: 100px" name="alamat" required>{{ old('alamat') }}</textarea>
+                            <textarea class="form-control" placeholder="Tulis Alamat" id="alamat" style="height: 100px" name="alamat" required>{{ old('alamat', auth()->user()->alamat ?? '-') }}</textarea>
                         </div>
                     </div>
 

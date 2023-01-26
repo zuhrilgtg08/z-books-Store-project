@@ -46,10 +46,10 @@
                                     <i class="fas fa-fw fa-eye"></i>
                                 </a>
                                 <form action="{{ route('customer.destroy', $customer->id) }}" method="POST"
-                                    class="d-inline">
+                                    class="d-inline d-none">
                                     @method('DELETE')
                                     @csrf
-                                    <button class="btn btn-danger" type="submit"
+                                    <button class="btn btn-danger d-none" type="submit"
                                         onclick="return confirm('Apakah yakin ingin menghapus customer ini ?')">
                                         <i class="fas fa-fw fa-trash"></i>
                                     </button>

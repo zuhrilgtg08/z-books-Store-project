@@ -19,7 +19,18 @@ class AdminOrdersController extends Controller
     public function index()
     {
         $resultOrder = Keranjang::with('order', 'buku')->where('user_id', '<>', 1)->withTrashed()->get();
-        return view('pages.admin.adminOrders.index', compact('resultOrder'));
+        $code = null;
+        foreach($resultOrder as $data) {
+            $code = $data->order->uuid;
+        }
+
+        if (strlen($code)) {
+            $newCode = substr($code, 0, -28);
+        } else {
+            $code;
+        }
+
+        return view('pages.admin.adminOrders.index', compact('resultOrder', 'newCode'));
     }
 
     public function createPdf()

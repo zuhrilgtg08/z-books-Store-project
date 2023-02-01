@@ -43,7 +43,7 @@
                     @foreach ($resultOrder as $data)
                         <tr>
                             <td>{{ $no++ }}</td>
-                            <td>{{ $data->order->uuid }}</td>
+                            <td>{{ $newCode }}</td>
                             <td>{{ $data->buku->judul_buku }}</td>
                             <td>{{ $data->quantity }}</td>
                             <td>

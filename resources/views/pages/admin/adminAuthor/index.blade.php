@@ -42,30 +42,51 @@
                     <tbody>
                         @php $no = 1; @endphp
                         @foreach ($author as $penulis)
-                        <tr>
-                            <td>{{ $no++ }}</td>
-                            <td>{{ $penulis->nama_author }}</td>
-                            <td>{{ $penulis->slug }}</td>
-                            <td>{{ $penulis->excerpt }}</td>
-                            <td>
-                                <a href="/admin/dashboard/author/{{ $penulis->slug }}" class="btn btn-primary"><i
-                                        class="fas fa-fw fa-eye"></i></a>
-                                <a href="{{ route('author.edit', $penulis->id) }}" class="btn btn-warning"><i
-                                        class="fas fa-fw fa-edit"></i></a>
-                                <form action="{{ route('author.destroy', $penulis->id) }}" method="POST" class="d-inline">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger"
-                                        onclick="return confirm('Apakah yakin ingin menghapus author ini ?')">
-                                        <i class="fas fa-fw fa-trash"></i>
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
+                            <tr>
+                                <td>{{ $no++ }}</td>
+                                <td>{{ $penulis->nama_author }}</td>
+                                <td>{{ $penulis->slug }}</td>
+                                <td>{{ $penulis->excerpt }}</td>
+                                <td>
+                                    <a href="/admin/dashboard/author/{{ $penulis->slug }}" class="btn btn-primary"><i class="fas fa-fw fa-eye"></i></a>
+                                    <a href="{{ route('author.edit', $penulis->id) }}" class="btn btn-warning"><i class="fas fa-fw fa-edit"></i></a>
+                                    <form action="{{ route('author.destroy', $penulis->id) }}" method="POST" class="d-inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger sweet-delete">
+                                            <i class="fas fa-fw fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
                         @endforeach
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
+@endsection
+
+@section('script')
+    <script>
+        $('.sweet-delete').click(function(event){
+                var form = $(this).closest("form");
+                event.preventDefault();
+                Swal.fire({
+                    title: 'Hapus Author?',
+                    text: "Anda Yakin Ingin Menghapusnya!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Confirm'
+                }).then((result) => {
+                    setTimeout(() => {
+                        if(result.isConfirmed) {
+                            form.submit();
+                        }
+                    }, 3000);
+                });
+            });
+    </script>
 @endsection

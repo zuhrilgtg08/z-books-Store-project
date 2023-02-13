@@ -22,8 +22,6 @@
         <!-- jquery ui Css -->
         <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
         <link rel="stylesheet" href="/resources/demos/style.css">
-        <!-- select2 cdn-->
-        <!--- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" /> -->
         <style>
             input::-webkit-outer-spin-button,
             input::-webkit-inner-spin-button {
@@ -60,8 +58,6 @@
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <!-- swiper js -->
         <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
-        <!-- select()2 script -->
-        <!-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> -->
         <!-- midtrans -->
         <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="SB-Mid-client-BEF5FN-7hSPvPyIg"></script>
         <!-- my script -->

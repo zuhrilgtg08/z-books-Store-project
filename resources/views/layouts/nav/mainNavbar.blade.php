@@ -94,12 +94,10 @@
                                     </li>
                                 @endif
                                 <li>
-                                    <form action="/logout" method="post">
-                                        @csrf
-                                        <button type="submit" class="dropdown-item">
-                                            <i class="fa-solid fa-right-from-bracket"></i> Logout
-                                        </button>
-                                    </form>
+                                    <a class="dropdown-item" href="#" data-bs-target="#logoutModal" data-bs-toggle="modal">
+                                        <i class="fa-solid fa-right-from-bracket"></i>
+                                        Logout
+                                    </a>
                                 </li>
                             </ul>
                         </li>
@@ -109,3 +107,27 @@
         </div>
     </nav>
 </header>
+
+<!-- Modal -->
+<div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Logout Account</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/logout" method="POST">
+                @csrf
+                <div class="modal-body">Anda yakin untuk Logout Account ?</div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fa-solid fa-right-from-bracket"></i> Logout
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+

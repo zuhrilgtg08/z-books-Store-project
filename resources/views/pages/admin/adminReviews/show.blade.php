@@ -21,23 +21,23 @@
 <div class="row justify-content-center">
     <div class="card mt-3 rounded" style="max-width: 52rem;">
         @foreach ($buku as $item)
-        <div class="row g-0">
-            <div class="col-md-4">
-                @if ($item->image)
-                    <img src="{{ asset('storage/' . $item->image) }}" 
-                        alt="cover" class="img-fluid rounded-start">
-                @else
-                    <img src="{{ asset('assets/images/cover-404.jpg') }}" 
-                        alt="covers" class="img-fluid rounded-start">
-                @endif
-            </div>
-            <div class="col-md-6">
-                <div class="card-body">
-                    <h5 class="card-title">{{ $item->judul_buku }}</h5>
-                    <p class="card-text lead">{!! $item->sinopsis !!}</p>
+            <div class="row g-0">
+                <div class="col-md-4">
+                    @if ($item->image)
+                        <img src="{{ asset('storage/' . $item->image) }}" 
+                            alt="cover" class="img-fluid rounded-start">
+                    @else
+                        <img src="{{ asset('assets/images/cover-404.jpg') }}" 
+                            alt="covers" class="img-fluid rounded-start">
+                    @endif
+                </div>
+                <div class="col-md-6">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ $item->judul_buku }}</h5>
+                        <p class="card-text lead">{!! $item->sinopsis !!}</p>
+                    </div>
                 </div>
             </div>
-        </div>
         @endforeach
 
         <div class="row mt-3 my-3">

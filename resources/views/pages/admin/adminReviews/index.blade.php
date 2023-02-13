@@ -51,8 +51,7 @@
                                         class="d-inline">
                                         @method('DELETE')
                                         @csrf
-                                        <button class="btn btn-danger" type="submit"
-                                            onclick="return confirm('Apakah yakin ingin menghapus review buku ini ?')">
+                                        <button class="btn btn-danger sweet-delete" type="submit">
                                             <i class="fas fa-fw fa-trash"></i>
                                         </button>
                                     </form>
@@ -64,4 +63,28 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('script')
+<script>
+    $('.sweet-delete').click(function(event){
+            var form = $(this).closest("form");
+            event.preventDefault();
+            Swal.fire({
+                title: 'Hapus Reviews?',
+                text: "Anda Yakin Ingin Menghapusnya!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Confirm'
+            }).then((result) => {
+                setTimeout(() => {
+                    if(result.isConfirmed) {
+                        form.submit();
+                    }
+                }, 100);
+            });
+        });
+</script>
 @endsection

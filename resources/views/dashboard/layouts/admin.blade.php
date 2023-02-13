@@ -77,5 +77,9 @@
         <script src="{{ asset('sbadmin/js/sb-admin-2.min.js') }}"></script>
         <!-- Custom scripts for pages-->
         <script src="{{ asset('sbadmin/js/sb-admin-2.js') }}"></script>
+        <!-- sweetalert 2-->
+        <script src="{{ asset('assets/js/sweetalert2.all.min.js') }}"></script>
+        
+        @yield('script')
     </body>
 </html>

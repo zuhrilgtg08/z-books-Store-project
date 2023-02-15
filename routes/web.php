@@ -128,7 +128,8 @@ Route::post('/checkout/pembayaran', [CheckoutController::class, 'konfirmasiPemba
 
 // History route in customer
 Route::resource('customer_order_history', CustomerOrderHistroyController::class)->middleware('auth');
-
+// Route export excel
+Route::get('/export_pesanan/excel', [AdminOrdersController::class, 'exportExcel'])->name('export.pesanan.excel')->middleware('admin');
 // Route generate PDF
 Route::get('/history/{orders:id}', [CustomerOrderHistroyController::class, 'detailExport'])->name('history.detailExport')->middleware('auth');
 Route::get('/export_data/pdf', [AdminOrdersController::class, 'createPDF'])->name('export.data.pdf')->middleware('admin');

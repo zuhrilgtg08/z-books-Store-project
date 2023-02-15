@@ -62,6 +62,8 @@
         <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="SB-Mid-client-BEF5FN-7hSPvPyIg"></script>
         <!-- my script -->
         <script src="{{ asset('assets/js/script.js') }}"></script>
+        <!-- sweetalert 2-->
+        <script src="{{ asset('assets/js/sweetalert2.all.min.js') }}"></script>
         @yield('script')
     </body>
 </html>

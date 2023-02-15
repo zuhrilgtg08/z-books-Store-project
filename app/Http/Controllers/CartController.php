@@ -82,7 +82,7 @@ class CartController extends Controller
 
     public function remove($id)
     {
-        Keranjang::destroy($id);
+        Keranjang::findOrFail($id)->delete();
         return redirect()->route('cart.index')->with('delete', 'Buku pesanan anda dihapus dari Keranjang!');
     }
 }

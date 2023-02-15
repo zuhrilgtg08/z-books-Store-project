@@ -124,9 +124,9 @@ class CheckoutController extends Controller
         }
 
         if ($order) {
-            return redirect()->route('checkout.pembayaran')->with('success', 'Pesanan berhasil di tambahkan');
+            return redirect()->route('checkout.pembayaran')->with('success', 'Pesanan berhasil di tambahkan!');
         } else {
-            return redirect()->route('checkout.pembayaran')->with('errors', 'Pesanan gagal di tambahkan');
+            return redirect()->route('checkout.pembayaran')->with('errors', 'Pesanan gagal di tambahkan!');
         }
     }
 
@@ -169,9 +169,9 @@ class CheckoutController extends Controller
         }
 
         if ($order) {
-            return redirect()->route('customer_order_history.index')->with('success', 'Pesanan berhasil di bayar');
+            return redirect()->route('customer_order_history.index')->with('success', 'Pesanan berhasil di bayar!');
         } else {
-            return redirect()->route('customer_order_history.index')->with('errors', 'Pesanan gagal di bayar');
+            return redirect()->route('customer_order_history.index')->with('errors', 'Pesanan gagal di bayar!');
         }
     }
 }

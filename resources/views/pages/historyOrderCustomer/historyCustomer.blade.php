@@ -60,10 +60,10 @@
                                             <td>
                                                 <a href="{{ route('customer_order_history.show', $item->order->id) }}" class="btn btn-primary"><i class="fas fa-fw fa-info"></i></a>
                                                 <a href="{{ route('history.detailExport', $item->order->id) }}" class="btn btn-success"><i class="fas fa-fw fa-print"></i></a>
-                                                <form action="{{ route('customer_order_history.destroy', $item->id) }}" method="POST" class="d-inline">
+                                                <form action="{{ route('customer_order_history.destroy', $item->id) }}" method="POST" class="d-none">
                                                     @method('DELETE')
                                                     @csrf
-                                                    <button class="btn btn-danger" type="submit" onclick="return confirm('Apakah yakin ingin menghapus pesanan ini ?')">
+                                                    <button class="btn btn-danger d-none" type="submit" onclick="return confirm('Apakah yakin ingin menghapus pesanan ini ?')">
                                                         <i class="fas fa-fw fa-trash"></i>
                                                     </button>
                                                 </form>

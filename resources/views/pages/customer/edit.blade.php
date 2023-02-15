@@ -1,7 +1,7 @@
 @extends('layouts.main')
 @section('main-content')
     <div class="row justify-content-center mt-5">
-        <div class="col-md-8 mt-5">
+        <div class="col-md-7 mt-5">
             @if (session()->has('success'))
                 <div class="alert alert-success col-md-8 mt-3 alert-dismissible fade show" role="alert">
                     {{ session('success') }}

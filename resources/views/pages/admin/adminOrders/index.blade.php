@@ -26,7 +26,8 @@
 
     <div class="card-body">
         <div class="table-responsive">
-            <a href="{{ route('export.data.pdf') }}" class="btn btn-success mb-3"><i class="fas fa-fw fa-print"></i> Export Pdf</a>
+            <a href="{{ route('export.data.pdf') }}" class="btn btn-danger mb-3"><i class="fas fa-fw fa-file-pdf"></i> Export Pdf</a>
+            <a href="{{ route('export.pesanan.excel') }}" class="btn btn-success mb-3 d-none"><i class="fas fa-fw fa-file-excel"></i> Export Excel</a>
             <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
                 <thead class="bg-gradient-dark text-light">
                     <tr>
@@ -43,7 +44,7 @@
                     @foreach ($resultOrder as $data)
                         <tr>
                             <td>{{ $no++ }}</td>
-                            <td>{{ $newCode }}</td>
+                            <td>{{ substr($data->order->uuid, 0, -28); }}</td>
                             <td>{{ $data->buku->judul_buku }}</td>
                             <td>{{ $data->quantity }}</td>
                             <td>

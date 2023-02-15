@@ -7,6 +7,8 @@ use App\Models\Order;
 use App\Models\Keranjang;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Exports\DataPesananCustomersExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AdminOrdersController extends Controller
 {
@@ -18,27 +20,21 @@ class AdminOrdersController extends Controller
 
     public function index()
     {
-        $resultOrder = Keranjang::with('order', 'buku')->where('user_id', '<>', 1)->withTrashed()->get();
-        $code = null;
-        foreach($resultOrder as $data) {
-            $code = $data->order->uuid;
-        }
-
-        if (strlen($code)) {
-            $newCode = substr($code, 0, -28);
-        } else {
-            $code;
-        }
-
-        return view('pages.admin.adminOrders.index', compact('resultOrder', 'newCode'));
+        $resultOrder = Keranjang::with('order', 'buku')->where('user_id', '<>', 1)->get();
+        return view('pages.admin.adminOrders.index', compact('resultOrder'));
     }
 
     public function createPdf()
     {
-        $data = Keranjang::with('order', 'buku')->withTrashed()->get();
+        $data = Keranjang::with('order', 'buku')->get();
         $pdf = PDF::loadView('Lpdf.orderAdmin', compact('data'));
         $pdf->setPaper('legal', 'landscape');
-        return $pdf->download("data_riwayat_customer " . date('d-m-Y') . '.pdf');
+        return $pdf->download("data_pesanan_customer " . date('d-m-Y') . '.pdf');
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(new DataPesananCustomersExport, 'Data_Pesanan.xlsx');
     }
 
     /**
@@ -138,6 +134,6 @@ class AdminOrdersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
     }
 }

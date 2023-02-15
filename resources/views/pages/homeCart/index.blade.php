@@ -75,10 +75,10 @@
                             </form>
                             <!-- End Update Cart -->
                             <!-- Remove Cart -->
-                            <form action="{{ route('cart.remove', $item->id) }}" method="POST">
+                            <form action="{{ route('cart.remove', $item->id) }}" method="POST" class="d-inline">
                                 @csrf
                                 <td>
-                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin di hapus?')">
+                                    <button type="submit" class="btn btn-danger">
                                         <i class="fas fa-fw fa-trash-alt"></i> Hapus
                                     </button>
                                 </td>

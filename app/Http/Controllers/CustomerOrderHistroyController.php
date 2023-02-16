@@ -18,8 +18,7 @@ class CustomerOrderHistroyController extends Controller
      */
     public function index()
     {
-        $resultOrder = Keranjang::with(['buku'])->where('user_id', Auth::user()->id)
-                                ->where('payments', 'lunas')->get();
+        $resultOrder = Keranjang::with(['buku'])->where('user_id', Auth::user()->id)->orderBy('id', 'ASC')->get();
 
         return view('pages.historyOrderCustomer.historyCustomer', compact('resultOrder'));
     }
@@ -53,7 +52,7 @@ class CustomerOrderHistroyController extends Controller
      */
     public function show($id)
     {
-        $detailOrder = Keranjang::where('order_id', $id)->withTrashed()->get();
+        $detailOrder = Keranjang::where('order_id', $id)->get();
         $noInvoice = null;
         $province = null;
         $kota = null;
@@ -63,6 +62,7 @@ class CustomerOrderHistroyController extends Controller
         $ongkir = 0;
         $beli = 0;
         $total = 0;
+        $status = null;
 
         foreach($detailOrder as $data) {
             $kurir = $data->order->courier;
@@ -74,6 +74,7 @@ class CustomerOrderHistroyController extends Controller
             $province = $data->order->province->name_province;
             $kota = $data->order->cities->nama_kab_kota;
             $alamat = $data->order->alamat;
+            $status = $data->order->transaction_status;
         }
 
         return view('pages.historyOrderCustomer.detailHistory', 
@@ -82,7 +83,7 @@ class CustomerOrderHistroyController extends Controller
                 'noInvoice', 'total', 
                 'province', 
                 'kota', 
-                'alamat', 
+                'alamat', 'status'
             ));
     }
 
@@ -100,6 +101,7 @@ class CustomerOrderHistroyController extends Controller
         $ongkir = 0;
         $beli = 0;
         $total = 0;
+        $status = null;
 
         foreach ($dataOrder as $data) {
             $kurir = $data->order->courier;
@@ -111,13 +113,14 @@ class CustomerOrderHistroyController extends Controller
             $province = $data->order->province->name_province;
             $kota = $data->order->cities->nama_kab_kota;
             $alamat = $data->order->alamat;
+            $status = $data->order->transaction_status;
         }
 
         $pdf = PDF::loadView('Lpdf.historyCustomer',
             compact(
                 'dataOrder', 'kurir', 'paket',
                 'ongkir', 'beli', 'noInvoice', 'total',
-                'province', 'kota', 'alamat',
+                'province', 'kota', 'alamat', 'status'
             )
         );
         return $pdf->download("struk_pembayaran " . date('d-m-Y') . '.pdf');

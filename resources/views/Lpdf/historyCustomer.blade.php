@@ -60,6 +60,7 @@
                                         <li class="text-black mt-1">Provinsi : {{ $province }}</li>
                                         <li class="text-black mt-1">Kota/Kabupaten : {{ $kota }}</li>
                                         <li class="text-black mt-1">Alamat : {{ $alamat }}</li>
+                                        <li class="text-black mt-1">Status Pembayaran : {{ $status }}</li>
                                         <li class="text-success mt-1"><span class="text-black">Email :
                                             </span>{{ Auth::user()->email }}</li>
                                         <li class="text-success mt-1"><span class="text-black">No Telp :

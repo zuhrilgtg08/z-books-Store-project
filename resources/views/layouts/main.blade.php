@@ -22,6 +22,7 @@
         <!-- jquery ui Css -->
         <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
         <link rel="stylesheet" href="/resources/demos/style.css">
+        <link rel="stylesheet" href="{{ asset('assets/js/datatables.min.css') }}" />
         <style>
             input::-webkit-outer-spin-button,
             input::-webkit-inner-spin-button {
@@ -64,6 +65,8 @@
         <script src="{{ asset('assets/js/script.js') }}"></script>
         <!-- sweetalert 2-->
         <script src="{{ asset('assets/js/sweetalert2.all.min.js') }}"></script>
+        <script src="{{ asset('assets/js/datatables.min.js') }}"></script>
+        
         @yield('script')
     </body>
 </html>

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Buku;
 use App\Models\User;
 use App\Models\Order;
@@ -71,23 +72,25 @@ class CheckoutController extends Controller
         $order = Order::all();
         $provinces = Province::all();
         $itemData = Keranjang::with('buku')->where('user_id', Auth::user()->id)
-                                ->where('status', '<>', 'complete')->get();
+            ->where('status', '<>', 'complete')->get();
         $totalBelanja = 0;
         $totalBerat = 0;
         $snapToken = null;
         foreach ($order as $data) {
             $snapToken = $data->snap_token;
         }
-        foreach($itemData as $item) {
+        foreach ($itemData as $item) {
             $totalBerat += $item->buku->weight * $item->quantity;
             $totalBelanja += $item->buku->harga * $item->quantity;
         }
-    
-        return view('pages.checkout.create', 
-            compact('provinces', 'totalBerat', 'totalBelanja', 'itemData', 'snapToken'));
+
+        return view(
+            'pages.checkout.create',
+            compact('provinces', 'totalBerat', 'totalBelanja', 'itemData', 'snapToken')
+        );
     }
-    
-    public function store(Request $request) 
+
+    public function store(Request $request)
     {
         $validateData = $request->validate([
             'keranjang_id' => 'required|max:150',
@@ -104,8 +107,8 @@ class CheckoutController extends Controller
         $order = Order::create($validateData);
 
         $dataKeranjang = Keranjang::with('order')->where('user_id', Auth::user()->id)
-                                    ->where('status', '<>', 'complete')
-                                    ->get();
+            ->where('status', '<>', 'complete')
+            ->get();
 
         foreach ($dataKeranjang as $data) {
             $data->buku->update([
@@ -116,7 +119,7 @@ class CheckoutController extends Controller
                 'order_id' => $order->id
             ]);
 
-            if(!empty($data->order_id)) {
+            if (!empty($data->order_id)) {
                 $midtrans = new CreateSnapTokenService($order);
                 $snapToken = $midtrans->getSnapToken();
                 $order->update(['snap_token' => $snapToken]);
@@ -132,12 +135,11 @@ class CheckoutController extends Controller
 
     public function pembayaran()
     {
-        $dataPesanan = Order::with('cities', 'province')->where('transaction_status', null)->get();
-        $dataKeranjang = Keranjang::with('buku')->where('user_id', Auth::user()->id)->where('status', '<>', 'complete')->get();
+        $dataKeranjang = Keranjang::with('buku', 'order')->where('user_id', Auth::user()->id)->where('status', 'pending')->latest()->get();
 
-        foreach ($dataPesanan as $item) {
-            $snapToken = $item->snap_token;
-        }
+        $dataPesanan = $dataKeranjang[0]->order;
+
+        $snapToken = $dataPesanan->snap_token;
 
         return view('pages.checkout.pembayaran', compact('snapToken', 'dataPesanan', 'dataKeranjang'));
     }
@@ -145,33 +147,38 @@ class CheckoutController extends Controller
     public function konfirmasiPembayaran(Request $request)
     {
         $keranjang = Keranjang::where('user_id', Auth::user()->id)
-                                ->where('payments', null)->get();
-                                
+            ->where('payments', null)->get();
+
         $jsonOrder = json_decode($request->json);
         $dataOrder = [
-            'transaction_id' => $jsonOrder->transaction_id,
+            'transaction_id' => isset($jsonOrder->transaction_id) ? $jsonOrder->transaction_id : null,
             'transaction_status' => $jsonOrder->transaction_status,
-            'transaction_time' => $jsonOrder->transaction_time,
+            'transaction_time' => isset($jsonOrder->transaction_time) ? $jsonOrder->transaction_time : null,
             'payment_type' => $jsonOrder->payment_type,
             'payment_code' => isset($jsonOrder->payment_code) ? $jsonOrder->payment_code : null,
         ];
 
-        foreach($keranjang as $data ) {
-            $data->update([
-                'status' => 'complete',
-                'payments' => 'lunas'
-            ]);
+
+        foreach ($keranjang as $data) {
+            if($jsonOrder->transaction_status == 'settlement') {
+                $data->update([
+                    'status' => 'complete',
+                    'payments' => 'lunas'
+                ]);
+            } 
         }
 
-        $order = Order::where('uuid', '=', $jsonOrder->order_id);
+        $order = Order::where('uuid', '=', isset($jsonOrder->order_id) ? $jsonOrder->order_id : null)->first();
         if ($order) {
             $order->update($dataOrder);
         }
 
-        if ($order) {
+        if ($order->transaction_status == 'settlement') {
             return redirect()->route('customer_order_history.index')->with('success', 'Pesanan berhasil di bayar!');
+        } elseif ($order->transaction_status == 'pending') {
+            return redirect()->route('customer_order_history.index')->with('pending', 'Pesanan belum di bayar!');
         } else {
-            return redirect()->route('customer_order_history.index')->with('errors', 'Pesanan gagal di bayar!');
+            return redirect()->route('customer_order_history.index')->with('errors', 'Pesanan tidak di bayar!');
         }
     }
 }

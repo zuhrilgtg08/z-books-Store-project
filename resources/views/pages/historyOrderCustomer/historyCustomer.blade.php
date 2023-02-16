@@ -19,6 +19,13 @@
             </div>
         @endif
 
+        @if (session()->has('pending'))
+            <div class="alert alert-warning col-md-6 alert-dismissible fade show" role="alert" id="alert">
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                {{ session('pending') }}
+            </div>
+        @endif
+
         <div class="card border-0 shadow-lg my-5">
             <div class="card-body">
                 <div class="container">
@@ -30,8 +37,8 @@
                             </div>
                         </div>
 
-                        <div class="row my-5 mx-1 text-center">
-                            <table class="table table-striped table-bordered">
+                        <div class="row text-center justify-content-center">
+                            <table class="table table-striped table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <thead class="text-white bg-dark">
                                     <tr>
                                         <th scope="col">No</th>
@@ -52,14 +59,20 @@
                                             <td>@currency($item->buku->harga * $item->quantity)</td>
                                             <td>
                                                 @if($item->order->transaction_status == 'pending')
-                                                    <span class="badge bg-warning">{{ $item->order->transaction_status }}</span>
+                                                    <span class="badge bg-warning text-black">{{ $item->order->transaction_status }}</span>
                                                 @else
                                                     <span class="badge bg-success">{{ $item->order->transaction_status }}</span>
                                                 @endif
                                             </td>
                                             <td>
                                                 <a href="{{ route('customer_order_history.show', $item->order->id) }}" class="btn btn-primary"><i class="fas fa-fw fa-info"></i></a>
-                                                <a href="{{ route('history.detailExport', $item->order->id) }}" class="btn btn-success"><i class="fas fa-fw fa-print"></i></a>
+
+                                                @if($item->order->transaction_status == 'settlement')
+                                                    <a href="{{ route('history.detailExport', $item->order->id) }}" class="btn btn-success"><i class="fas fa-fw fa-print"></i></a>
+                                                @elseif($item->order->transaction_status == 'pending')
+                                                    <a href="{{ route('checkout.pembayaran') }}" class="btn btn-warning"><i class="fas fa-fw fa-wallet"></i></a>
+                                                @endif
+                                                
                                                 <form action="{{ route('customer_order_history.destroy', $item->id) }}" method="POST" class="d-none">
                                                     @method('DELETE')
                                                     @csrf
@@ -78,4 +91,12 @@
             </div>
         </div>
     </main>
+@endsection
+
+@section('script')
+    <script>
+        $(document).ready( function () {
+            $('#dataTable').DataTable();
+        });
+    </script>
 @endsection

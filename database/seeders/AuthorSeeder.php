@@ -38,5 +38,13 @@ class AuthorSeeder extends Seeder
             'excerpt' => 'Saat kecil, Oda selalu berangan-angan sebagai...',
             'biografi_author' => 'Saat kecil, Oda selalu berangan-angan sebagai bajak laut dan ingin menjadi mangaka. Pada umur 17 tahun, Oda mengirimkan karyanya berjudul Wanted dan memenangkan berbagai penghargaan. Pada umur 19 tahun, Oda menjadi asisten Nobuhiro Watsuki dalam pengerjaan Rurouni Kenshin. Bersamaan dengan itu pula, Oda menggambar Romance Dawn yang merupakan bab awal dari One Piece. Pada tahun 1997, One Piece terbit pertama kali di majalah Shonen Jump dan menjadi salah satu manga terpopuler di Jepang. Manga One Piece ini pun menjadi manga terpopuler di seluruh dunia.'
         ]);
+
+        Author::create([
+            'nama_author' => 'Masashi Kishimoto',
+            'slug' => 'masashi-kishimoto-4',
+            'image' => Null,
+            'excerpt' => 'Masashi Kishimoto lahir di Katsuta, Prefektur Okayama...',
+            'biografi_author' => 'Masashi Kishimoto lahir di Katsuta, Prefektur Okayama, Jepang pada 8 November 1974. Kishimoto mulai mengembangkan bakat menggambarnya sejak duduk di bangku SD. Kishimoto lahir sebagai anak kembar. Kishimoto menyebut pembuat serial manga terkenal Dr. Slump dan Dragon Ball, Akira Toriyama, sangat mempengaruhi dirinya. Kishimoto juga mengaku serial manga dan anime berjudul Akira karya Katsuhiro Otomo turut memberi pengaruh atas karya-karyanya. Ketika belum sekolah ia sangat senang menonton Doraemon'
+        ]);
     }
 }

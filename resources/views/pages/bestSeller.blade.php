@@ -122,18 +122,20 @@
 @endsection
 
 @section('script')
-<script>
-    $(document).ready(function() {
-            $( "#slider-range" ).slider({
-                range: true,
-                min: {{ Js::from($harga_min) }},
-                max: {{ Js::from($harga_max) }},
-                values: [{{ Js::from($filter_harga_min) }}, {{ Js::from($filter_harga_max) }}],
-                slide:function(event, ui){
-                    $("#min_range").val(ui.values[0]);
-                    $('#max_range').val(ui.values[1]);
-                }
+    <script src="{{ asset('assets/js/jquery-3.6.0.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery-ui.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+                $("#slider-range").slider({
+                    range: true,
+                    min: {{ Js::from($harga_min) }},
+                    max: {{ Js::from($harga_max) }},
+                    values: [{{ Js::from($filter_harga_min) }}, {{ Js::from($filter_harga_max) }}],
+                    slide:function(event, ui){
+                        $("#min_range").val(ui.values[0]);
+                        $('#max_range').val(ui.values[1]);
+                    }
+                });
             });
-        });
-</script>
+    </script>
 @endsection

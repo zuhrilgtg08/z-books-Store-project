@@ -6,7 +6,7 @@
     </a>
 
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-6">
             <div class="card border-0 shadow-lg my-5">
                 <div class="card-header">
                     <h1 class="h2 text-gray-800 text-center">Add Penerbit</h1>

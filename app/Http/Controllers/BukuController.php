@@ -63,7 +63,7 @@ class BukuController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'judul_buku' => 'required|max:255',
+            'judul_buku' => 'required|max:255|unique:bukus',
             'harga' => 'required|numeric|integer|min:1',
             'stok' => 'required|numeric|integer|min:1',
             'category_id' => 'required|max:150',
@@ -183,7 +183,6 @@ class BukuController extends Controller
             'sinopsis' => 'required',
             'weight' => 'required|numeric|integer|min:1'
         ];
-
 
         $validateData = $request->validate($data);
 

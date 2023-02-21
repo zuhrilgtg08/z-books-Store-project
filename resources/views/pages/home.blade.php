@@ -112,12 +112,12 @@
                     @endforeach
                 </div>
             </div>
-            <div class="d-flex justify-content-end">
-                {{ $data->links() }}
+            <div class="row">
+                {!! $data->links() !!} 
             </div>
         </div>
     @else
-        <div class="col-md-6 mt-3 m-auto text-center ">
+        <div class="col-md-6 mt-3 m-auto text-center">
             <p class="fs-4 h3 mb-3">Sory, Buku Tidak ada!.</p>
         </div>
     @endif

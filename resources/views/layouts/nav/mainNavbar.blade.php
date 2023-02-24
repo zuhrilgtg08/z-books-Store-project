@@ -77,7 +77,7 @@
                                     <li>
                                         <a class="dropdown-item" href="{{ route('profile-user', Auth()->user()->id) }}">
                                             <i class="fa-solid fa-fw fa-user-pen"></i>
-                                            Accout Profile
+                                            Account Profile
                                         </a>
                                     </li>
                                     <li>

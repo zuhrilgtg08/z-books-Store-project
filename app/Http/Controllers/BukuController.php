@@ -70,7 +70,7 @@ class BukuController extends Controller
             'author_id' => 'required|max:150',
             'penerbit_id' => 'required|max:150',
             'image' => 'required|image|file|max:1024',
-            'sinopsis' => 'required',
+            'sinopsis' => 'required|string',
             'weight' => 'required|numeric|integer|min:1'
         ]);
 
@@ -180,7 +180,7 @@ class BukuController extends Controller
             'author_id' => 'required|max:150',
             'penerbit_id' => 'required|max:150',
             'image' => 'image|file|max:1024',
-            'sinopsis' => 'required',
+            'sinopsis' => 'required|string',
             'weight' => 'required|numeric|integer|min:1'
         ];
 
@@ -217,6 +217,6 @@ class BukuController extends Controller
         }
 
         Buku::destroy($buku->id);
-        return redirect()->route('buku.index')->with('errors', 'Buku berhasil di delete');
+        return redirect()->route('buku.index')->with('errors', 'Buku berhasil di hapus');
     }
 }

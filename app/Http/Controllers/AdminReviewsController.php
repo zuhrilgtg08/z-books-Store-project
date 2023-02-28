@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Throwable;
+use Illuminate\Support\Facades\Storage;
 use App\Models\ReviewRating;
 use App\Models\Buku;
 use Illuminate\Support\Facades\Auth;
@@ -17,11 +19,9 @@ class AdminReviewsController extends Controller
      */
     public function index()
     {
-        $Result = [
-            "buku" => Buku::with('ReviewData')->first()
-        ];
+        $reviewData = Buku::with('ReviewData')->latest()->get();
 
-        $data = $Result['buku']->all()->map(function ($query) {
+        $data = $reviewData->map(function ($query) {
             $dataRatings = ReviewRating::where('id_buku', '=', $query->id)->get();
             if ($dataRatings->count() == 0) {
                 $query->star_rating = 0;
@@ -35,10 +35,8 @@ class AdminReviewsController extends Controller
         $data = $data->filter(function ($buku) {
             return $buku->star_rating >= 1;
         });
-
-        $rating = ReviewRating::select('id')->get(['id']);
         
-        return view('pages.admin.adminReviews.index', compact('data', 'rating'));
+        return view('pages.admin.adminReviews.index', compact('data'));
     }
 
     /**
@@ -71,7 +69,9 @@ class AdminReviewsController extends Controller
     public function show($id)
     {
         $buku = Buku::where('id', '=', $id)->get(['image', 'sinopsis', 'judul_buku']);
-        $userRating = ReviewRating::with('user')->where('id_buku', '=', $id)->where('id_user', '<>', 1)->get(['star_rating', 'comments', 'id_user']);
+        $userRating = ReviewRating::with('user')
+                        ->where('id_buku', '=', $id)->where('id_user', '<>', 1)
+                        ->get(['star_rating', 'comments', 'id_user']);
 
         return view('pages.admin.adminReviews.show', compact('buku', 'userRating'));
     }
@@ -105,7 +105,7 @@ class AdminReviewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Buku $buku, $id)
     {
         $review = ReviewRating::where('id_buku', '=', $id);
         $review->delete();

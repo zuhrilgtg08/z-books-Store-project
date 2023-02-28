@@ -45,7 +45,7 @@ class AuthorController extends Controller
             'nama_author' => 'required|max:255',
             'slug' => 'required|unique:authors',
             'image' => 'required|file|max:1024',
-            'biografi_author' => 'required'
+            'biografi_author' => 'required|string'
         ]);
 
         if ($request->file('image')) {
@@ -103,7 +103,7 @@ class AuthorController extends Controller
             'nama_author' => 'required|max:255',
             'slug' => 'required|unique:authors',
             'image' => 'image|file|max:1024',
-            'biografi_author' => 'required'
+            'biografi_author' => 'required|string'
         ];
 
         $validateData = $request->validate($datas);
@@ -141,9 +141,9 @@ class AuthorController extends Controller
         
         try {
             Author::destroy($author->id);
-            return redirect()->route('author.index')->with('errors', 'Author berhasil di delete');
+            return redirect()->route('author.index')->with('errors', 'Author berhasil di hapus!');
         } catch (Throwable $err) {
-            return redirect()->route('author.index')->with('errors', "Author gagal di delete".$err);
+            return redirect()->route('author.index')->with('errors', "Author gagal di hapus!".$err);
         }
     }
 

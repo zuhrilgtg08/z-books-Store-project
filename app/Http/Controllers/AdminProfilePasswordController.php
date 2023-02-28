@@ -72,10 +72,9 @@ class AdminProfilePasswordController extends Controller
                     ]);
 
                     return back()->with('success', 'Password berhasil di ubah');
-                } else {
-                    return back()->with('erros', 'Password gagal diubah');
-                }
+                } 
             }
+            return back()->with('gagal', 'Password gagal diubah');
         }
     }
 }

@@ -11,9 +11,9 @@
             </div>
         @endif
         
-        @if (session()->has('errors'))
+        @if (session()->has('gagal'))
             <div class="alert alert-danger col-md-8 alert-dismissible fade show" role="alert">
-                {{ session('errors') }}
+                {{ session('gagal') }}
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

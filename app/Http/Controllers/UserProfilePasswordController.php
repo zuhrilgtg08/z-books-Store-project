@@ -71,12 +71,10 @@ class UserProfilePasswordController extends Controller
                     User::find($id)->update([
                         'password' => Hash::make($request->new_pass)
                     ]);
-
                     return back()->with('success', 'Password Anda berhasil di ubah');
-                } else {
-                    return back()->with('erros', 'Password Anda gagal di ubah');
                 }
             }
+            return back()->with('gagal', 'Password Anda gagal di ubah');
         }
     }
 }

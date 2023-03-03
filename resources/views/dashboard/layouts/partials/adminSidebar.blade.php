@@ -53,7 +53,13 @@
     <li class="nav-item {{ isset($sbActive) && $sbActive === 'ordersCustomer' ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('admin-orders.index') }}">
             <i class="fas fw fa-history"></i>
-            <span>Orders Customer</span>
+            <span class="position-relative">
+                Orders Customer
+                <span class="rounded-pill badge badge-danger">
+                    {{ $orders->count() }}
+                    {{-- 1 --}}
+                </span>
+            </span>
         </a>
     </li>
     <hr class="sidebar-divider my-0">

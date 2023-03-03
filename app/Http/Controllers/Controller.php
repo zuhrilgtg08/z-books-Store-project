@@ -20,6 +20,9 @@ class Controller extends BaseController
                 $keranjang = Keranjang::where('user_id', auth()->user()->id)
                                         ->where('status', '=', 'pending')->get();
                 View::share('keranjang', $keranjang);
+                
+                $orders = Keranjang::with('order', 'buku')->where('user_id', '<>', 1)->where('status', 'pending')->get();
+                View::share('orders', $orders);
             }
 
             return $next($request);

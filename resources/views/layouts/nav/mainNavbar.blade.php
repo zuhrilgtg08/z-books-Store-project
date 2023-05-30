@@ -11,33 +11,33 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                @auth
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link {{ Request::is('home') ? 'active' : '' }}" href="/home">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{ Request::is('about') ? 'active' : '' }}" href="/about">About</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{ Request::is('best-seller') ? 'active' : '' }}" href="{{ route('best-seller.books') }}">Best Seller</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{ Request::is('home-categories') ? 'active' : '' }}" href="/home-categories">Categories</a>
-                        </li>
-                        <div class="nav-item">
-                            <a class="nav-link {{ Request::is('cart') ? 'active' : '' }}" href="{{ route('cart.index') }}">
-                                <i class="fas fa-fw fa-shopping-cart"></i>
-                                Cart
-                                @if (!empty($keranjang))
-                                    <span class="badge bg-danger text-white ms-1 rounded-pill">
-                                        {{ $keranjang->count() }}
-                                    </span>
-                                @endif
-                            </a> 
-                        </div>
-                    </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::is('home') ? 'active' : '' }}" href="/home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::is('about') ? 'active' : '' }}" href="/about">About</a>
+                    </li>
+                    <li class="nav-item {{ (auth()->user()) ? '' : 'd-none' }}">
+                        <a class="nav-link {{ Request::is('best-seller') ? 'active' : '' }}" href="{{ route('best-seller.books') }}">Best Seller</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::is('home-categories') ? 'active' : '' }}" href="/home-categories">Categories</a>
+                    </li>
+                    <div class="nav-item {{ (auth()->user()) ? '' : 'd-none' }}">
+                        <a class="nav-link {{ Request::is('cart') ? 'active' : '' }}" href="{{ route('cart.index') }}">
+                            <i class="fas fa-fw fa-shopping-cart"></i>
+                            Cart
+                            @if (!empty($keranjang))
+                                <span class="badge bg-danger text-white ms-1 rounded-pill">
+                                    {{ $keranjang->count() }}
+                                </span>
+                            @endif
+                        </a> 
+                    </div>
+                </ul>
 
+                @auth
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
@@ -103,6 +103,15 @@
                         </li>
                     </ul>
                 @endauth
+
+                @guest
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link {{ Request::is('login') ? 'active' : '' }}" href="/login">
+                                <i class="fas fa-fw fa-user-alt"></i> Login</a>
+                        </li>
+                    </ul>
+                @endguest
             </div>
         </div>
     </nav>

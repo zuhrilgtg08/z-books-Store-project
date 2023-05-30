@@ -35,7 +35,7 @@ use App\Http\Controllers\AdminProfilePasswordController;
 
 // root to app routes
 Route::get('/', function () {
-    return redirect('/login');
+    return redirect('/home');
 });
 
 //routes admin dashboard
@@ -94,7 +94,7 @@ Route::group([
 });
 
 // routes home 
-Route::get('/home', [HomeController::class, 'index'])->middleware('auth');
+Route::get('/home', [HomeController::class, 'index']);
 Route::get('/home/info/{id}', [HomeController::class, 'info'])->name('home.info')->middleware('auth');
 Route::get('/home/rating/{id}', [HomeController::class, 'reviewRating'])->name('home.rating')->middleware('auth');
 
@@ -107,10 +107,10 @@ Route::any('/best-seller', [BestSellerController::class, 'bestSellerBooks'])->na
 // routes about
 Route::get('/about', function() {
     return view('pages.about');
-})->middleware('auth');
+});
 
 // routes categories in client
-Route::get('/home-categories', [HomeCategoriesController::class, 'index'])->middleware('auth');
+Route::get('/home-categories', [HomeCategoriesController::class, 'index']);
 
 // routes Cart in client
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index')->middleware('auth');
